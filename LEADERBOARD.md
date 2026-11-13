@@ -23,6 +23,7 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | **bold row** | Reference baseline — the bar a method has to clear before its number means anything. |
 
 <!-- BEGIN GENERATED TABLE -->
+
 | # | within-allele | pooled | entry |
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ |
@@ -62,6 +63,7 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | **35** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
 | 35-36 | withheld | withheld | NetMHCpan-4.1 (scores) |
 | 35-36 | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
+
 <!-- END GENERATED TABLE -->
 
 Ranks 35–36 are two rows of the machine-readable table — NetMHCpan-4.1 scores and percentile ranks —

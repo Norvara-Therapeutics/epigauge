@@ -178,6 +178,18 @@ jobs:
           grep -q 'assets/css/style.css' _site/index.html \
             || { echo "no stylesheet link in index.html"; exit 1; }
           grep -o 'href="[^"]*assets/css/style.css[^"]*"' _site/index.html || true
+
+          # The leaderboard must still BE a table after rendering. It once was not:
+          # an HTML comment with no blank line after it makes kramdown absorb the
+          # following lines as raw HTML, so the table silently became a paragraph and
+          # `---` was typeset as an em-dash. GitHub's own renderer tolerated it, so the
+          # repo looked right and only the published site was broken. Count the rows.
+          rows=$(grep -c '<tr' _site/index.html || echo 0)
+          if [ "$rows" -lt 30 ]; then
+            echo "index.html has $rows <tr> rows; the leaderboard did not render as a table"
+            exit 1
+          fi
+          echo "leaderboard rendered: $rows table rows"
           echo "build output OK"
 
       - uses: actions/upload-pages-artifact@v3

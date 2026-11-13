@@ -116,7 +116,11 @@ def splice(md: str, table: str) -> str:
                          "generated table has nowhere to go and the prose would be overwritten")
     head, rest = md.split(BEGIN, 1)
     _, tail = rest.split(END, 1)
-    return f"{head}{BEGIN}\n{table}\n{END}{tail}"
+    # Blank lines are REQUIRED on both sides. kramdown treats an HTML comment as a
+    # block-level element and absorbs what follows as raw HTML, so without them the
+    # table is never parsed as markdown: GitHub renders it, GitHub Pages does not,
+    # and `---` falls through to typographic substitution as an em-dash.
+    return f"{head}{BEGIN}\n\n{table}\n\n{END}{tail}"
 
 
 def main(argv=None) -> int:
