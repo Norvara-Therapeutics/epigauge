@@ -1,0 +1,125 @@
+# epigauge — packaging metadata.
+
+[build-system]
+# >=77 for the SPDX `license` string and `license-files`; the TOML-table form of
+# `project.license` and the `License ::` trove classifier are both deprecated.
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epigauge"
+version = "0.1.0"
+description = "Standard-library-only measurement instruments for immune-epitope benchmarks: key canonicalisation and stratified AUROC estimators that raise rather than return a plausible wrong number."
+readme = "README.md"
+# 3.11 is the floor: the package uses `X | Y` annotations under
+# `from __future__ import annotations`, dataclass/typing behaviour settled in 3.11, and
+# the CI matrix exercises 3.11/3.12/3.13. Nothing here is tested below 3.11.
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+    "epitope prediction",
+    "peptide-MHC",
+    "benchmark",
+    "AUROC",
+    "stratified estimator",
+    "data leakage",
+    "canonicalisation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+authors = [{ name = "Ryan Ribeiro", email = "research@norvaratx.com" }]
+
+# ZERO runtime dependencies. This empty list is load-bearing -- see the header.
+dependencies = []
+
+[project.optional-dependencies]
+# Anything that needs numpy lives here and nowhere else. Fitting/resampling helpers may
+# import numpy; the metric layer may not.
+fit = ["numpy>=2.0.0,<3.0"]
+dev = [
+    "pytest>=8.0,<9.0",
+    "ruff>=0.6,<1.0",
+]
+
+[project.scripts]
+epigauge = "epigauge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/norvara-therapeutics/epigauge"
+Repository = "https://github.com/norvara-therapeutics/epigauge"
+Issues = "https://github.com/norvara-therapeutics/epigauge/issues"
+Changelog = "https://github.com/norvara-therapeutics/epigauge/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+# Explicit, not auto-discovered: auto-discovery would sweep in `scripts/` and any
+# stray top-level directory. `epigauge.tests` ships on purpose -- the standalone
+# `python3 -I` runner is part of the reproduction story, so an installed copy must
+# carry the fixtures.
+packages = ["epigauge", "epigauge.tests", "epigauge.benchmarks"]
+include-package-data = true
+
+[tool.setuptools.package-dir]
+# The shipped rows live at the REPOSITORY ROOT as `benchmarks/`, because the README,
+# the docs and the licence notices all address them there. A wheel, however, can only
+# carry data that sits under the import package, so the tree is mapped into the package
+# at build time and installs as `epigauge/benchmarks/`. The repository layout is
+# unchanged; only the installed layout differs.
+#
+# FOR WHOEVER WRITES THE LOADER: resolve the row directory by trying
+# `Path(epigauge.__file__).parent / "benchmarks"` (installed wheel) and then
+# `parents[1] / "benchmarks"` (source checkout), and RAISE if neither exists. Do not
+# fall back to an empty row set -- a benchmark that silently evaluates zero rows is the
+# failure mode this package exists to prevent.
+"epigauge.benchmarks" = "benchmarks"
+
+[tool.setuptools.package-data]
+# Row files, the frozen manifest, and the per-directory licence notices. The notices are
+# part of the data, not decoration: the CC BY 4.0 tier, the CC0 tier and the segregated
+# ITSNdb slice each ship under their own terms and must never be separated from them.
+"epigauge.benchmarks" = [
+    "**/*.jsonl",
+    "**/*.json",
+    "**/*.csv",
+    "**/*.tsv",
+    "**/*.md",
+    "**/LICENSE*",
+    "**/NOTICE*",
+]
+
+[tool.pytest.ini_options]
+# `epigauge/tests` only. The standalone runner inserts the repository root on sys.path
+# itself, so the two entry points agree on what they import.
+testpaths = ["epigauge/tests"]
+python_files = ["test_*.py"]
+addopts = "-q"
+
+[tool.ruff]
+# 110 rather than 100: several docstrings here carry a hand-computed arithmetic fixture
+# on one line, and reflowing those would make the check less readable than the code.
+line-length = 110
+target-version = "py311"
+extend-exclude = ["internal"]
+
+[tool.ruff.lint]
+# Deliberately narrow: pyflakes, pycodestyle and import order. These catch dead imports,
+# undefined names and unsorted imports -- real defects -- without a style ruleset
+# rewriting code whose shape is load-bearing.
+#
+# `SIM` is NOT selected on purpose: SIM401 rewrites an explicit `d[k]` lookup into
+# `d.get(k, default)`, which is precisely the tolerant-lookup bug class this project
+# ships fixtures against. A linter must never nudge a required key toward a default.
+select = ["E", "F", "W", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixture modules bootstrap sys.path before importing the package under test.
+"epigauge/tests/*.py" = ["E402"]

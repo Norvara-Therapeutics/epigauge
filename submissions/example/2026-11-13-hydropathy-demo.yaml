@@ -1,0 +1,60 @@
+# A complete, schema-valid submission. Copy this file, change every value.
+#
+# This is the reference example CI self-tests against:
+#   python3 -I scripts/score_submission.py \
+#       submissions/example/2026-11-13-hydropathy-demo.yaml --schema-only
+#
+# The two URLs below are PLACEHOLDERS -- the release does not exist yet, so a full run
+# (download + score) cannot resolve them. Both sha256 digests are real: they are the
+# digests of the files this example describes, so the example can be scored offline with
+#   --predictions FILE --training-hashes FILE
+# The method is the unfitted mean Kyte-Doolittle hydropathy baseline, which sits at
+# within-allele 0.5264 on this set and above most published predictors. It is here
+# because a submission template that scores nothing teaches nothing.
+#
+# Format: a FLAT subset of YAML -- whole-line comments, `key: value`, and `key:` with
+# `  - item` lines. No nesting, no flow collections, no anchors, no inline comments.
+# Parsed by scripts/score_submission.py; the package keeps zero runtime dependencies.
+
+schema_version: 1
+
+team: example
+contact: research@norvaratx.com
+method: hydropathy-demo
+version: 0.1.0
+
+benchmark: titanian_infectious
+
+# Predictions are NOT committed: they are large and they are not source. Publish the CSV
+# as a GitHub release asset or a Zenodo record and pin it by digest. The digest is what
+# makes the published number reproducible after the fact.
+predictions_url: https://github.com/norvara-therapeutics/epigauge/releases/download/example-submission/hydropathy-demo-0.1.0.csv
+predictions_sha256: c19cadb2655a430dee93b3458dd906c664daf7728c662af91d838e5fd54f36ee
+
+# DECLARED, never inferred, and there is no default. Trying both orientations and keeping
+# the better one fits a free parameter on the evaluation labels. Percentile-rank outputs
+# (%rank, EL_rank, BA_rank) are almost always lower-is-better; probabilities and logits
+# are almost always higher-is-better. "Almost always" is not a default -- check yours.
+score_direction: higher-is-better
+
+# `false` is a legal submission and is ranked, not excluded. An allele lookup with no
+# peptide input at all reaches pooled 0.7122 at within-allele exactly 0.5000.
+uses_peptide_as_input: true
+
+training_cutoff: 2026-03-01
+
+# public | private | none. `none` is accepted and shows as `overlap: undeclared`.
+# Anything else requires the hash file: sorted, deduplicated sha256 of
+# `f"{peptide}|{allele}"` over pairs canonicalised with `epigauge.canon`, one per line.
+# It carries no peptides, no alleles and no labels, and CI holds the benchmark's own
+# hashes, so neither side reveals data. A high overlap is a column, not a disqualification.
+training_overlap: public
+training_hashes_url: https://github.com/norvara-therapeutics/epigauge/releases/download/example-submission/hydropathy-demo-training-hashes.txt
+training_hashes_sha256: 6826c010b26bf1de09a1449b88008771d90e58a2666dc8e858c406a334cb406a
+
+training_sources:
+  - EpiGauge titanian_neoantigen rows, CC0 1.0, accessed 2026-11-13
+  - EpiGauge hbv_hlabc_screen rows, CC BY 4.0, accessed 2026-11-13
+  - EpiGauge xmuimmu_noncanonical rows, CC BY 4.0, accessed 2026-11-13
+
+notes: unfitted 1982 physicochemical scale, zero free parameters. A floor, not an entry.

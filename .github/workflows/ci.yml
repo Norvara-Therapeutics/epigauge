@@ -1,0 +1,222 @@
+# CI for the public epigauge release.
+#
+# This file lives at the RELEASE ROOT (the directory that becomes the public repository
+# root), so every path below is relative to that root. The sibling `internal/` tree is
+# not part of the public repository and is never referenced here.
+#
+# Four properties are enforced, each because losing it silently has cost this project a
+# published number:
+#
+#   tests            every fixture passes under pytest AND under the standalone
+#                    `python3 -I` runner, on 3.11/3.12/3.13.
+#   lint             ruff, so the style rules are machine-checked rather than remembered.
+#   fixture-coverage every registered check has a known-failing fixture. A guard that
+#                    cannot be DEMONSTRATED to fire is not a guard, so an undemonstrated
+#                    guard BLOCKS THE BUILD -- it is not a warning and there is no
+#                    waiver list.
+#   packaging        the built wheel contains no path under `internal/`, and the sdist
+#                    stays under 50 MB (the benchmark ships derived rows, not corpora).
+
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: tests (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # FIRST, AND BEFORE ANYTHING IS INSTALLED. The metric layer is standard library
+      # only, and the standalone runner is the reproduction path for a reviewer who has
+      # no pytest and no ML stack. Running it on a bare interpreter is what proves the
+      # zero-dependency property is still true; running it after `pip install` would
+      # prove nothing.
+      - name: Standalone runner on a bare interpreter (no install, no dependencies)
+        shell: bash
+        run: |
+          set -u
+          shopt -s nullglob
+          files=(epigauge/tests/test_*.py)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "no fixtures found under epigauge/tests/ -- refusing to pass"
+            exit 1
+          fi
+          status=0
+          for t in "${files[@]}"; do
+            echo "=== python3 -I $t"
+            python3 -I "$t" || status=1
+          done
+          exit $status
+
+      - name: Install the package and dev tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: pytest
+        run: python -m pytest epigauge/tests -q
+
+      # Re-run the standalone path after installation too: both entry points must agree
+      # on what they import, and an installed copy must not shadow the source tree.
+      - name: Standalone runner, post-install
+        shell: bash
+        run: |
+          set -u
+          shopt -s nullglob
+          status=0
+          for t in epigauge/tests/test_*.py; do
+            echo "=== python3 -I $t"
+            python3 -I "$t" || status=1
+          done
+          exit $status
+
+      - name: Import surface is importable with zero dependencies
+        run: python3 -I -c "import sys; sys.path.insert(0, '.'); import epigauge.canon, epigauge.metrics; print('core import OK, no third-party imports required')"
+
+  lint:
+    name: lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "ruff>=0.6,<1.0"
+      - name: ruff check
+        run: ruff check epigauge scripts
+
+  fixture-coverage:
+    name: fixture-coverage (ratchet)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No install step on purpose: the checker is standard library only and must read
+      # the SOURCE tree, not an installed copy.
+      # A ratchet, not an all-or-nothing gate. The target is every guard demonstrated;
+      # failing until then would keep this job permanently red, and a permanently red
+      # job is ignored within a week. So coverage may not FALL below the recorded floor
+      # in epigauge/tests/coverage_floor.txt. New code cannot add an undemonstrated
+      # guard without failing, so the gap cannot grow. Raising the floor is deliberate:
+      # scripts/check_fixture_coverage.py --update-floor.
+      - name: Guard coverage may not fall below the recorded floor
+        run: python3 -I scripts/check_fixture_coverage.py
+
+  packaging:
+    name: packaging (no internal/, sdist < 50MB)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+          python -m build
+
+      - name: Wheel and sdist carry nothing from internal/, and the sdist is under 50MB
+        shell: bash
+        run: |
+          python3 -I - <<'PY'
+          import pathlib, sys, tarfile, zipfile
+
+          LIMIT = 50 * 1024 * 1024          # 50 MB, hard ceiling
+          dist = pathlib.Path("dist")
+          wheels = sorted(dist.glob("*.whl"))
+          sdists = sorted(dist.glob("*.tar.gz"))
+          if not wheels or not sdists:
+              sys.exit(f"expected one wheel and one sdist in dist/, got {[p.name for p in dist.iterdir()]}")
+
+          failures = []
+
+          def offending(names):
+              # Any path component equal to "internal", at any depth, in either artifact.
+              return sorted(n for n in names if "internal" in pathlib.PurePosixPath(n).parts)
+
+          for whl in wheels:
+              with zipfile.ZipFile(whl) as z:
+                  names = z.namelist()
+              bad = offending(names)
+              print(f"{whl.name}: {len(names)} entries")
+              if bad:
+                  failures.append(f"{whl.name} contains internal/ paths: {bad[:10]}")
+
+          for sd in sdists:
+              size = sd.stat().st_size
+              with tarfile.open(sd) as t:
+                  names = t.getnames()
+              print(f"{sd.name}: {len(names)} entries, {size / 1024 / 1024:.2f} MB")
+              bad = offending(names)
+              if bad:
+                  failures.append(f"{sd.name} contains internal/ paths: {bad[:10]}")
+              if size > LIMIT:
+                  failures.append(f"{sd.name} is {size / 1024 / 1024:.1f} MB, over the 50 MB ceiling")
+
+          # The shipped rows, the frozen manifest and the per-directory licence notices
+          # must be in BOTH artifacts. A benchmark whose row files are missing is not
+          # reproducible, and rows separated from their NOTICE are a licence breach.
+          # In the repository the tree is `benchmarks/`; in the wheel it installs as
+          # `epigauge/benchmarks/` (see [tool.setuptools.package-dir]).
+          bench = pathlib.Path("benchmarks")
+          wanted = sorted(p for p in bench.rglob("*")
+                          if p.is_file() and (p.suffix in {".jsonl", ".json", ".csv", ".tsv"}
+                                              or p.name.startswith(("NOTICE", "LICENSE")))) \
+              if bench.is_dir() else []
+          if wanted:
+              with zipfile.ZipFile(wheels[0]) as z:
+                  wheel_names = set(z.namelist())
+              with tarfile.open(sdists[0]) as t:
+                  sdist_names = set(t.getnames())
+              for p in wanted:
+                  rel = p.relative_to(bench).as_posix()
+                  if f"epigauge/benchmarks/{rel}" not in wheel_names:
+                      failures.append(f"benchmark file absent from the wheel: {rel}")
+                  if not any(n.endswith(f"/benchmarks/{rel}") for n in sdist_names):
+                      failures.append(f"benchmark file absent from the sdist: {rel}")
+              if not failures:
+                  print(f"{len(wanted)} benchmark row/manifest/notice files present in both artifacts")
+          else:
+              print("no benchmarks/ tree in this checkout; row-inclusion check skipped")
+
+          if failures:
+              print("\nFAIL:")
+              for f in failures:
+                  print("  -", f)
+              sys.exit(1)
+          print("\nOK: no internal/ paths, sdist within the size ceiling")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error

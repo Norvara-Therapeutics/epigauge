@@ -1,0 +1,301 @@
+# Benchmark submissions. SEPARATE FROM ci.yml ON PURPOSE -- ci.yml guards the package,
+# this file guards the leaderboard, and the two have different triggers, different
+# permissions and different failure meanings.
+#
+# THERE IS NO SERVER AND NO MAILBOX. A submission is a pull request adding one file,
+# `submissions/<team>/<YYYY-MM-DD>-<method>.yaml`. The predictions themselves are not
+# committed -- they are large -- so the YAML carries a public URL and the sha256 of the
+# bytes at it. This workflow downloads them, checks the digest, scores them with
+# `scripts/score_submission.py`, and posts the scorecard as a PR comment. Merging appends
+# one row to `submissions/ledger.csv`.
+#
+# GIT HISTORY IS THE EVALUATION LEDGER. Every submission ever scored is a commit, so the
+# number of times this benchmark has been read is public and auditable with nothing
+# hosted and nothing to maintain. That count is itself a reported number: this project
+# has seen 186 configurations carry a documented external figure in work whose prose
+# claimed each benchmark was read once.
+#
+# WHY THE COMMENT IS POSTED FROM A SECOND JOB ON `workflow_run`.
+#   The `score` job runs submitter-controlled input: it follows a URL from the PR and
+#   downloads whatever is behind it. It therefore runs on `pull_request`, which for a
+#   fork gets a READ-ONLY token and no secrets. Posting a comment needs write access, so
+#   it happens in `comment`, which runs on `workflow_run` AFTER the scoring finished, is
+#   defined on the default branch, and never checks out or executes PR code. This is the
+#   documented pattern; `pull_request_target` would hand a write token to a job that
+#   fetches a submitter's URL, which is the thing not to do.
+
+name: submission
+
+on:
+  pull_request:
+    paths:
+      - "submissions/**"
+  workflow_run:
+    workflows: ["submission"]
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - "submissions/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: submission-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Every submission file in the tree still parses and still validates.
+  #
+  # Cheap, offline, and it runs on EVERY submission PR rather than only on the changed
+  # file. A schema change that quietly invalidates the submissions already merged is a
+  # change that breaks the ledger, and it should fail here rather than at the next merge.
+  schema:
+    name: schema (every submission file, offline)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No install step: the scorer is standard library only, like the package it scores
+      # with. `python3 -I` is the same bare-interpreter path ci.yml uses.
+      - name: Validate every submissions/**/*.yaml
+        shell: bash
+        run: |
+          set -u
+          shopt -s nullglob globstar
+          files=(submissions/**/*.yaml)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "no submission files found -- refusing to pass silently"
+            exit 1
+          fi
+          status=0
+          for f in "${files[@]}"; do
+            echo "=== $f"
+            python3 -I scripts/score_submission.py "$f" --schema-only || status=1
+          done
+          exit $status
+
+  # ---------------------------------------------------------------------------
+  # 2. Score the submission this PR adds.
+  #
+  # Read-only token. It downloads a submitter-supplied URL, so it gets no write access
+  # and no secrets; the scorecard leaves as an artifact and the `comment` job posts it.
+  score:
+    name: score the submitted predictions
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # A submission PR adds exactly ONE file. More than one in a single PR means two
+      # entries share a review, a CI run and a merge commit, and the ledger stops being
+      # one row per evaluation.
+      - name: Exactly one submission file is added or changed
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          mapfile -t files < <(
+            git diff --name-only --diff-filter=AM \
+              "origin/${{ github.base_ref }}...HEAD" -- 'submissions/**' \
+              | grep -E '\.yaml$' || true
+          )
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "no submission .yaml added or changed under submissions/." >&2
+            echo "A submission is one new file: submissions/<team>/<YYYY-MM-DD>-<method>.yaml" >&2
+            exit 1
+          fi
+          if [ ${#files[@]} -gt 1 ]; then
+            printf 'more than one submission file in this PR:\n' >&2
+            printf '  %s\n' "${files[@]}" >&2
+            echo "Open one PR per submission: the ledger is one row per evaluation." >&2
+            exit 1
+          fi
+          echo "file=${files[0]}" >> "$GITHUB_OUTPUT"
+          echo "scoring ${files[0]}"
+
+      - name: Validate, download the pinned predictions, and score
+        id: score
+        shell: bash
+        run: |
+          # `set +e` is load-bearing: GitHub runs `shell: bash` as `bash -eo pipefail`,
+          # so without it the script's non-zero exit would kill the step before the code
+          # is captured -- and the scorecard would never be uploaded for the submitter
+          # to read. The exit code is re-raised at the end of the step instead.
+          set +e
+          set -uo pipefail
+          python3 -I scripts/score_submission.py "${{ steps.changed.outputs.file }}" \
+              --comment scorecard.md
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # 0 clean, 1 a check FAILED, 2 could not run. A job that exits 0 on a
+          # could-not-run is the absence-that-reads-as-an-answer this project exists to
+          # stop, so anything non-zero fails the job -- but the scorecard is still
+          # uploaded below, because a submitter needs to read WHY.
+          exit $code
+
+      # `always()`: a failed scorecard is the one a submitter most needs to see.
+      - name: Keep the scorecard and the PR number for the comment job
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p scorecard
+          if [ -f scorecard.md ]; then
+            mv scorecard.md scorecard/scorecard.md
+          else
+            {
+              echo "## EpiGauge scorecard"
+              echo
+              echo "**The submission could not be scored.** No scorecard was produced:"
+              echo "the run failed before scoring. See the job log for the named check."
+            } > scorecard/scorecard.md
+          fi
+          echo "${{ github.event.pull_request.number }}" > scorecard/pr-number.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scorecard
+          path: scorecard/
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # 3. Post the scorecard on the PR.
+  #
+  # Runs on `workflow_run`, so it has a write token WITHOUT ever checking out or running
+  # PR code. It reads one artifact and posts it.
+  comment:
+    name: post the scorecard as a PR comment
+    if: >
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: scorecard
+          path: scorecard
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upsert the comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr="$(cat scorecard/pr-number.txt)"
+          if [ -z "$pr" ]; then
+            echo "no PR number in the artifact; nothing to comment on" >&2
+            exit 1
+          fi
+          # One comment per PR, edited in place: a resubmission should replace the
+          # scorecard on the page, not bury the earlier one under a thread. The git
+          # history keeps every version, so nothing is lost by editing.
+          marker='## EpiGauge scorecard'
+          existing="$(gh api "repos/$REPO/issues/$pr/comments" --paginate \
+            --jq "[.[] | select(.user.type == \"Bot\") | select(.body | startswith(\"$marker\"))] | .[0].id // empty")"
+          if [ -n "$existing" ]; then
+            gh api --method PATCH "repos/$REPO/issues/comments/$existing" \
+              -F body=@scorecard/scorecard.md >/dev/null
+            echo "updated comment $existing on PR #$pr"
+          else
+            gh api --method POST "repos/$REPO/issues/$pr/comments" \
+              -F body=@scorecard/scorecard.md >/dev/null
+            echo "posted a new comment on PR #$pr"
+          fi
+
+  # ---------------------------------------------------------------------------
+  # 4. Merging appends the row.
+  #
+  # The merge commit is the ledger entry; `submissions/ledger.csv` is the readable index
+  # of it. The row is re-scored here rather than copied from the PR run, so the published
+  # figure and the merged file are produced by the same code from the same pinned bytes.
+  #
+  # A ledger row is never deleted or amended. A withdrawal is a NEW row. That append-only
+  # rule is why the ledger is a SEPARATE FILE from the root `leaderboard.csv`, which is
+  # the ranked, rewritten presentation table (`rank,within_allele,pooled,entry,...`) and
+  # is regenerated by its owner, not appended to. Appending a 15-column evaluation record
+  # to a 7-column ranked table would corrupt both; the ranked table is rebuilt FROM this
+  # ledger, which is the thing git history makes auditable.
+  ledger:
+    name: append the merged submission to submissions/ledger.csv
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Score each submission file this push added, and append its row
+        shell: bash
+        run: |
+          set -uo pipefail
+          base="${{ github.event.before }}"
+          if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            base="$(git rev-parse HEAD~1 2>/dev/null || git rev-parse HEAD)"
+          fi
+          mapfile -t files < <(
+            git diff --name-only --diff-filter=AM "$base" HEAD -- 'submissions/**' \
+              | grep -E '\.yaml$' || true
+          )
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "no submission file in this push; nothing to append"
+            exit 0
+          fi
+
+          # The header is defined in the scorer, in one place, so the ledger columns
+          # cannot drift away from what writes them.
+          ledger=submissions/ledger.csv
+          if [ ! -f "$ledger" ]; then
+            python3 -I scripts/score_submission.py --ledger-header > "$ledger"
+            echo "created $ledger"
+          fi
+
+          appended=0
+          status=0
+          for f in "${files[@]}"; do
+            echo "=== $f"
+            if python3 -I scripts/score_submission.py "$f" --ledger-row row.csv; then
+              cat row.csv >> "$ledger"
+              rm -f row.csv
+              appended=$((appended + 1))
+            else
+              echo "!!! $f did not score on main; no row appended for it" >&2
+              status=1
+            fi
+          done
+
+          if [ "$appended" -gt 0 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$ledger"
+            git commit -m "ledger: append ${appended} scored submission(s) [skip ci]"
+            git push
+          fi
+          exit $status

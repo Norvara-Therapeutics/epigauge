@@ -1,0 +1,203 @@
+# Publishes the leaderboard to GitHub Pages.
+# Source of truth stays LEADERBOARD.md; this only renders it.
+#
+# Repository setting required once, by hand: Settings -> Pages -> Build and
+# deployment -> Source: "GitHub Actions". Without it the configure-pages step
+# fails with "Get Pages site failed". Automating that needs a PAT or App token
+# (configure-pages' `enablement` input explicitly rejects GITHUB_TOKEN), so it
+# is left as a manual step rather than a broken one.
+
+name: pages
+
+on:
+  push:
+    # The default branch is whichever of these the repository actually uses;
+    # the job-level `if` below keeps a push to the other one from deploying.
+    branches: ["main", "master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Never cancel in progress: a cancelled deploy can leave
+# the Pages site half-updated.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # Deploy only from the repository's actual default branch, whatever it is
+    # called. workflow_dispatch is always allowed.
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Must run before the site is assembled: its `base_path` output is the
+      # value Jekyll needs as `baseurl`, and it is the only authoritative
+      # source for it (it is "" for a user/org site or a custom domain, and
+      # "/epigauge" for a project site).
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble site sources
+        shell: bash
+        env:
+          # Passed through the environment rather than interpolated into the
+          # script body, so no repository-controlled string is ever evaluated
+          # as shell.
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          REPO: ${{ github.repository }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          rm -rf site
+          mkdir -p site/docs
+
+          blob="https://github.com/${REPO}/blob/${REF_NAME}"
+
+          page() {  # page <src> <dest> <title>
+            printf -- '---\nlayout: default\ntitle: %s\n---\n\n' "\"$3\"" > "$2"
+            cat "$1" >> "$2"
+          }
+
+          page LEADERBOARD.md site/index.md 'EpiGauge leaderboard'
+          page README.md      site/readme.md 'EpiGauge'
+          for f in docs/*.md; do
+            page "$f" "site/docs/$(basename "$f")" "$(basename "$f" .md)"
+          done
+
+          # --- Link fixes for files that exist in the repo but not in the site.
+          # jekyll-relative-links rewrites a relative *.md link only when the
+          # target is in the site source; anything else is emitted verbatim and
+          # 404s. These two are the only such links (the verify step below is
+          # what keeps that true).
+
+          # In the repo the leaderboard is LEADERBOARD.md; in the site it is the
+          # index.
+          sed -i 's#](LEADERBOARD\.md)#](index.md)#g' site/readme.md
+
+          # ../submissions/ is outside the site tree entirely -> send it to the
+          # repository instead.
+          sed -i "s#](\.\./submissions/#](${blob}/submissions/#g" site/docs/SUBMITTING.md
+
+          # Machine-readable form, served as a download.
+          cp leaderboard.csv site/leaderboard.csv
+
+          printf '\n---\n\n[Project README](readme.md) · [leaderboard.csv](leaderboard.csv) · [Repository](https://github.com/%s)\n' \
+            "${REPO}" >> site/index.md
+
+          # baseurl is load-bearing, not cosmetic. Both the Primer theme's
+          # stylesheet ({{ ... | relative_url }}) and every link
+          # jekyll-relative-links rewrites (it returns relative_url(target.url),
+          # i.e. a ROOT-relative path) are wrong without it on a project site.
+          base_path="${PAGES_BASE_PATH:-}"
+          base_path="${base_path%/}"   # Jekyll wants no trailing slash
+
+          cat > site/_config.yml <<YAML
+          title: EpiGauge leaderboard
+          description: Pair-weighted within-allele AUROC on the EpiGauge infectious benchmark.
+          theme: jekyll-theme-primer
+          baseurl: "${base_path}"
+          url: "${PAGES_ORIGIN:-}"
+          # Enabled by default on GitHub Pages; stated here so the behaviour the
+          # site's links depend on is explicit rather than assumed.
+          relative_links:
+            enabled: true
+            collections: false
+          YAML
+
+          echo "--- site tree ---"
+          find site -type f | sort
+
+      - name: Verify every internal link resolves
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -I - <<'PY'
+          import os, re, sys, urllib.parse
+
+          ROOT = "site"
+          LINK = re.compile(r'!?\[[^\]]*\]\(\s*([^)\s]+?)\s*(?:"[^"]*")?\)')
+          FENCE = re.compile(r'^\s*```')
+
+          files = []
+          for d, _, fs in os.walk(ROOT):
+              files += [os.path.join(d, f) for f in fs]
+          present = {os.path.relpath(f, ROOT) for f in files}
+
+          bad = []
+          checked = 0
+          for f in sorted(files):
+              if not f.endswith(".md"):
+                  continue
+              rel = os.path.relpath(f, ROOT)
+              out, fenced = [], False
+              for line in open(f, encoding="utf-8"):
+                  if FENCE.match(line):
+                      fenced = not fenced
+                      continue
+                  if not fenced:
+                      out.append(re.sub(r'`[^`]*`', '', line))
+              for target in LINK.findall("".join(out)):
+                  if re.match(r'^(?:[a-z][a-z0-9+.-]*:|//|#|mailto:)', target, re.I):
+                      continue
+                  path = urllib.parse.unquote(target.split("#", 1)[0])
+                  if not path:
+                      continue
+                  checked += 1
+                  base = "" if path.startswith("/") else os.path.dirname(rel)
+                  resolved = os.path.normpath(os.path.join(base, path.lstrip("/")))
+                  if resolved.startswith(".."):
+                      bad.append(f"{rel}: '{target}' escapes the site root")
+                  elif resolved not in present:
+                      bad.append(f"{rel}: '{target}' -> {resolved} is not in the site")
+
+          print(f"checked {checked} internal links across {len(present)} site files")
+          if bad:
+              print("\nBROKEN LINKS - these would 404 on the published site:")
+              for b in bad:
+                  print("  " + b)
+              sys.exit(1)
+          print("all internal links resolve")
+          PY
+
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./site
+          destination: ./_site
+
+      - name: Verify the build output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f _site/index.html       || { echo "no _site/index.html"; exit 1; }
+          test -f _site/leaderboard.csv  || { echo "leaderboard.csv was not published"; exit 1; }
+          test -f _site/readme.html      || { echo "no _site/readme.html"; exit 1; }
+          for f in _site/docs/*.html; do test -f "$f" || { echo "docs did not render"; exit 1; }; done
+          # The theme stylesheet is referenced through relative_url; if baseurl
+          # is wrong the page renders unstyled, so assert the emitted href.
+          grep -q 'assets/css/style.css' _site/index.html \
+            || { echo "no stylesheet link in index.html"; exit 1; }
+          grep -o 'href="[^"]*assets/css/style.css[^"]*"' _site/index.html || true
+          echo "build output OK"
+
+      - uses: actions/upload-pages-artifact@v3
+        # Default path is ${{ github.workspace }}/_site, which is what
+        # jekyll-build-pages wrote. Stated explicitly so the two cannot drift.
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

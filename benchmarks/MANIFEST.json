@@ -1,0 +1,923 @@
+{
+  "manifest_version": "1",
+  "generated_utc": "2026-11-13T00:00:00Z",
+  "built_by": "Built from the upstream sources recorded per set below. Each set carries its DOI or URL, its upstream sha256 and its retrieval date, and the corpus fingerprint is recomputable from the shipped rows by the definition in corpus_fingerprint_definition.",
+  "corpus_fingerprint": "4b509d23164febd2",
+  "corpus_fingerprint_definition": "sha256 of '\\n'.join('<set_id>\\t<sha256>\\t<rows>[\\t<scores sha256>]') over shipped sets sorted by set_id, truncated to 16 hex characters. Recomputable from this file alone with no access to the build inputs.",
+  "superseded_corpus_fingerprint": {
+    "value": "b2c046cd6d9e72e5",
+    "status": "DO NOT USE",
+    "note": "The internal corpus fingerprint b2c046cd6d9e72e5 is not reproducible by any tested command: a rebuild changed the row set under a stable name. It is recorded here only so that it is recognised on sight and never quoted as this release's fingerprint."
+  },
+  "row_schema": {
+    "name": "epigauge/canonical-row/1",
+    "fields": [
+      "record_id",
+      "set_id",
+      "peptide",
+      "allele",
+      "mhc_class",
+      "label",
+      "label_origin",
+      "length",
+      "source_db",
+      "study_id",
+      "leakage_group",
+      "licence",
+      "source_url",
+      "extra"
+    ],
+    "rules": [
+      "peptide passes epigauge.canon.canonicalise_peptide (uppercase, 20 canonical residues, length in [8, 15])",
+      "allele passes epigauge.canon.canonicalise_allele (two fields, 'HLA-A*02:01' / 'H2-Kb')",
+      "label is exactly 0 or 1; no nulls, no third category",
+      "record_id is unique within a set and stable across releases",
+      "'extra' holds the set-specific side columns verbatim; nothing in 'extra' is part of the canonical key"
+    ]
+  },
+  "licence": {
+    "code": "MIT",
+    "shipped_data_default": "CC BY 4.0 or CC0 1.0 per set",
+    "segregated": [
+      "itsndb"
+    ],
+    "basis_document": "the project's licence clearance review",
+    "audited": "2026-11-13"
+  },
+  "shipped_bytes": 3295362,
+  "shipped_rows": 3611,
+  "sets": {
+    "buckley_gbm": {
+      "status": "fetch",
+      "title": "Buckley GBM immunogenicity test set",
+      "rows": 123,
+      "positives": 25,
+      "licence": "none stated — the GitHub licence API returns HTTP 404",
+      "licence_basis": "No licence is asserted anywhere on the Buckley repository, so all rights are reserved and we may not redistribute the rows. The file itself is publicly readable; fetch it yourself. Buckley PR et al. Brief Bioinform 2022;23(3):bbac141.",
+      "source": {
+        "doi": "10.1093/bib/bbac141",
+        "url": "https://raw.githubusercontent.com/paulrbuckley/ImmunogenicityBenchmarkingOTB/master/GBM_TestData_ForRepitope.csv",
+        "member": null,
+        "upstream_sha256": "acfcf125e23a1b2926e9a015eb21d5efc3eede001e584384df041e9b7932c2e9",
+        "normalised_sha256": "a0656afddfd2798c0bc8f50c3b3783671bebe2c680a2746dd295398779db62a0"
+      }
+    },
+    "hbv_hlabc_screen": {
+      "status": "ship",
+      "title": "HBV HLA-B/C T-cell epitope screen",
+      "path": "cc-by-4.0/hbv_hlabc_screen.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "b7cfad4c1c9550e80b9af0c23de9f99b2c46af5de652d173ad0e0be7fb739d01",
+      "bytes": 105323,
+      "rows": 105,
+      "positives": 61,
+      "negatives": 44,
+      "licence": "CC BY 4.0",
+      "licence_basis": "IEDB/CEDAR v3 terms of use plus CC BY 4.0 beside the downloads: 'NIAID places no restrictions on the use or distribution of the data contained within the IEDB'",
+      "source": {
+        "doi": "10.3389/fimmu.2025.1717543",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12827522/",
+        "retrieved_utc": null,
+        "retrieval_date_recorded": false,
+        "upstream_sha256": "1201327db52a931875cad3fbc0dc88434bbaa607608794a8edc4f026d98a7fd7"
+      },
+      "note": "Open-access article, CC BY 4.0; 80 source rows were dropped upstream for AMBIGUOUS_ALLELE and are not recoverable from this file."
+    },
+    "hitide_ega": {
+      "status": "excluded",
+      "title": "HiTIDE / EGA EGAS00001007101",
+      "licence": "controlled access (DAC policy EGAP00001003206)",
+      "licence_basis": "Verified controlled access; the terms live in a non-public Data Use Agreement. Nothing can be fetched without an executed DUA, so no fetch helper is offered.",
+      "source": {
+        "url": "https://ega-archive.org/studies/EGAS00001007101"
+      }
+    },
+    "independent_composite": {
+      "status": "ship",
+      "title": "Independent composite (HBV HLA-B/C screen + XMUimmu non-canonical)",
+      "path": "cc-by-4.0/independent_composite.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "e176643f7066812e12f6d796ddf265efbae133ecb3c13b0d6befa5197a14c028",
+      "bytes": 233254,
+      "rows": 243,
+      "positives": 112,
+      "negatives": 131,
+      "licence": "CC BY 4.0",
+      "licence_basis": "IEDB/CEDAR v3 terms of use plus CC BY 4.0 beside the downloads: 'NIAID places no restrictions on the use or distribution of the data contained within the IEDB'",
+      "source": {
+        "doi": null,
+        "url": "https://www.iedb.org/",
+        "retrieved_utc": null,
+        "retrieval_date_recorded": false,
+        "upstream_sha256": null
+      },
+      "note": "Exactly the union of hbv_hlabc_screen and xmuimmu_noncanonical; shipped as a set in its own right because it is the evaluation unit."
+    },
+    "itsndb": {
+      "status": "ship",
+      "title": "ITSNdb (Nibeyro et al. 2023)",
+      "path": "itsndb/itsndb.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "6326faea2609ed7b55b37603f1537e38c5d00f07fcac2e6218caff2a603f5703",
+      "bytes": 104867,
+      "rows": 199,
+      "positives": 129,
+      "negatives": 70,
+      "licence": "see NOTICE",
+      "licence_basis": "The repository LICENSE is GPL-3.0 BOILERPLATE WITH NO NAMED COPYRIGHT HOLDER and covers the R package; the database records carry no separate licence. Segregated under its own notice with no redistribution claim asserted on our behalf",
+      "source": {
+        "doi": null,
+        "url": "https://github.com/elmerfer/ITSNdb",
+        "retrieved_utc": null,
+        "retrieval_date_recorded": false,
+        "upstream_sha256": "f8b4b1622a8e38fec72788f7ed17c7a23208f77f8c5c78ce936e6e7632c66603"
+      },
+      "note": "SEGREGATED: own directory, own NOTICE. ITSNdb's own Length column reports 149 nine-mers / 50 ten-mers; the sequences are 150 / 49 (row IIGAGPAEV is 9 residues and carries Length=10). The sequence is used."
+    },
+    "mcpas_tcr": {
+      "status": "excluded",
+      "title": "McPAS-TCR",
+      "licence": "none stated anywhere",
+      "licence_basis": "No licence appears on the site, in the download or in any accompanying file, so all rights are reserved. Clearance is unresolved; treat as all rights reserved.",
+      "source": {
+        "url": "https://friedmanlab.weizmann.ac.il/McPAS-TCR/"
+      }
+    },
+    "neoranking_muller": {
+      "status": "excluded",
+      "title": "NeoRanking / Mueller et al.",
+      "licence": "none — bare 'Copyright (C) LICR'",
+      "licence_basis": "No LICENSE file on main or master; the three figshare links are anonymous private share tokens with no DOI and no public licence metadata, so there is likely nothing to rely on. Clearance is unresolved; treat as all rights reserved.",
+      "source": {
+        "url": null
+      }
+    },
+    "tchard": {
+      "status": "excluded",
+      "title": "TChard (Zenodo 6962043)",
+      "licence": "Other (Non-Commercial), with a per-row licence column",
+      "licence_basis": "Non-commercial terms are incompatible with this CC BY 4.0 bundle, and the deposit carries a PER-ROW licence column that would have to be honoured row by row. Not shipped and not fetched.",
+      "source": {
+        "url": "https://zenodo.org/records/6962043"
+      }
+    },
+    "tesla608": {
+      "status": "fetch",
+      "title": "TESLA-608 neoantigen immunogenicity set",
+      "rows": 608,
+      "positives": 37,
+      "licence": "Elsevier User License — REDISTRIBUTION FORBIDDEN",
+      "licence_basis": "Elsevier User License, operative text: 'Users may access, download, copy, translate, text and data mine (but MAY NOT REDISTRIBUTE, display or adapt) the articles for non-commercial purposes.' The table of record is a Cell supplement (Wells DK et al. Cell 2020;183(3):818-834.e13). We may not ship the rows; you may download them yourself from the public mirror below, whose bytes are pinned here.",
+      "source": {
+        "doi": "10.1016/j.cell.2020.09.015",
+        "url": "https://raw.githubusercontent.com/paulrbuckley/ImmunogenicityBenchmarkingOTB/master/TESLA_DATASET_608.csv",
+        "member": null,
+        "upstream_sha256": "2a17eea4289f72380a94b9e0d79e8191ddb5546e301711e4f6c863ce523cb908",
+        "normalised_sha256": "abe96e2fef121a12cea7587a0c799dcb00988dc6e3c07355e202db85b2e363eb"
+      }
+    },
+    "tesla_synapse": {
+      "status": "excluded",
+      "title": "TESLA Synapse syn21048999 / syn23446508",
+      "licence": "controlled — 'You will not redistribute the data.'",
+      "licence_basis": "Synapse access requirement on the child entity syn23446508; the governing clause is quoted above verbatim. Use set_id 'tesla608' for the publicly mirrored 608-row table instead.",
+      "source": {
+        "url": "https://www.synapse.org/#!Synapse:syn21048999"
+      }
+    },
+    "titanian_ada": {
+      "status": "fetch",
+      "title": "TITANiAN antibody (ADA) immunogenicity benchmark",
+      "rows": 216,
+      "positives": null,
+      "licence": "CC0 1.0 (Dryad)",
+      "licence_basis": "Licence-clear and its retrieval IS recorded, but it is OUT OF SCOPE for this package: the records are antibody VH/VL pairs with no peptide, no allele and a null label, so no row canonicalises through epigauge.canon. Excluded on schema grounds, not licence grounds.",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "member": "TITANiAN_IM_ADA.csv",
+        "upstream_sha256": "d9a7e89815dabf5fac6b248c3b6f222360917187e39b12f0bf6eab303d5eb07d",
+        "normalised_sha256": null
+      }
+    },
+    "titanian_infectious": {
+      "status": "ship",
+      "title": "TITANiAN infectious T-cell activation benchmark",
+      "path": "cc0/titanian_infectious.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "e4a0795816a608fba27e9b41ac0f02f779981ec7bc2ea2b5b4a9a19dce5733ba",
+      "bytes": 1155553,
+      "rows": 2093,
+      "positives": 1488,
+      "negatives": 605,
+      "licence": "CC0 1.0",
+      "licence_basis": "Dryad deposit doi:10.5061/dryad.s7h44j1k7, Dryad API spdx: CC0-1.0.The seoklab/T-SCAPE repository is CC BY-NC 4.0 and holds no copy of these rows; the Dryad deposit is the only public source.0 and is NOT used ('Prefer the Dryad CC0 copy')",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "retrieved_utc": "2026-11-10T01:36:15Z",
+        "retrieval_date_recorded": true,
+        "upstream_sha256": "2d64689d22637562f9f4f65ec101bb2cea76c600cb80ee852b9508bd1a335553"
+      },
+      "note": "Retrieval of test/TITANiAN_IM_Infectious.csv from the Dryad DOI is recorded in data/raw/download_manifest.json; the local bytes match that record.",
+      "scores": {
+        "path": "cc0/titanian_infectious.scores.jsonl",
+        "sha256": "107994a481393cb59e55760a829cd5c51a29d569d1e7469be9192f4edff40e63",
+        "bytes": 838997,
+        "rows": 2093,
+        "columns_shipped": [
+          "mhcflurry_2_0_ranks",
+          "mhcflurry_2_0_scores",
+          "titanian",
+          "titanian_ablation_keeps_1_2_3_4_5_6",
+          "titanian_ablation_keeps_1_2_3_4_7",
+          "titanian_ablation_keeps_1_2_5_6_7",
+          "titanian_ablation_keeps_3_4_5_6_7",
+          "titanian_no_pretrain",
+          "transphla"
+        ],
+        "columns_withheld": [
+          "bigmhc_ablation_canonical_lstm_el",
+          "bigmhc_ablation_canonical_lstm_elim",
+          "bigmhc_ablation_canonical_lstm_im",
+          "bigmhc_ablation_wide_lstm_el",
+          "bigmhc_ablation_wide_lstm_elim",
+          "bigmhc_ablation_wide_lstm_im",
+          "bigmhc_el",
+          "bigmhc_elim",
+          "bigmhc_im",
+          "hlathena_ranks",
+          "hlathena_scores",
+          "mhcnuggets_2_4_0",
+          "mixmhcpred_2_1_ranks",
+          "mixmhcpred_2_1_scores",
+          "mixmhcpred_2_2_ranks",
+          "mixmhcpred_2_2_scores",
+          "netmhcpan_4_1_ranks",
+          "netmhcpan_4_1_scores",
+          "prime_1_0_ranks",
+          "prime_1_0_scores",
+          "prime_2_0_ranks",
+          "prime_2_0_scores"
+        ],
+        "note": "Published competitor scores, joined on record_id. Withheld columns are absent, not nulled: see predictor_columns for the licence and reason behind every withholding."
+      }
+    },
+    "titanian_mhc1": {
+      "status": "fetch",
+      "title": "TITANiAN MHC class I affinity benchmark",
+      "rows": 624,
+      "positives": null,
+      "licence": "CC0 1.0 asserted, RETRIEVAL NOT RECORDED",
+      "licence_basis": "The normalised rows assert CC0 via Dryad doi:10.5061/dryad.s7h44j1k7, but data/raw/download_manifest.json records a retrieval URL for only 3 of the 7 TITANiAN CSVs, and TITANiAN_MHC_I.csv is not one of them.The seoklab/T-SCAPE repository is CC BY-NC 4.0 and holds no copy of these rows; the Dryad deposit is the only public source.0, so the CC0 claim rests on an assertion rather than a recorded fetch. Default-deny: not shipped, fetchable by you from the Dryad deposit.",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "member": "TITANiAN_MHC_I.csv",
+        "upstream_sha256": "570a6f5b5e3157d8c8ba63131076f3feda909ee4f124a2310e807491c9ed926f",
+        "normalised_sha256": null
+      }
+    },
+    "titanian_mhc2": {
+      "status": "fetch",
+      "title": "TITANiAN MHC class II affinity benchmark",
+      "rows": 723,
+      "positives": null,
+      "licence": "CC0 1.0 asserted, RETRIEVAL NOT RECORDED",
+      "licence_basis": "As titanian_mhc1. Additionally 4 of its 723 peptides are 20-mers, outside epigauge.canon's [8, 15] window, so it cannot ship in the canonical schema without a declared exclusion.",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "member": "TITANiAN_MHC_II.csv",
+        "upstream_sha256": "e38bc8d2bc0c76ff9fdc5b5df9b82a921121b89faedaf8a6c8da22e7dfe87115",
+        "normalised_sha256": null
+      }
+    },
+    "titanian_neoantigen": {
+      "status": "ship",
+      "title": "TITANiAN neoantigen T-cell activation benchmark",
+      "path": "cc0/titanian_neoantigen.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "ab0dcbad2c4f31c85f4b4b4c9ca4e1c82ce38e0d0ec4ef12856d57415f005eea",
+      "bytes": 435142,
+      "rows": 833,
+      "positives": 178,
+      "negatives": 655,
+      "licence": "CC0 1.0",
+      "licence_basis": "Dryad deposit doi:10.5061/dryad.s7h44j1k7, Dryad API spdx: CC0-1.0.The seoklab/T-SCAPE repository is CC BY-NC 4.0 and holds no copy of these rows; the Dryad deposit is the only public source.0 and is NOT used ('Prefer the Dryad CC0 copy')",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "retrieved_utc": "2026-11-10T01:36:15Z",
+        "retrieval_date_recorded": true,
+        "upstream_sha256": "da2442cd7f7ea0d1ed83e15a71538cb0f8983a329fe973cfe43514c1dfed9661"
+      },
+      "note": "CONTAMINATION: these 833 rows are the same evaluation table as bigmhc/datasets im_test.csv — 833/833 (allele, peptide) pairs, 833/833 labels, all 25 shared predictor columns byte-identical (NetMHCpan-4.1 x2, MHCflurry-2.0 x2, MHCnuggets-2.4.0, MixMHCpred-2.1 x2, MixMHCpred-2.2 x2, PRIME-1.0 x2, PRIME-2.0 x2, TransPHLA, HLAthena x2, BigMHC_EL, BigMHC_IM, BigMHC_ELIM and six BigMHC LSTM ablations). A score here is not evidence of capability for any model with access to that table. Also OPEN: its 178 positives equal the count of Mueller et al.'s 178 immunogenic neo-peptides; no peptide-level intersection has been run.",
+      "scores": {
+        "path": "cc0/titanian_neoantigen.scores.jsonl",
+        "sha256": "12c41a42f39dbd20dfef9558ed59a296073c43e98052c3845087766921f37c61",
+        "bytes": 294958,
+        "rows": 833,
+        "columns_shipped": [
+          "mhcflurry_2_0_ranks",
+          "mhcflurry_2_0_scores",
+          "titanian",
+          "titanian_ablation_keeps_1_2_3_4_5_6",
+          "titanian_ablation_keeps_1_2_3_4_7",
+          "titanian_ablation_keeps_1_2_5_6_7",
+          "titanian_no_pretrain",
+          "transphla"
+        ],
+        "columns_withheld": [
+          "bigmhc_ablation_canonical_lstm_el",
+          "bigmhc_ablation_canonical_lstm_elim",
+          "bigmhc_ablation_canonical_lstm_im",
+          "bigmhc_ablation_wide_lstm_el",
+          "bigmhc_ablation_wide_lstm_elim",
+          "bigmhc_ablation_wide_lstm_im",
+          "bigmhc_el",
+          "bigmhc_elim",
+          "bigmhc_im",
+          "hlathena_ranks",
+          "hlathena_scores",
+          "mhcnuggets_2_4_0",
+          "mixmhcpred_2_1_ranks",
+          "mixmhcpred_2_1_scores",
+          "mixmhcpred_2_2_ranks",
+          "mixmhcpred_2_2_scores",
+          "netmhcpan_4_1_ranks",
+          "netmhcpan_4_1_scores",
+          "prime_1_0_ranks",
+          "prime_1_0_scores",
+          "prime_2_0_ranks",
+          "prime_2_0_scores"
+        ],
+        "note": "Published competitor scores, joined on record_id. Withheld columns are absent, not nulled: see predictor_columns for the licence and reason behind every withholding."
+      }
+    },
+    "titanian_tcr_activation": {
+      "status": "fetch",
+      "title": "TITANiAN TCR-pMHC activation benchmark",
+      "rows": 26,
+      "positives": null,
+      "licence": "CC0 1.0 asserted, RETRIEVAL NOT RECORDED",
+      "licence_basis": "As titanian_mhc1. Additionally all 26 rows carry a null allele, so the canonical schema's allele key cannot be formed.",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "member": "TITANiAN_TCR_Act.csv",
+        "upstream_sha256": "e53d43ed0d1f2d91572b30176516771c70990352bd8100035215742c5d79ff9d",
+        "normalised_sha256": null
+      }
+    },
+    "titanian_tcr_zeroshot": {
+      "status": "fetch",
+      "title": "TITANiAN TCR-pMHC zero-shot benchmark",
+      "rows": 688,
+      "positives": null,
+      "licence": "CC0 1.0 asserted, RETRIEVAL NOT RECORDED",
+      "licence_basis": "As titanian_tcr_activation; all 688 rows carry a null allele and 4 peptides are 7-mers.",
+      "source": {
+        "doi": "10.5061/dryad.s7h44j1k7",
+        "url": "https://datadryad.org/dataset/doi%3A10.5061%2Fdryad.s7h44j1k7",
+        "member": "TITANiAN_TCR_Zeroshot.csv",
+        "upstream_sha256": "f5c0e34dd59451d7072c01919bad8462706dcce077bf3d323efd3ce293d9fb0b",
+        "normalised_sha256": null
+      }
+    },
+    "tscape_titanian": {
+      "status": "excluded",
+      "title": "TITANiAN via the T-SCAPE repository",
+      "licence": "CC BY-NC 4.0",
+      "licence_basis": "Same data as the TITANiAN sets, incompatible licence. The NC term would make the whole release non-commercial. Use the CC0 Dryad copy: set_ids titanian_infectious and titanian_neoantigen.",
+      "source": {
+        "url": "https://github.com/seoklab/T-SCAPE"
+      }
+    },
+    "vdjdb": {
+      "status": "excluded",
+      "title": "VDJdb",
+      "licence": "CC BY-NC-ND 4.0",
+      "licence_basis": "The ND clause bars distributing ADAPTED material, and derived benchmark rows are adapted material. No fetch helper is offered: deriving rows is the act the licence forbids, so epigauge will not automate it. (: 'VDJdb is a live exposure';) Excluded, or obtain written permission from the depositors.",
+      "source": {
+        "url": "https://github.com/antigenomics/vdjdb-db"
+      }
+    },
+    "xmuimmu_noncanonical": {
+      "status": "ship",
+      "title": "XMUimmu non-canonical / non-coding immunopeptidome",
+      "path": "cc-by-4.0/xmuimmu_noncanonical.jsonl",
+      "schema": "epigauge/canonical-row/1",
+      "sha256": "c588447b049580b0544f6ef397570e6154e768d3182e0e96a8f27f8da507bbed",
+      "bytes": 127268,
+      "rows": 138,
+      "positives": 51,
+      "negatives": 87,
+      "licence": "CC BY 4.0",
+      "licence_basis": "IEDB/CEDAR v3 terms of use plus CC BY 4.0 beside the downloads: 'NIAID places no restrictions on the use or distribution of the data contained within the IEDB'",
+      "source": {
+        "doi": "10.1126/science.adk3487",
+        "url": "https://github.com/XMUimmu/noncoding_noncanonical_immu_database",
+        "retrieved_utc": null,
+        "retrieval_date_recorded": false,
+        "upstream_sha256": "f486ff0bb017cea10a8744c0607b05d24916cbcf5a74054017ced7efd6a5ce91"
+      },
+      "note": null
+    }
+  },
+  "predictor_columns": {
+    "ablstm": {
+      "tool": "ablstm",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "abnativ": {
+      "tool": "abnativ",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "ann_3_4": {
+      "tool": "IEDB 'ANN' (= netMHC)",
+      "licence": "UNRESOLVED",
+      "verdict": "exclude",
+      "reason": "names 'ann' among the pure-IEDB OSL-3.0 methods, but IEDB's ANN method IS DTU's netMHC. The two statements conflict and nobody resolved it; default-deny until a human does"
+    },
+    "ann_4_0": {
+      "tool": "IEDB 'ANN' (= netMHC)",
+      "licence": "UNRESOLVED",
+      "verdict": "exclude",
+      "reason": "names 'ann' among the pure-IEDB OSL-3.0 methods, but IEDB's ANN method IS DTU's netMHC. The two statements conflict and nobody resolved it; default-deny until a human does"
+    },
+    "arb": {
+      "tool": "IEDB ARB",
+      "licence": "UNRESOLVED",
+      "verdict": "exclude",
+      "reason": "not named in's pure-IEDB list (smm, smmpmbec, comblib, ann); default-deny"
+    },
+    "bigmhc_ablation_canonical_lstm_el": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_ablation_canonical_lstm_elim": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_ablation_canonical_lstm_im": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_ablation_wide_lstm_el": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_ablation_wide_lstm_elim": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_ablation_wide_lstm_im": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_el": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_elim": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "bigmhc_im": {
+      "tool": "BigMHC",
+      "licence": "BigMHC Academic License (NC + copyleft)",
+      "verdict": "exclude",
+      "reason": "BigMHC Academic License: non-commercial AND copyleft (§4(b) forces derivatives onto the same terms); not Apache-2.0"
+    },
+    "comblib_matrices": {
+      "tool": "IEDB Comblib",
+      "licence": "Non-Profit OSL 3.0",
+      "verdict": "ship",
+      "reason": "IEDB tool bundle, Non-Profit OSL 3.0 — copyleft, not non-commercial; §17(a) restricts the licensor, not the user. Named in as part of the pure-IEDB set, so free of the bundled DTU NetMHC binaries"
+    },
+    "consensus_iedb_method": {
+      "tool": "IEDB Consensus (class II)",
+      "licence": "composite",
+      "verdict": "exclude",
+      "reason": "a consensus over components that include DTU-licensed methods; the composite inherits the most restrictive component"
+    },
+    "dlptcr": {
+      "tool": "dlptcr",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "ergo2": {
+      "tool": "ergo2",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "germline_content": {
+      "tool": "germline_content",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "hlathena_ranks": {
+      "tool": "HLAthena",
+      "licence": "none — web service only",
+      "verdict": "exclude",
+      "reason": "web service only, routed through the Broad; no licence covers redistributing its outputs ( 'Hard excludes')"
+    },
+    "hlathena_scores": {
+      "tool": "HLAthena",
+      "licence": "none — web service only",
+      "verdict": "exclude",
+      "reason": "web service only, routed through the Broad; no licence covers redistributing its outputs ( 'Hard excludes')"
+    },
+    "hu_mab": {
+      "tool": "hu_mab",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "iedb_consensus": {
+      "tool": "IEDB Consensus",
+      "licence": "composite",
+      "verdict": "exclude",
+      "reason": "a consensus over components that include DTU-licensed methods; the composite inherits the most restrictive component"
+    },
+    "igreconstruct": {
+      "tool": "igreconstruct",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "mg_score": {
+      "tool": "mg_score",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "mhcflurry_1_2_0": {
+      "tool": "MHCflurry 1.2.0",
+      "licence": "Apache-2.0",
+      "verdict": "ship",
+      "reason": "same Apache-2.0 lineage as MHCflurry 2.0; outputs unrestricted"
+    },
+    "mhcflurry_2_0_ranks": {
+      "tool": "MHCflurry 2.0",
+      "licence": "Apache-2.0 (unmodified, 202 lines)",
+      "verdict": "ship",
+      "reason": "Apache-2.0 verified in LICENSE, setup.py, GitHub spdx_id and PyPI info.license; commercial use and OUTPUT redistribution unrestricted"
+    },
+    "mhcflurry_2_0_scores": {
+      "tool": "MHCflurry 2.0",
+      "licence": "Apache-2.0 (unmodified, 202 lines)",
+      "verdict": "ship",
+      "reason": "Apache-2.0 verified in LICENSE, setup.py, GitHub spdx_id and PyPI info.license; commercial use and OUTPUT redistribution unrestricted"
+    },
+    "mhcnuggets_2_4_0": {
+      "tool": "MHCnuggets 2.4.0",
+      "licence": "JHU Academic Software License (non-commercial)",
+      "verdict": "exclude",
+      "reason": "PyPI metadata says 'Apache License'; the LICENSE body is the JHU Academic Software License, non-commercial, covering 307 bundled .h5 weights. NC is incompatible with a CC BY 4.0 bundle (the licence clearance review, metadata-unreliability table)"
+    },
+    "mixmhcpred_2_1_ranks": {
+      "tool": "mixmhcpred-2-1",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "mixmhcpred_2_1_scores": {
+      "tool": "mixmhcpred-2-1",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "mixmhcpred_2_2_ranks": {
+      "tool": "mixmhcpred-2-2",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "mixmhcpred_2_2_scores": {
+      "tool": "mixmhcpred-2-2",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "netmhccons": {
+      "tool": "netmhccons",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhciipan_3_1": {
+      "tool": "netmhciipan_3_1",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_3_2": {
+      "tool": "netmhciipan_3_2",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_0_ba": {
+      "tool": "netmhciipan_4_0_ba",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_0_el": {
+      "tool": "netmhciipan_4_0_el",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_1_ba": {
+      "tool": "netmhciipan_4_1_ba",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_1_el": {
+      "tool": "netmhciipan_4_1_el",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_2_ba": {
+      "tool": "netmhciipan_4_2_ba",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_2_el": {
+      "tool": "netmhciipan_4_2_el",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_3_ba": {
+      "tool": "netmhciipan_4_3_ba",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhciipan_4_3_el": {
+      "tool": "netmhciipan_4_3_el",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "netmhcpan_2_8": {
+      "tool": "netmhcpan_2_8",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_3_0": {
+      "tool": "netmhcpan_3_0",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_0_ba": {
+      "tool": "netmhcpan_4_0_ba",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_0_el": {
+      "tool": "netmhcpan_4_0_el",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_1_ba": {
+      "tool": "netmhcpan_4_1_ba",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_1_el": {
+      "tool": "netmhcpan_4_1_el",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_1_ranks": {
+      "tool": "NetMHCpan-4.1",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "netmhcpan_4_1_scores": {
+      "tool": "NetMHCpan-4.1",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "nn_align": {
+      "tool": "nn_align",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "nn_align_2_3": {
+      "tool": "nn_align_2_3",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "non_human_mhcii_binders_loose": {
+      "tool": "non_human_mhcii_binders_loose",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "non_human_mhcii_binders_medium": {
+      "tool": "non_human_mhcii_binders_medium",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "non_human_mhcii_binders_relaxed": {
+      "tool": "non_human_mhcii_binders_relaxed",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "non_human_mhcii_binders_strict": {
+      "tool": "non_human_mhcii_binders_strict",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "oasis_identity_loose": {
+      "tool": "oasis_identity_loose",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "oasis_identity_medium": {
+      "tool": "oasis_identity_medium",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "oasis_identity_relaxed": {
+      "tool": "oasis_identity_relaxed",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "oasis_identity_strict": {
+      "tool": "oasis_identity_strict",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "panpep": {
+      "tool": "panpep",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "pickpocket": {
+      "tool": "pickpocket",
+      "licence": "DTU academic",
+      "verdict": "exclude",
+      "reason": "DTU Health Tech academic licence; §7(v) forbids publishing benchmark results to a third party without written consent, and no waiver exists ( 'Hard excludes';)"
+    },
+    "pmtnet": {
+      "tool": "pmtnet",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "prime_1_0_ranks": {
+      "tool": "prime-1-0",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "prime_1_0_scores": {
+      "tool": "prime-1-0",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "prime_2_0_ranks": {
+      "tool": "prime-2-0",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "prime_2_0_scores": {
+      "tool": "prime-2-0",
+      "licence": "LICR academic non-commercial",
+      "verdict": "exclude",
+      "reason": "LICR §2.1 permits providing results to third parties but 'for academic non-commercial purposes only', which a public benchmark cannot guarantee of its users; NC is incompatible with the CC BY 4.0 bundle"
+    },
+    "smm": {
+      "tool": "IEDB SMM",
+      "licence": "Non-Profit OSL 3.0",
+      "verdict": "ship",
+      "reason": "IEDB tool bundle, Non-Profit OSL 3.0 — copyleft, not non-commercial; §17(a) restricts the licensor, not the user. Named in as part of the pure-IEDB set, so free of the bundled DTU NetMHC binaries"
+    },
+    "smm_align": {
+      "tool": "smm_align",
+      "licence": "DTU academic (NetMHCII lineage)",
+      "verdict": "exclude",
+      "reason": "DTU-authored method distributed inside the IEDB class-II bundle; not in's pure-IEDB list, so §7(v) is assumed to reach it. Default-deny"
+    },
+    "smmpmbec": {
+      "tool": "IEDB SMMPMBEC",
+      "licence": "Non-Profit OSL 3.0",
+      "verdict": "ship",
+      "reason": "IEDB tool bundle, Non-Profit OSL 3.0 — copyleft, not non-commercial; §17(a) restricts the licensor, not the user. Named in as part of the pure-IEDB set, so free of the bundled DTU NetMHC binaries"
+    },
+    "t20": {
+      "tool": "t20",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    },
+    "tepitope_sturniolo": {
+      "tool": "TEPITOPE (Sturniolo)",
+      "licence": "UNRESOLVED",
+      "verdict": "exclude",
+      "reason": "not named in's pure-IEDB list; default-deny"
+    },
+    "titanian": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "titanian_ablation_keeps_1_2_3_4_5_6": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "titanian_ablation_keeps_1_2_3_4_7": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "titanian_ablation_keeps_1_2_5_6_7": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "titanian_ablation_keeps_3_4_5_6_7": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "titanian_no_pretrain": {
+      "tool": "TITANiAN",
+      "licence": "CC0 1.0 (Dryad deposit)",
+      "verdict": "ship",
+      "reason": "the column is part of the deposited TITANiAN table itself, CC0 1.0 via Dryad doi:10.5061/dryad.s7h44j1k7"
+    },
+    "transphla": {
+      "tool": "TransPHLA",
+      "licence": "GPL-3.0",
+      "verdict": "ship",
+      "reason": "canonical repo a96123155/TransPHLA-AOMP is GPL-3.0 with 105 .pkl models in-repo — copyleft but commercially usable, and GPL-3.0 does not reach the output of running the program ('TransPHLA is resolved')"
+    },
+    "z_score": {
+      "tool": "z_score",
+      "licence": "unread",
+      "verdict": "exclude",
+      "reason": "not named in the licence clearance review; no terms were read for this tool, so under the project's own process rule it is unlicensed-until-verified"
+    }
+  },
+  "shipped_bytes_definition": "Sum of the row and score files listed under `sets`. Deliberately EXCLUDES this manifest, its README and the NOTICE files: a total that counts the manifest is self-referential and is invalidated by any edit to the manifest itself."
+}

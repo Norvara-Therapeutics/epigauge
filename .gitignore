@@ -1,0 +1,87 @@
+# .gitignore for the public epigauge release root.
+#
+# Note what is NOT ignored: `epigauge/benchmarks/` is tracked on purpose. The shipped
+# rows and their frozen manifests ARE the benchmark -- a changed upstream must fail
+# loudly against a committed manifest rather than silently redefine the evaluation set.
+# Large upstream corpora are fetched and checksummed, never committed.
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+sdist/
+wheels/
+*.egg-info/
+*.egg
+.eggs/
+develop-eggs/
+.installed.cfg
+pip-wheel-metadata/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# ---------------------------------------------------------------------------
+# Testing, typing, linting
+# ---------------------------------------------------------------------------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# ---------------------------------------------------------------------------
+# Scratch and fetched data. Anything fetched by a build script is reproducible
+# from the manifest and does not belong in the repository.
+# ---------------------------------------------------------------------------
+data/raw/
+data/work/
+downloads/
+outputs/
+*.tmp
+scratch/
+
+# ---------------------------------------------------------------------------
+# Notebooks
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# OS / editor litter
+# ---------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------------
+# Secrets. The build needs none; nothing here is ever required to reproduce a
+# published figure.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.yaml

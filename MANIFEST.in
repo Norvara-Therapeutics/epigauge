@@ -1,0 +1,63 @@
+# Source-distribution contents.
+#
+# TWO JOBS. (1) The shipped benchmark rows and their manifests must be IN the sdist and
+# the wheel -- a benchmark whose row files are missing is not reproducible, and a
+# frozen row manifest is what makes a changed upstream fail loudly instead of silently
+# redefining the benchmark. (2) NOTHING from the sibling `internal/` tree may ever be
+# packaged: it holds unreleased data, controlled-access sources, run outputs and the
+# licensing working notes. `internal/` sits outside this sdist root, so it cannot be
+# reached by a relative path, but the prune lines below are kept as a second wall and
+# CI asserts the property on the built artifacts (`packaging` job in ci.yml).
+
+# EXPECTED BUILD NOISE. `python -m build` prints "warning: no files found matching ..."
+# for the patterns below that match nothing in a given checkout (a root `NOTICE`, or the
+# in-package `epigauge/benchmarks/` location while the rows live at the root). The
+# patterns are kept deliberately so neither location can be dropped by accident; CI
+# asserts on the BUILT artifacts, which is the check that actually binds.
+
+# --- Legal and provenance -------------------------------------------------------
+include LICENSE
+include NOTICE
+include README.md
+include CONTRIBUTING.md
+include pyproject.toml
+
+# --- Benchmark rows, manifests and their per-directory notices ------------------
+# Both locations are covered on purpose. `epigauge/benchmarks/` is inside the import
+# package and therefore also lands in the WHEEL (via [tool.setuptools.package-data]);
+# a top-level `benchmarks/` tree is sdist-only, because a wheel cannot carry data
+# outside the package directory. The ITSNdb slice keeps its own LICENSE/NOTICE beside
+# its rows -- those files are part of the data, not decoration, so they are grafted in
+# explicitly and must never be pruned.
+recursive-include epigauge/benchmarks *.jsonl *.json *.csv *.tsv *.md
+recursive-include epigauge/benchmarks LICENSE* NOTICE* README*
+recursive-include benchmarks *.jsonl *.json *.csv *.tsv *.md
+recursive-include benchmarks LICENSE* NOTICE* README*
+
+# --- Reproduction surface -------------------------------------------------------
+# The fixtures ship: `python3 -I epigauge/tests/test_*.py` must work from an unpacked
+# sdist, for a reviewer who has no pytest.
+recursive-include epigauge/tests *.py
+recursive-include scripts *.py
+include .github/workflows/ci.yml
+
+# --- Never packaged -------------------------------------------------------------
+# internal/ in every form it could be referenced under, belt and braces.
+prune internal
+prune ../internal
+prune */internal
+global-exclude internal/*
+recursive-exclude internal *
+
+# Working trees, caches and OS litter.
+prune .git
+prune .github/scratch
+prune dist
+prune build
+global-exclude *.py[cod] __pycache__/* .DS_Store *.so *.swp *~
+global-exclude .env .env.* *.pem *.key credentials.json secrets.yaml
+
+# Large upstream corpora are fetched, not shipped. Only the derived, licence-cleared
+# rows above are redistributed.
+prune data
+prune outputs
