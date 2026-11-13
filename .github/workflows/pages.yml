@@ -55,7 +55,11 @@ jobs:
           blob="https://github.com/${REPO}/blob/${REF_NAME}"
 
           page() {  # page <src> <dest> <title>
-            printf -- '---\nlayout: default\ntitle: %s\n---\n\n' "\"$3\"" > "$2"
+            # `path` is the REPO path, not the site path. The Primer theme's
+            # "Improve this page" footer builds its edit URL from page.path, and the
+            # site filenames (index.md, neoantigen.md) do not exist in the repo, so
+            # without this the link 404s on every page.
+            printf -- '---\nlayout: default\ntitle: %s\npath: %s\n---\n\n' "\"$3\"" "$1" > "$2"
             cat "$1" >> "$2"
           }
 
@@ -72,9 +76,15 @@ jobs:
           # 404s. These two are the only such links (the verify step below is
           # what keeps that true).
 
-          # In the repo the leaderboard is LEADERBOARD.md; in the site it is the
-          # index.
-          sed -i 's#](LEADERBOARD\.md)#](index.md)#g' site/readme.md
+          # In the repo the arms are LEADERBOARD.md and LEADERBOARD-NEOANTIGEN.md; in
+          # the site they are index.md and neoantigen.md. Applied to EVERY page, so a
+          # new cross-link cannot be missed -- the hand-picked list was wrong twice.
+          # Order matters: the longer name first, or it matches the shorter prefix.
+          for f in site/*.md site/docs/*.md; do
+            sed -i 's#](LEADERBOARD-NEOANTIGEN\.md)#](neoantigen.md)#g' "$f"
+            sed -i 's#](LEADERBOARD\.md)#](index.md)#g' "$f"
+            sed -i 's#](docs/\([A-Za-z_-]*\)\.md)#](docs/\1.md)#g' "$f"
+          done
 
           # ../submissions/ is outside the site tree entirely -> send it to the
           # repository instead.
