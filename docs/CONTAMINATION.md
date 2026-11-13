@@ -1,6 +1,6 @@
 # A public dataset file contains the whole of a published neoantigen benchmark
 
-`datasets/im_test.csv` from the BigMHC dataset release contains all 833 rows of the TITANiAN neoantigen immunogenicity benchmark, same labels, reference-predictor columns reproduced character for character. One file is the other with 104 extra rows and eight extra columns. The naive check returns a clean-looking zero because one file spells the allele `HLA-A*01:01` and the other `A0101`.
+`datasets/im_test.csv` from the BigMHC dataset release (Mendeley Data `10.17632/dvmz6pkzvb.4`, CC BY 4.0) contains all 833 rows of the TITANiAN neoantigen immunogenicity benchmark, same labels, reference-predictor columns reproduced character for character. One file is the other with 104 extra rows and eight extra columns. The naive check returns a clean-looking zero because one file spells the allele `HLA-A*01:01` and the other `A0101`.
 
 ## Reproduce it
 
@@ -11,6 +11,23 @@ python3 scripts/verify_contamination.py \
 ```
 
 Standard library only; run from the `epigauge/` directory so `epigauge/canon.py` resolves. Both paths are required — the script never guesses where a file lives. Exit 1 = overlap found, 0 = independent on this evidence, 2 = could not run. It never guesses a column name and never substitutes a fallback join key: if it cannot identify the allele, peptide or label column it refuses and prints the header it was given.
+
+### The two files
+
+**Neither ships with EpiGauge** — both are third-party releases, and this repository
+redistributes neither.
+
+| | what it is | where to get it |
+|---|---|---|
+| `--a` | `datasets/im_test.csv`, 937 rows | inside `datasets.zip` (251 MB) at Mendeley Data **10.17632/dvmz6pkzvb.4**, CC BY 4.0 |
+| `--b` | `TITANiAN_IM_Neoantigen.csv`, 833 rows | inside `test.zip` at Dryad **10.5061/dryad.s7h44j1k7**, CC0 1.0 |
+
+Both are the original CSVs. EpiGauge ships the same 833 rows in normalised form at
+`benchmarks/cc0/titanian_neoantigen.jsonl`, but the check reads the originals, because it
+compares the predictor columns **as bytes** and normalisation would destroy exactly what it
+is measuring.
+
+Verify what you downloaded against the hashes at the end of this page before running.
 
 | step | measurement |
 |---|---|
@@ -52,7 +69,7 @@ git as authoritative for them.
 | `scripts/verify_contamination.py` | `b03f619ecc9f08cb4c2f281791b7a0c933c87b1b252dd4bde1dfb763755d2460` | — | — | this repository |
 | `epigauge/canon.py` | `faf9a1fbd96d6c2534c4dbf37b517c0a32678575300fc7f9cbfeeb85340e438a` | — | — | this repository |
 
-The TITANiAN files exist in two licensed copies — the Dryad deposit (CC0 1.0) and a T-SCAPE copy (CC BY-NC 4.0). The hash above is the Dryad copy, and the Dryad copy is the one to cite. Both source datasets are openly licensed and both DOIs resolve.
+The Dryad deposit is the only public source of the TITANiAN evaluation files; the `seoklab/T-SCAPE` repository is CC BY-NC 4.0 and carries code, weights and HLA pseudosequence tables rather than these rows. Both source datasets are openly licensed and both DOIs resolve.
 
 The authors of both files are given this document, `verify_contamination.py` and the full row-level join output before publication. That does not gate publication, and any correction is published in the same place with the original left visible beside it.
 
