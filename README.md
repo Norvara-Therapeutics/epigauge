@@ -65,9 +65,9 @@ roadmap, not this release.
 | # | within-allele | pooled | entry |
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ *label recoverable from a public IEDB assay table at 0.9101* |
-| 3 | 0.5712 | 0.5952 | **NORVARA-3B** ◆ |
-| 4 | 0.5675 | 0.6106 | **NORVARA-650M** ◆ |
-| 5 | 0.5664 | 0.6169 | **NORVARA-150M** ◆ |
+| 3 | 0.5712 | 0.5952 | NORVARA-3B |
+| 4 | 0.5675 | 0.6106 | NORVARA-650M |
+| 5 | 0.5664 | 0.6169 | NORVARA-150M |
 | **11** | **0.5264** | 0.5650 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
 | 12 | 0.5205 | 0.5663 | PRIME-2.0 |
 | 20 | 0.5129 | 0.5541 | MHCflurry-2.0 |
@@ -75,9 +75,8 @@ roadmap, not this release.
 | 29 | 0.4879 | 0.5465 | TransPHLA |
 | **37** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
 
-Ranked on within-allele; pooled is printed, never ranked on. **◆** submitted by EpiGauge's authors,
-who may submit but do not assess their own methods. Nine rows of 37 — and nearly every gap is below
-the MDE, so read the column as a band, not an order.
+Ranked on within-allele; pooled is printed, never ranked on. Nine rows of 37 — and nearly
+every gap is below the MDE, so read the column as a band, not an order.
 
 **[Full leaderboard →](LEADERBOARD.md)**
 

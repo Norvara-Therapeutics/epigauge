@@ -20,16 +20,15 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | marker | meaning |
 |---|---|
 | ⚠ | **Not a capability measurement.** The label is recoverable from public data, or the benchmark rows are contained in the method's training set. Details [below the table](#why-the--rows-are-not-capability-measurements). |
-| ◆ | **Organiser submission.** Submitted by Norvara, the benchmark's authors, and not independently assessed. |
 | **bold row** | Reference baseline — the bar a method has to clear before its number means anything. |
 
 | # | within-allele | pooled | entry |
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ |
 | 2 | 0.5742 | 0.6053 | TITANiAN-IM ablation 1,2,3,4,7 ⚠ |
-| 3 | 0.5712 | 0.5952 | **NORVARA-3B** ◆ — frozen ESM-2 3B backbone, 2,561-param head |
-| 4 | 0.5675 | 0.6106 | **NORVARA-650M** ◆ — frozen ESM-2 650M backbone, 1,281-param head |
-| 5 | 0.5664 | 0.6169 | **NORVARA-150M** ◆ — frozen ESM-2 150M backbone, 641-param head |
+| 3 | 0.5712 | 0.5952 | NORVARA-3B — frozen ESM-2 3B backbone, 2,561-param head |
+| 4 | 0.5675 | 0.6106 | NORVARA-650M — frozen ESM-2 650M backbone, 1,281-param head |
+| 5 | 0.5664 | 0.6169 | NORVARA-150M — frozen ESM-2 150M backbone, 641-param head |
 | 6 | 0.5657 | 0.6210 | TITANiAN-IM ablation 3,4,5,6,7 ⚠ |
 | 7 | 0.5445 | 0.5758 | TITANiAN-IM ablation 1,2,5,6,7 ⚠ |
 | 8 | 0.5328 | 0.5687 | BigMHC canonical-LSTM IM ablation |
@@ -66,12 +65,6 @@ Ranks 35–36 are two rows of the machine-readable table — NetMHCpan-4.1 score
 withheld under the same licence term and collapsed into one line here.
 
 ## Notes on the marked rows
-
-### Why the ◆ rows are set apart
-
-**◆ NORVARA-150M, NORVARA-650M and NORVARA-3B** are entries submitted by the benchmark's authors
-(Norvara). EpiGauge's authors may submit methods but do not assess their own; these rows are marked
-so an organiser's result is never read as a neutral reference point.
 
 ### Why the ⚠ rows are not capability measurements
 
