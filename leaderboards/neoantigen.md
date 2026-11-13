@@ -31,34 +31,34 @@ single-class, so 228 of 833 rows are excluded from the estimator rather than imp
 | 5 | 0.5234 | 0.5383 | MixMHCpred-2.2 (scores) |
 | 6 | 0.5234 | 0.5522 | MixMHCpred-2.2 (percentile ranks, sign-corrected) |
 | 7 | 0.5230 | 0.4788 | MHCflurry-2.0 (percentile ranks, sign-corrected) |
-| 8 | 0.5163 | 0.5529 | NetMHCpan-4.1 (scores) |
-| 9 | 0.5163 | 0.5266 | NetMHCpan-4.1 (percentile ranks, sign-corrected) |
-| 10 | 0.5118 | 0.5215 | HLAthena (percentile ranks, sign-corrected) |
-| 11 | 0.5102 | 0.5100 | BigMHC_EL |
-| 12 | 0.5081 | 0.5024 | HLAthena (scores) |
-| 13 | 0.5075 | 0.5159 | BigMHC_Ablation_Wide_LSTM_EL |
-| 14 | 0.4955 | 0.4742 | TransPHLA |
-| 15 | 0.4874 | 0.5568 | MHCnuggets-2.4.0 |
-| 16 | 0.4835 | 0.5135 | TITANiAN-IM-baseline ⚠ |
-| 17 | 0.4827 | 0.5039 | BigMHC_Ablation_Canonical_LSTM_EL |
-| 18 | 0.4827 | 0.6048 | TITANiAN-IM ⚠ |
-| 19 | 0.4800 | 0.5107 | TITANiAN-IM-ablation-1,2,3,4,5,6 ⚠ |
-| 20 | 0.4751 | 0.5352 | PRIME-2.0 (scores) |
-| 21 | 0.4751 | 0.5452 | PRIME-2.0 (percentile ranks, sign-corrected) |
-| 22 | 0.4724 | 0.5026 | PRIME-1.0 (percentile ranks, sign-corrected) |
-| 23 | 0.4722 | 0.4998 | PRIME-1.0 (scores) |
-| 24 | 0.4639 | 0.4801 | TITANiAN-IM-ablation-1,2,5,6,7 ⚠ |
-| 25 | 0.4556 | 0.4663 | NORVARA-150M |
-| **26** | **0.4497** | 0.4681 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
-| 27 | 0.4489 | 0.5646 | TITANiAN-IM-ablation-1,2,3,4,7 ⚠ |
-| 28 | 0.4438 | 0.5524 | BigMHC_ELIM ⚠ |
-| 29 | 0.4434 | 0.5459 | BigMHC_Ablation_Canonical_LSTM_ELIM |
-| 30 | 0.4413 | 0.5094 | BigMHC_IM ⚠ |
-| 31 | 0.4383 | 0.5157 | BigMHC_Ablation_Canonical_LSTM_IM |
-| 32 | 0.4377 | 0.5804 | BigMHC_Ablation_Wide_LSTM_ELIM |
-| 33 | 0.4309 | 0.5180 | BigMHC_Ablation_Wide_LSTM_IM |
-| 34 | 0.4203 | 0.4669 | NORVARA-3B |
-| 35 | 0.4053 | 0.4253 | NORVARA-650M |
+| 8 | 0.5118 | 0.5215 | HLAthena (percentile ranks, sign-corrected) |
+| 9 | 0.5102 | 0.5100 | BigMHC_EL |
+| 10 | 0.5081 | 0.5024 | HLAthena (scores) |
+| 11 | 0.5075 | 0.5159 | BigMHC_Ablation_Wide_LSTM_EL |
+| 12 | 0.4955 | 0.4742 | TransPHLA |
+| 13 | 0.4874 | 0.5568 | MHCnuggets-2.4.0 |
+| 14 | 0.4835 | 0.5135 | TITANiAN-IM-baseline ⚠ |
+| 15 | 0.4827 | 0.5039 | BigMHC_Ablation_Canonical_LSTM_EL |
+| 16 | 0.4827 | 0.6048 | TITANiAN-IM ⚠ |
+| 17 | 0.4800 | 0.5107 | TITANiAN-IM-ablation-1,2,3,4,5,6 ⚠ |
+| 18 | 0.4751 | 0.5352 | PRIME-2.0 (scores) |
+| 19 | 0.4751 | 0.5452 | PRIME-2.0 (percentile ranks, sign-corrected) |
+| 20 | 0.4724 | 0.5026 | PRIME-1.0 (percentile ranks, sign-corrected) |
+| 21 | 0.4722 | 0.4998 | PRIME-1.0 (scores) |
+| 22 | 0.4639 | 0.4801 | TITANiAN-IM-ablation-1,2,5,6,7 ⚠ |
+| 23 | 0.4556 | 0.4663 | NORVARA-150M |
+| **24** | **0.4497** | 0.4681 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
+| 25 | 0.4489 | 0.5646 | TITANiAN-IM-ablation-1,2,3,4,7 ⚠ |
+| 26 | 0.4438 | 0.5524 | BigMHC_ELIM ⚠ |
+| 27 | 0.4434 | 0.5459 | BigMHC_Ablation_Canonical_LSTM_ELIM |
+| 28 | 0.4413 | 0.5094 | BigMHC_IM ⚠ |
+| 29 | 0.4383 | 0.5157 | BigMHC_Ablation_Canonical_LSTM_IM |
+| 30 | 0.4377 | 0.5804 | BigMHC_Ablation_Wide_LSTM_ELIM |
+| 31 | 0.4309 | 0.5180 | BigMHC_Ablation_Wide_LSTM_IM |
+| 32 | 0.4203 | 0.4669 | NORVARA-3B |
+| 33 | 0.4053 | 0.4253 | NORVARA-650M |
+| 33-34 | withheld | withheld | NetMHCpan-4.1 (scores) |
+| 33-34 | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
 
 <!-- END GENERATED TABLE -->
 

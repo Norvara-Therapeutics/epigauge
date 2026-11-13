@@ -124,7 +124,7 @@ _G = ["A", "A", "A", "A", "B", "B", "B", "B", "C", "C", "C", "C"]
 
 def test_missing_grouping_raises_and_would_have_equalled_pooled() -> None:
     """A uniformly-missing allele column makes within-allele equal pooled exactly
-    (0.584138 vs the correct 0.492317). Both look publishable, so this raises."""
+    (0.944444 vs the correct 1.000000). Both look publishable, so this raises."""
     one_group = ["A"] * len(_Y)
     expect_raises(DegenerateGroupingError, stratified_auroc, _Y, _S, one_group)
 
@@ -136,6 +136,14 @@ def test_missing_grouping_raises_and_would_have_equalled_pooled() -> None:
     correct = stratified_auroc(_Y, _S, _G)
     check(abs(correct.value - pooled) > 1e-6,
           "the stratified and pooled estimates must differ on this fixture, or it proves nothing")
+
+    # The literals above are asserted, not just described. This docstring previously
+    # named a pair (0.584138 / 0.492317) that these arrays cannot produce, and the
+    # relational checks could not catch it because they never read the values.
+    check(abs(silent - 0.944444) < 5e-7,
+          f"the documented bypassed value no longer matches the fixture: {silent:.6f}")
+    check(abs(correct.value - 1.000000) < 5e-7,
+          f"the documented correct value no longer matches the fixture: {correct.value:.6f}")
 
 
 def test_all_singleton_grouping_raises_instead_of_returning_half() -> None:

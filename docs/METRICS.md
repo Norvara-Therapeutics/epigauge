@@ -15,7 +15,7 @@ A_wa = sum_a w_a * C_a    C_a = AUROC within stratum a
 
 Strata are alleles. Admissible when `n+_a >= min_per_class` and `n-_a >= min_per_class` (default 1). Inadmissible strata take weight zero and are **excluded, never imputed to 0.5**; they stay in `per_stratum` and in `n_strata_total`. A single-class stratum is not an error — it returns `auroc: None`, `pair_weight: 0.0`.
 
-Pair weight, not an unweighted macro, because the alleles are unequal. Infectious set (n = 2,093, 78 alleles): 36 strata admissible over 1,787 rows (85.4%); three alleles hold 49% of evaluable rows; 14 of the 36 hold 66 rows — 3.7% of rows but **38.9% of the weight under an unweighted macro**. One arm: macro **0.580835** vs pair-weighted **0.562251**. Not rank-then-pool either (see below).
+Pair weight, not an unweighted macro, because the alleles are unequal. Infectious set (n = 2,093, 78 alleles): 36 strata admissible over 1,787 rows (85.4%); three alleles hold 49% of evaluable rows; the 14 smallest hold 66 rows — 3.7% of rows and 0.13% of the discordant pairs, but **38.9% of the weight under an unweighted macro**. On `titanian_ablation_keeps_3_4_5_6_7`: macro **0.587002** vs pair-weighted **0.565703**, a difference of 0.021299. Not rank-then-pool either (see below).
 
 Returns a `StratifiedResult`, never a bare float: `0.531844  strata 36/78  rows 1787/2093  H=0.0863`
 
@@ -25,7 +25,7 @@ Fields: `value` (`A_wa`), `n_strata_contributing`/`n_strata_total`, `n_rows_eval
 
 | condition | the number it prevents |
 |---|---|
-| any empty or `None` group key | every row lands in one group, within-allele silently becomes pooled: **0.584138 reported where the correct figure was 0.492317**. Row index named |
+| any empty or `None` group key | every row lands in one group, within-allele silently becomes pooled. On the guard's fixture the bypassed path returns **0.944444**, equal to pooled, where the correct within-allele value is **1.000000**. Row index named |
 | all rows share one group key | same failure; the estimate would equal pooled AUROC to machine precision |
 | every group is a singleton | **exactly 0.500000 regardless of the scores** — reads "no signal", means "no grouping" |
 | no admissible stratum | nothing to average; message gives `min_per_class`, group count, row count |
@@ -69,9 +69,9 @@ chance                                        0.5000    (exactly; not 0.522)
 
 ## `pooled_rank_auroc(labels, scores, groups)` — diagnostic only
 
-Rank-normalise within group to `(midrank - 0.5) / n_group`, then one pooled AUROC over all rows. This is what much of the literature calls "within-allele AUROC"; kept **only** to reproduce historical figures, and **never reportable as a within-allele number**. Cross-group pairs still contribute (pooled 0.5837 above both constituents, pathogen 0.5806 / self 0.5727), and singleton and single-class groups are injected at 0.5 instead of excluded. Degenerate inputs return publishable-looking numbers: **0.584138** under a uniformly missing grouping where the correct figure is 0.492317, **exactly 0.500000** under an all-singleton grouping.
+Rank-normalise within group to `(midrank - 0.5) / n_group`, then one pooled AUROC over all rows. This is what much of the literature calls "within-allele AUROC"; kept **only** to reproduce historical figures, and **never reportable as a within-allele number**. Cross-group pairs still contribute (pooled 0.5837 above both constituents, pathogen 0.5806 / self 0.5727), and singleton and single-class groups are injected at 0.5 instead of excluded. Degenerate inputs return publishable-looking numbers: on the guard's fixture, **0.944444** under a uniformly missing grouping where the correct within-allele figure is 1.000000, and **exactly 0.500000** under an all-singleton grouping regardless of the scores.
 
-Same arm, three estimators: **0.554016** rank-then-pool, **0.562251** pair-weighted, **0.580835** macro. On neoantigen the same scores give 0.486 rank-then-pool and 0.513 macro — below and above chance. Both intervals span chance, so the conclusion holds, but **direction may never be stated without naming the estimator**. True under all three: "does not demonstrate within-allele signal; the interval includes chance".
+Same arm (`titanian_ablation_keeps_3_4_5_6_7`), two estimators: **0.565703** pair-weighted, **0.587002** macro. On neoantigen the same scores give 0.486 rank-then-pool and 0.513 macro — below and above chance. Both intervals span chance, so the conclusion holds, but **direction may never be stated without naming the estimator**. True under all three: "does not demonstrate within-allele signal; the interval includes chance".
 
 ## Pooled and stratified ship together, or neither ships
 
