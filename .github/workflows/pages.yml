@@ -60,6 +60,7 @@ jobs:
           }
 
           page LEADERBOARD.md site/index.md 'EpiGauge leaderboard'
+          page LEADERBOARD-NEOANTIGEN.md site/neoantigen.md 'Neoantigen benchmark'
           page README.md      site/readme.md 'EpiGauge'
           for f in docs/*.md; do
             page "$f" "site/docs/$(basename "$f")" "$(basename "$f" .md)"
@@ -81,6 +82,7 @@ jobs:
 
           # Machine-readable form, served as a download.
           cp leaderboard.csv site/leaderboard.csv
+          cp leaderboard-neoantigen.csv site/leaderboard-neoantigen.csv
 
           printf '\n---\n\n[Project README](readme.md) · [leaderboard.csv](leaderboard.csv) · [Repository](https://github.com/%s)\n' \
             "${REPO}" >> site/index.md
@@ -171,6 +173,9 @@ jobs:
           set -euo pipefail
           test -f _site/index.html       || { echo "no _site/index.html"; exit 1; }
           test -f _site/leaderboard.csv  || { echo "leaderboard.csv was not published"; exit 1; }
+          test -f _site/neoantigen.html || { echo "no _site/neoantigen.html"; exit 1; }
+          test -f _site/leaderboard-neoantigen.csv \
+            || { echo "leaderboard-neoantigen.csv was not published"; exit 1; }
           test -f _site/readme.html      || { echo "no _site/readme.html"; exit 1; }
           for f in _site/docs/*.html; do test -f "$f" || { echo "docs did not render"; exit 1; }; done
           # The theme stylesheet is referenced through relative_url; if baseurl
@@ -184,12 +189,14 @@ jobs:
           # following lines as raw HTML, so the table silently became a paragraph and
           # `---` was typeset as an em-dash. GitHub's own renderer tolerated it, so the
           # repo looked right and only the published site was broken. Count the rows.
-          rows=$(grep -c '<tr' _site/index.html || echo 0)
-          if [ "$rows" -lt 30 ]; then
-            echo "index.html has $rows <tr> rows; the leaderboard did not render as a table"
-            exit 1
-          fi
-          echo "leaderboard rendered: $rows table rows"
+          for pg in index neoantigen; do
+            rows=$(grep -c '<tr' "_site/$pg.html" || echo 0)
+            if [ "$rows" -lt 30 ]; then
+              echo "$pg.html has $rows <tr> rows; the leaderboard did not render as a table"
+              exit 1
+            fi
+            echo "$pg rendered: $rows table rows"
+          done
           echo "build output OK"
 
       - uses: actions/upload-pages-artifact@v3

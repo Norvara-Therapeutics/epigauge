@@ -78,7 +78,11 @@ roadmap, not this release.
 Ranked on within-allele; pooled is printed, never ranked on. Nine rows of 37 — and nearly
 every gap is below the MDE, so read the column as a band, not an order.
 
-**[Full leaderboard →](LEADERBOARD.md)**
+**[Full leaderboard →](LEADERBOARD.md)** · **[Neoantigen arm →](LEADERBOARD-NEOANTIGEN.md)**
+
+On the neoantigen arm **no method performs above chance** — all 35 span 0.405–0.540 with 22 below
+0.500, peptide length alone ranks first, and TITANiAN-IM falls from 0.7444 to 0.4827 once its
+assay-table lookup covers 1.3% of rows instead of 100%.
 
 An unfitted 1982 physicochemical scale places 11th, above PRIME-2.0, MHCflurry-2.0, MixMHCpred,
 NetMHCpan-4.1, TransPHLA and six BigMHC variants.

@@ -25,10 +25,24 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REFERENCE = ROOT / "leaderboard.reference.csv"
 LEDGER = ROOT / "submissions" / "ledger.csv"
-CSV_OUT = ROOT / "leaderboard.csv"
-MD_OUT = ROOT / "LEADERBOARD.md"
+
+#: One entry per published arm. Each has its own reference table, page and CSV; the
+#: ledger is shared and filtered by the `benchmark` column a submission declares.
+ARMS = {
+    "infectious": {
+        "reference": ROOT / "leaderboard.reference.csv",
+        "csv": ROOT / "leaderboard.csv",
+        "md": ROOT / "LEADERBOARD.md",
+        "set_id": "titanian_infectious",
+    },
+    "neoantigen": {
+        "reference": ROOT / "leaderboard-neoantigen.reference.csv",
+        "csv": ROOT / "leaderboard-neoantigen.csv",
+        "md": ROOT / "LEADERBOARD-NEOANTIGEN.md",
+        "set_id": "titanian_neoantigen",
+    },
+}
 
 BEGIN = "<!-- BEGIN GENERATED TABLE -->"
 END = "<!-- END GENERATED TABLE -->"
@@ -42,21 +56,24 @@ def _f(value: str) -> float | None:
         return None
 
 
-def load_reference() -> list[dict]:
-    if not REFERENCE.is_file():
-        raise SystemExit(f"could not run: {REFERENCE} is missing; it is the shipped reference "
+def load_reference(arm: dict) -> list[dict]:
+    ref = arm["reference"]
+    if not ref.is_file():
+        raise SystemExit(f"could not run: {ref} is missing; it is the shipped reference "
                          "table and nothing can be rebuilt without it")
-    with REFERENCE.open(newline="") as fh:
+    with ref.open(newline="") as fh:
         return list(csv.DictReader(fh))
 
 
-def load_ledger() -> list[dict]:
-    """Submissions scored by CI. Absent before the first merge, which is not an error."""
+def load_ledger(arm: dict) -> list[dict]:
+    """Submissions scored by CI for THIS arm. Absent before the first merge."""
     if not LEDGER.is_file():
         return []
     rows = []
     with LEDGER.open(newline="") as fh:
         for r in csv.DictReader(fh):
+            if (r.get("benchmark") or "").strip() != arm["set_id"]:
+                continue  # a submission belongs to exactly one arm
             wa = _f(r.get("within_allele", ""))
             if wa is None:
                 continue  # a submission that could not be scored is not a leaderboard row
@@ -71,13 +88,13 @@ def load_ledger() -> list[dict]:
     return rows
 
 
-def merged() -> list[dict]:
+def merged(arm: dict) -> list[dict]:
     """Reference columns and submissions in one table, ranked on within-allele.
 
     Withheld rows carry no figure and cannot be sorted, so they keep the rank recorded in
     the reference table and are appended in that order.
     """
-    rows = load_reference() + load_ledger()
+    rows = load_reference(arm) + load_ledger(arm)
     rankable = [r for r in rows if _f(r.get("within_allele", "")) is not None]
     withheld = [r for r in rows if _f(r.get("within_allele", "")) is None]
     rankable.sort(key=lambda r: float(r["within_allele"]), reverse=True)
@@ -110,9 +127,9 @@ def to_markdown(rows: list[dict]) -> str:
     return "\n".join(out)
 
 
-def splice(md: str, table: str) -> str:
+def splice(md: str, table: str, name: str) -> str:
     if BEGIN not in md or END not in md:
-        raise SystemExit(f"could not run: {MD_OUT.name} has no {BEGIN} / {END} markers, so the "
+        raise SystemExit(f"could not run: {name} has no {BEGIN} / {END} markers, so the "
                          "generated table has nowhere to go and the prose would be overwritten")
     head, rest = md.split(BEGIN, 1)
     _, tail = rest.split(END, 1)
@@ -125,28 +142,37 @@ def splice(md: str, table: str) -> str:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--arm", choices=sorted(ARMS), action="append",
+                    help="arm to rebuild; repeatable, default all")
     ap.add_argument("--check", action="store_true",
-                    help="exit 1 if the published files are stale; write nothing")
+                    help="exit 1 if any published file is stale; write nothing")
     args = ap.parse_args(argv)
 
-    rows = merged()
-    new_csv = to_csv(rows)
-    new_md = splice(MD_OUT.read_text(), to_markdown(rows))
+    stale, wrote = [], []
+    for name in (args.arm or sorted(ARMS)):
+        arm = ARMS[name]
+        rows = merged(arm)
+        new_csv = to_csv(rows)
+        new_md = splice(arm["md"].read_text(), to_markdown(rows), arm["md"].name)
+        if args.check:
+            stale += [p.name for p, new in ((arm["csv"], new_csv), (arm["md"], new_md))
+                      if p.read_text() != new]
+        else:
+            arm["csv"].write_text(new_csv)
+            arm["md"].write_text(new_md)
+            from_ledger = len(load_ledger(arm))
+            wrote.append(f"{name}: {len(rows)} rows, {from_ledger} from the ledger")
 
     if args.check:
-        stale = [p.name for p, new in ((CSV_OUT, new_csv), (MD_OUT, new_md))
-                 if p.read_text() != new]
         if stale:
-            print(f"STALE: {', '.join(stale)} do not match the reference table and the ledger.")
+            print(f"STALE: {', '.join(stale)} do not match the reference tables and the ledger.")
             print("Run scripts/build_leaderboard.py and commit the result.")
             return 1
-        print(f"current: {len(rows)} rows, published files match their sources.")
+        print("current: every published file matches its sources.")
         return 0
 
-    CSV_OUT.write_text(new_csv)
-    MD_OUT.write_text(new_md)
-    subs = sum(1 for r in rows if r.get("submitted_by") and not r.get("flag"))
-    print(f"wrote {CSV_OUT.name} and {MD_OUT.name}: {len(rows)} rows, {subs} from the ledger.")
+    for line in wrote:
+        print(line)
     return 0
 
 
