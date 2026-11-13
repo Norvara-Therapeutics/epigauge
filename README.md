@@ -2,9 +2,9 @@
 
 # EpiGauge
 
-**The ruler anyone can pick up.**
-Open measurement for T-cell epitope immunogenicity — so a published number means the same thing
-in your hands as it does in ours.
+**Measurement you do not have to take on trust.**
+A shared instrument for T-cell epitope immunogenicity prediction — one estimator, every
+contamination mapped, every baseline shipped, so a result means the same thing wherever it is read.
 
 [![Latest release](https://img.shields.io/github/v/release/norvara-therapeutics/epigauge?label=latest%20release&sort=semver)](https://github.com/norvara-therapeutics/epigauge/releases)
 [![Build](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml/badge.svg)](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml)
