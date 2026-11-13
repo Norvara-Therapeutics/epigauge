@@ -22,8 +22,6 @@ in your hands as it does in ours.
 
 ## Why this exists
 
-A benchmark nobody owns is a benchmark anyone can check.
-
 Right now, published AUROCs for this task run from 0.47 to 0.85 and almost none of them can be
 compared — different estimators, contaminated test sets, margins smaller than the noise floor. When
 the ruler belongs to whoever is being measured, a field cannot correct itself, and it has not.
