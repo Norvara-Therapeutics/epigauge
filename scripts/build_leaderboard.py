@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate LEADERBOARD.md and leaderboard.csv from the reference rows plus the ledger.
+"""Regenerate the pages and CSVs under leaderboards/ from the reference rows plus the ledger.
 
 Closes the gap between merging a submission and publishing it. Merging appended a row to
 `submissions/ledger.csv` and nothing rewrote the published table, so a submitter saw a
@@ -31,15 +31,15 @@ LEDGER = ROOT / "submissions" / "ledger.csv"
 #: ledger is shared and filtered by the `benchmark` column a submission declares.
 ARMS = {
     "infectious": {
-        "reference": ROOT / "leaderboard.reference.csv",
-        "csv": ROOT / "leaderboard.csv",
-        "md": ROOT / "LEADERBOARD.md",
+        "reference": ROOT / "leaderboards/sources/infectious.csv",
+        "csv": ROOT / "leaderboards/infectious.csv",
+        "md": ROOT / "leaderboards/infectious.md",
         "set_id": "titanian_infectious",
     },
     "neoantigen": {
-        "reference": ROOT / "leaderboard-neoantigen.reference.csv",
-        "csv": ROOT / "leaderboard-neoantigen.csv",
-        "md": ROOT / "LEADERBOARD-NEOANTIGEN.md",
+        "reference": ROOT / "leaderboards/sources/neoantigen.csv",
+        "csv": ROOT / "leaderboards/neoantigen.csv",
+        "md": ROOT / "leaderboards/neoantigen.md",
         "set_id": "titanian_neoantigen",
     },
 }

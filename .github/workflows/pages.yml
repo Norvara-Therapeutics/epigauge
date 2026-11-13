@@ -1,5 +1,5 @@
 # Publishes the leaderboard to GitHub Pages.
-# Source of truth stays LEADERBOARD.md; this only renders it.
+# Source of truth stays leaderboards/*.md; this only renders them.
 
 name: pages
 
@@ -63,8 +63,8 @@ jobs:
             cat "$1" >> "$2"
           }
 
-          page LEADERBOARD.md site/index.md 'EpiGauge leaderboard'
-          page LEADERBOARD-NEOANTIGEN.md site/neoantigen.md 'Neoantigen benchmark'
+          page leaderboards/infectious.md site/index.md 'EpiGauge leaderboard'
+          page leaderboards/neoantigen.md site/neoantigen.md 'Neoantigen benchmark'
           page README.md      site/readme.md 'EpiGauge'
           for f in docs/*.md; do
             page "$f" "site/docs/$(basename "$f")" "$(basename "$f" .md)"
@@ -76,13 +76,22 @@ jobs:
           # 404s. These two are the only such links (the verify step below is
           # what keeps that true).
 
-          # In the repo the arms are LEADERBOARD.md and LEADERBOARD-NEOANTIGEN.md; in
+          # In the repo the arms live under leaderboards/; in
           # the site they are index.md and neoantigen.md. Applied to EVERY page, so a
           # new cross-link cannot be missed -- the hand-picked list was wrong twice.
           # Order matters: the longer name first, or it matches the shorter prefix.
           for f in site/*.md site/docs/*.md; do
-            sed -i 's#](LEADERBOARD-NEOANTIGEN\.md)#](neoantigen.md)#g' "$f"
-            sed -i 's#](LEADERBOARD\.md)#](index.md)#g' "$f"
+            sed -i 's#](\.\./leaderboards/neoantigen\.md)#](neoantigen.md)#g' "$f"
+            sed -i 's#](\.\./leaderboards/infectious\.md)#](index.md)#g' "$f"
+            sed -i 's#](leaderboards/neoantigen\.md)#](neoantigen.md)#g' "$f"
+            sed -i 's#](leaderboards/infectious\.md)#](index.md)#g' "$f"
+            sed -i 's#](neoantigen\.md)#](neoantigen.md)#g' "$f"
+            sed -i 's#](infectious\.md)#](index.md)#g' "$f"
+            # The arm pages live in leaderboards/ in the repo and at the site root
+            # here, so their ../ paths have one level too many.
+            sed -i 's#](\.\./docs/#](docs/#g' "$f"
+            sed -i "s#](\.\./scripts/#](${blob}/scripts/#g" "$f"
+            sed -i "s#](\.\./benchmarks/#](${blob}/benchmarks/#g" "$f"
             sed -i 's#](docs/\([A-Za-z_-]*\)\.md)#](docs/\1.md)#g' "$f"
           done
 
@@ -91,10 +100,10 @@ jobs:
           sed -i "s#](\.\./submissions/#](${blob}/submissions/#g" site/docs/SUBMITTING.md
 
           # Machine-readable form, served as a download.
-          cp leaderboard.csv site/leaderboard.csv
-          cp leaderboard-neoantigen.csv site/leaderboard-neoantigen.csv
+          cp leaderboards/infectious.csv site/infectious.csv
+          cp leaderboards/neoantigen.csv site/neoantigen.csv
 
-          printf '\n---\n\n[Project README](readme.md) · [leaderboard.csv](leaderboard.csv) · [Repository](https://github.com/%s)\n' \
+          printf '\n---\n\n[Project README](readme.md) · [infectious.csv](infectious.csv) · [Repository](https://github.com/%s)\n' \
             "${REPO}" >> site/index.md
 
           # baseurl is load-bearing, not cosmetic. Both the Primer theme's
@@ -182,10 +191,9 @@ jobs:
         run: |
           set -euo pipefail
           test -f _site/index.html       || { echo "no _site/index.html"; exit 1; }
-          test -f _site/leaderboard.csv  || { echo "leaderboard.csv was not published"; exit 1; }
+          test -f _site/infectious.csv  || { echo "infectious.csv was not published"; exit 1; }
           test -f _site/neoantigen.html || { echo "no _site/neoantigen.html"; exit 1; }
-          test -f _site/leaderboard-neoantigen.csv \
-            || { echo "leaderboard-neoantigen.csv was not published"; exit 1; }
+          test -f _site/neoantigen.csv || { echo "neoantigen.csv was not published"; exit 1; }
           test -f _site/readme.html      || { echo "no _site/readme.html"; exit 1; }
           for f in _site/docs/*.html; do test -f "$f" || { echo "docs did not render"; exit 1; }; done
           # The theme stylesheet is referenced through relative_url; if baseurl

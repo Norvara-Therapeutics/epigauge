@@ -106,5 +106,5 @@ epigauge leaderboard --set titanian_infectious
 Scores for every shipped column, the row set and the per-file checksums are in
 [`benchmarks/`](https://github.com/norvara-therapeutics/epigauge/tree/main/benchmarks) in the
 repository. The estimator, the degeneracy guards and the chance-bar construction are specified in
-[METRICS](docs/METRICS.md); the submission contract is in [SUBMITTING](docs/SUBMITTING.md).
-Machine-readable form of this table: [leaderboard.csv](leaderboard.csv).
+[METRICS](../docs/METRICS.md); the submission contract is in [SUBMITTING](../docs/SUBMITTING.md).
+Machine-readable form of this table: [leaderboard.csv](infectious.csv).

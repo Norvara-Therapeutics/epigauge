@@ -2,6 +2,8 @@
 
 **A measurement instrument for class-I T-cell epitope immunogenicity prediction.**
 
+### 📊 [Infectious leaderboard](https://norvara-therapeutics.github.io/epigauge/) · [Neoantigen leaderboard](https://norvara-therapeutics.github.io/epigauge/neoantigen)
+
 Published AUROCs for this task run from 0.47 to 0.85 and almost none of them are comparable.
 EpiGauge makes them comparable: one specified estimator, a contamination census per row, and the
 baselines a method has to beat before its number means anything.
@@ -78,7 +80,7 @@ roadmap, not this release.
 Ranked on within-allele; pooled is printed, never ranked on. Nine rows of 37 — and nearly
 every gap is below the MDE, so read the column as a band, not an order.
 
-**[Full leaderboard →](LEADERBOARD.md)** · **[Neoantigen arm →](LEADERBOARD-NEOANTIGEN.md)**
+**[Full leaderboard →](leaderboards/infectious.md)** · **[Neoantigen arm →](leaderboards/neoantigen.md)**
 
 On the neoantigen arm **no method performs above chance** — all 35 span 0.405–0.540 with 22 below
 0.500, peptide length alone ranks first, and TITANiAN-IM falls from 0.7444 to 0.4827 once its

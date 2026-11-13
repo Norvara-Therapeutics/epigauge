@@ -12,7 +12,7 @@ Estimator: pair-weighted within-allele AUROC over **22 of 49 admissible strata**
 
 **Every row is contained in another public dataset.** All 833 are present in `im_test.csv` in the
 BigMHC Mendeley deposit — same labels, 25 of 25 shared predictor columns byte-identical. Any method
-in that lineage may have trained on them. See [CONTAMINATION.md](docs/CONTAMINATION.md).
+in that lineage may have trained on them. See [CONTAMINATION.md](../docs/CONTAMINATION.md).
 
 **The labels barely support learning.** A model trained *on these very rows* reaches only 0.5535.
 That is the ceiling for anything fitted here, and it is close to chance.
@@ -72,7 +72,7 @@ single-class, so 228 of 833 rows are excluded from the estimator rather than imp
 ### Peptide length ranks first here and last on infectious
 
 A single integer — the length of the peptide — tops this table at **0.5397**, and places **37th of
-37 at 0.4132** on [the infectious benchmark](LEADERBOARD.md). A feature cannot be the best predictor
+37 at 0.4132** on [the infectious benchmark](infectious.md). A feature cannot be the best predictor
 of immunogenicity on one set and the worst on another. It is reading how each set was assembled.
 
 ### TITANiAN-IM falls 0.744 → 0.483
@@ -112,6 +112,6 @@ pip install -e .
 epigauge leaderboard --set titanian_neoantigen
 ```
 
-Machine-readable: [leaderboard-neoantigen.csv](leaderboard-neoantigen.csv). The estimator and its
-guards are specified in [METRICS](docs/METRICS.md); the infectious arm is
-[here](LEADERBOARD.md).
+Machine-readable: [neoantigen.csv](neoantigen.csv). The estimator and its
+guards are specified in [METRICS](../docs/METRICS.md); the infectious arm is
+[here](infectious.md).
