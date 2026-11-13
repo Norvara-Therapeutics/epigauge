@@ -1,11 +1,5 @@
 # Publishes the leaderboard to GitHub Pages.
 # Source of truth stays LEADERBOARD.md; this only renders it.
-#
-# Repository setting required once, by hand: Settings -> Pages -> Build and
-# deployment -> Source: "GitHub Actions". Without it the configure-pages step
-# fails with "Get Pages site failed". Automating that needs a PAT or App token
-# (configure-pages' `enablement` input explicitly rejects GITHUB_TOKEN), so it
-# is left as a manual step rather than a broken one.
 
 name: pages
 

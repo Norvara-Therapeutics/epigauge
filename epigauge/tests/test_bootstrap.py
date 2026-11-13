@@ -495,7 +495,6 @@ def test_mixed_basis_table_raises_instead_of_printing() -> None:
               f"the refusal must name both cells: {str(e)!r}")
 
     # Same unit, different B is ALSO a mixed basis: B moves the width too.
-    rnd = random.Random(5)
     other_B = _two_arm_estimates(B=200)[0]
     check(other_B.basis != clustered.basis, "B must appear in the basis string")
     expect_raises(MixedBasisError, format_table, [("a", clustered), ("b", other_B)])

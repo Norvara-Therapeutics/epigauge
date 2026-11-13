@@ -22,6 +22,7 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | ⚠ | **Not a capability measurement.** The label is recoverable from public data, or the benchmark rows are contained in the method's training set. Details [below the table](#why-the--rows-are-not-capability-measurements). |
 | **bold row** | Reference baseline — the bar a method has to clear before its number means anything. |
 
+<!-- BEGIN GENERATED TABLE -->
 | # | within-allele | pooled | entry |
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ |
@@ -49,7 +50,7 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | 23 | 0.5119 | 0.5567 | MixMHCpred-2.2 (percentile ranks, sign-corrected) |
 | 24 | 0.5088 | 0.5652 | BigMHC wide-LSTM IM ablation |
 | 25 | 0.5080 | 0.5632 | BigMHC wide-LSTM ELIM ablation |
-| **26** | **0.5000** | **0.7122** | **BASELINE — allele lookup, no peptide input** |
+| **26** | **0.5000** | 0.7122 | **BASELINE — allele lookup, no peptide input** |
 | 27 | 0.4969 | 0.4540 | MHCnuggets-2.4.0 |
 | 28 | 0.4901 | 0.5599 | TITANiAN-IM baseline ⚠ |
 | 29 | 0.4879 | 0.5465 | TransPHLA |
@@ -58,8 +59,10 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | 32 | 0.4746 | 0.5417 | BigMHC wide-LSTM EL ablation |
 | 33 | 0.4714 | 0.5233 | HLAthena (percentile ranks, sign-corrected) |
 | 34 | 0.4705 | 0.5048 | HLAthena (scores) |
-| 35–36 | *withheld* | *withheld* | NetMHCpan-4.1 — scored, but its licence forbids publishing benchmark results on it without written consent. It ranks below the hydropathy baseline |
-| **37** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
+| **35** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
+| 35-36 | withheld | withheld | NetMHCpan-4.1 (scores) |
+| 35-36 | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
+<!-- END GENERATED TABLE -->
 
 Ranks 35–36 are two rows of the machine-readable table — NetMHCpan-4.1 scores and percentile ranks —
 withheld under the same licence term and collapsed into one line here.

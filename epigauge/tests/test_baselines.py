@@ -14,13 +14,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from epigauge.baselines import (  # noqa: E402
+    PWM,
     AlleleOnly,
     BaselineError,
     EvaluationLeakError,
     Hydropathy,
     HydropathyLengthAllele,
     Length,
-    PWM,
     ShuffledSentinel,
     SingularDesignError,
     mean_kd,

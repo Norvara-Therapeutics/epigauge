@@ -292,10 +292,15 @@ jobs:
           done
 
           if [ "$appended" -gt 0 ]; then
+            # Regenerate the published table from the reference rows plus the ledger.
+            # Without this the submission is scored and recorded but never appears on
+            # the site, which is what a submitter is actually waiting for.
+            python3 -I scripts/build_leaderboard.py
+
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add "$ledger"
-            git commit -m "ledger: append ${appended} scored submission(s) [skip ci]"
+            git add "$ledger" leaderboard.csv LEADERBOARD.md
+            git commit -m "leaderboard: ${appended} scored submission(s) [skip ci]"
             git push
           fi
           exit $status

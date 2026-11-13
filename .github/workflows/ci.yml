@@ -128,6 +128,11 @@ jobs:
       - name: Guard coverage may not fall below the recorded floor
         run: python3 -I scripts/check_fixture_coverage.py
 
+      # The published table is generated, so a hand-edit that drifts from the reference
+      # rows or the ledger is caught here rather than on the live site.
+      - name: The published leaderboard matches its sources
+        run: python3 -I scripts/build_leaderboard.py --check
+
   packaging:
     name: packaging (no internal/, sdist < 50MB)
     runs-on: ubuntu-latest

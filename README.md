@@ -126,9 +126,9 @@ is real.
 
 ## Status
 
-**Pre-release.** 102 regression fixtures pass; guard coverage is ratcheted at 50 of 101 sites and
-may not fall. NetMHCpan-4.1 was scored and its figures are withheld, because its licence requires
-written consent before benchmark results on it are published.
+**Released, v0.1.0.** 102 regression fixtures pass and guard coverage is ratcheted at 50 of 101
+sites, so it may not fall. NetMHCpan-4.1 was scored and its figures are withheld, because its
+licence requires written consent before benchmark results on it are published.
 
 ## License
 
