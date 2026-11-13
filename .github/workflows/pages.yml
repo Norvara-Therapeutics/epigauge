@@ -100,6 +100,10 @@ jobs:
           sed -i "s#](\.\./submissions/#](${blob}/submissions/#g" site/docs/SUBMITTING.md
 
           # Machine-readable form, served as a download.
+          # README images. The verifier below only reads markdown links, so an
+          # <img src> would 404 silently without this.
+          cp -r assets site/assets
+
           cp leaderboards/infectious.csv site/infectious.csv
           cp leaderboards/neoantigen.csv site/neoantigen.csv
 
@@ -192,6 +196,9 @@ jobs:
           set -euo pipefail
           test -f _site/index.html       || { echo "no _site/index.html"; exit 1; }
           test -f _site/infectious.csv  || { echo "infectious.csv was not published"; exit 1; }
+          for img in $(grep -o 'src="assets/[^"]*"' _site/readme.html | sed 's/src="//;s/"//'); do
+            test -f "_site/$img" || { echo "$img referenced but not published"; exit 1; }
+          done
           test -f _site/neoantigen.html || { echo "no _site/neoantigen.html"; exit 1; }
           test -f _site/neoantigen.csv || { echo "neoantigen.csv was not published"; exit 1; }
           test -f _site/readme.html      || { echo "no _site/readme.html"; exit 1; }

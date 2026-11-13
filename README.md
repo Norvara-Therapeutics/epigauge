@@ -1,12 +1,46 @@
+<div align="center">
+
 # EpiGauge
 
-**A measurement instrument for class-I T-cell epitope immunogenicity prediction.**
+**The ruler anyone can pick up.**
+Open measurement for T-cell epitope immunogenicity — so a published number means the same thing
+in your hands as it does in ours.
+
+[![Latest release](https://img.shields.io/github/v/release/norvara-therapeutics/epigauge?label=latest%20release&sort=semver)](https://github.com/norvara-therapeutics/epigauge/releases)
+[![Build](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml/badge.svg)](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml)
+[![Pages](https://github.com/norvara-therapeutics/epigauge/actions/workflows/pages.yml/badge.svg)](https://github.com/norvara-therapeutics/epigauge/actions/workflows/pages.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 
 ### 📊 [Infectious leaderboard](https://norvara-therapeutics.github.io/epigauge/) · [Neoantigen leaderboard](https://norvara-therapeutics.github.io/epigauge/neoantigen)
 
-Published AUROCs for this task run from 0.47 to 0.85 and almost none of them are comparable.
-EpiGauge makes them comparable: one specified estimator, a contamination census per row, and the
-baselines a method has to beat before its number means anything.
+<img src="assets/norvara-leaderboard.gif" alt="EpiGauge leaderboard" width="760">
+
+</div>
+
+---
+
+## Why this exists
+
+A benchmark nobody owns is a benchmark anyone can check.
+
+Right now, published AUROCs for this task run from 0.47 to 0.85 and almost none of them can be
+compared — different estimators, contaminated test sets, margins smaller than the noise floor. When
+the ruler belongs to whoever is being measured, a field cannot correct itself, and it has not.
+
+These predictions feed vaccine design and cancer immunotherapy. People will eventually act on them.
+So the instrument should be free, legible and in everyone's hands — including the hands of people
+who want to prove us wrong. **We scored our own models on it and they place 3rd, 4th and 5th on one
+arm and 25th, 34th and 35th on the other. Both results are published here.** That is the whole
+point: the measurement does not care who built it.
+
+Zero dependencies, MIT, every figure reproducible from a bare interpreter. Take it, fork it, run it
+against us.
+
+---
+
+EpiGauge makes published numbers comparable: one specified estimator, a contamination census per
+row, and the baselines a method has to beat before its number means anything.
 
 ---
 

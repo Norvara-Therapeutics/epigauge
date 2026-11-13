@@ -61,3 +61,6 @@ global-exclude .env .env.* *.pem *.key credentials.json secrets.yaml
 # rows above are redistributed.
 prune data
 prune outputs
+
+# The README gif, so sdist readers see the same page as GitHub.
+recursive-include assets *.gif
