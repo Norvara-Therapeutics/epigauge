@@ -1,0 +1,81 @@
+# Turns a pushed tag into a GitHub Release.
+#
+# A git tag and a GitHub Release are different objects: pushing `v0.1.0` creates the tag
+# and nothing else. The release badge, the Releases page and `gh release download` all
+# read Releases, so a tag on its own leaves them empty.
+#
+# This also attaches the sdist and wheel, so the artifact a reader downloads is the one
+# CI built from the tagged commit rather than one they build themselves.
+
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "existing tag to release"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: publish the release for this tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refuse to release a tag that disagrees with the package version
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${{ github.event.inputs.tag || github.ref_name }}"
+          pkg=$(python3 -c "import tomllib,pathlib;print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
+          echo "tag=$tag  pyproject=$pkg"
+          # A release whose tag and metadata disagree is worse than no release: whoever
+          # installs it gets a version string that matches neither.
+          if [ "${tag#v}" != "$pkg" ]; then
+            echo "tag ${tag} does not match pyproject version ${pkg}"
+            exit 1
+          fi
+
+      - name: The tests must pass on the tagged commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          for t in epigauge/tests/test_*.py; do python3 -I "$t" | tail -1; done
+          python3 -I scripts/check_fixture_coverage.py
+          python3 -I scripts/build_leaderboard.py --check
+
+      - name: Build the distributions
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "release $TAG already exists; uploading artifacts only"
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* \
+              --title "EpiGauge $TAG" \
+              --generate-notes
+          fi
+          gh release view "$TAG" --json tagName,assets \
+            --jq '"released \(.tagName) with \(.assets | length) asset(s)"'
