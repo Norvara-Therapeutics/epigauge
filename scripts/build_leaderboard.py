@@ -1,19 +1,10 @@
 #!/usr/bin/env python3
-"""Regenerate the pages and CSVs under leaderboards/ from the reference rows plus the ledger.
+"""Regenerate the pages and CSVs under leaderboards/ from the reference rows and the ledger.
 
-Closes the gap between merging a submission and publishing it. Merging appended a row to
-`submissions/ledger.csv` and nothing rewrote the published table, so a submitter saw a
-scorecard on their PR, a row in the ledger, and no change on the site.
+Each arm has its own reference table, page and CSV; the ledger is shared and filtered by
+the `benchmark` a submission declares. Prose outside the BEGIN/END markers is preserved.
 
-`reference.csv` holds the shipped columns, which change only when the benchmark does.
-`submissions/ledger.csv` holds every scored submission. This merges them, sorts on
-within-allele, and writes both outputs. The markdown prose between the markers is
-preserved verbatim, so editing the narrative and regenerating the table are independent.
-
-    python3 -I scripts/build_leaderboard.py          # rewrite both files
-    python3 -I scripts/build_leaderboard.py --check  # exit 1 if they are stale
-
-Standard library only.
+    python3 -I scripts/build_leaderboard.py [--arm NAME] [--check]
 """
 
 from __future__ import annotations

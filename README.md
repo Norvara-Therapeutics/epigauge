@@ -28,12 +28,7 @@ the ruler belongs to whoever is being measured, a field cannot correct itself, a
 
 These predictions feed vaccine design and cancer immunotherapy. People will eventually act on them.
 So the instrument should be free, legible and in everyone's hands — including the hands of people
-who want to prove us wrong. **We scored our own models on it and they place 3rd, 4th and 5th on one
-arm and 25th, 34th and 35th on the other. Both results are published here.** That is the whole
-point: the measurement does not care who built it.
-
-Zero dependencies, MIT, every figure reproducible from a bare interpreter. Take it, fork it, run it
-against us.
+who want to prove us wrong.
 
 ---
 

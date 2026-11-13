@@ -1,28 +1,9 @@
-# Benchmark submissions. SEPARATE FROM ci.yml ON PURPOSE -- ci.yml guards the package,
-# this file guards the leaderboard, and the two have different triggers, different
-# permissions and different failure meanings.
+# Scores benchmark submissions opened as pull requests.
 #
-# THERE IS NO SERVER AND NO MAILBOX. A submission is a pull request adding one file,
-# `submissions/<team>/<YYYY-MM-DD>-<method>.yaml`. The predictions themselves are not
-# committed -- they are large -- so the YAML carries a public URL and the sha256 of the
-# bytes at it. This workflow downloads them, checks the digest, scores them with
-# `scripts/score_submission.py`, and posts the scorecard as a PR comment. Merging appends
-# one row to `submissions/ledger.csv`.
-#
-# GIT HISTORY IS THE EVALUATION LEDGER. Every submission ever scored is a commit, so the
-# number of times this benchmark has been read is public and auditable with nothing
-# hosted and nothing to maintain. That count is itself a reported number: this project
-# has seen 186 configurations carry a documented external figure in work whose prose
-# claimed each benchmark was read once.
-#
-# WHY THE COMMENT IS POSTED FROM A SECOND JOB ON `workflow_run`.
-#   The `score` job runs submitter-controlled input: it follows a URL from the PR and
-#   downloads whatever is behind it. It therefore runs on `pull_request`, which for a
-#   fork gets a READ-ONLY token and no secrets. Posting a comment needs write access, so
-#   it happens in `comment`, which runs on `workflow_run` AFTER the scoring finished, is
-#   defined on the default branch, and never checks out or executes PR code. This is the
-#   documented pattern; `pull_request_target` would hand a write token to a job that
-#   fetches a submitter's URL, which is the thing not to do.
+# `score` runs submitter-controlled input on `pull_request` with a read-only token.
+# `comment` posts the result from `workflow_run`, which has write access and never checks
+# out PR code. Splitting them is deliberate: `pull_request_target` would hand a write
+# token to a job that fetches a submitter's URL.
 
 name: submission
 
