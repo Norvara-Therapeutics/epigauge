@@ -1,5 +1,5 @@
 {
-  "produced_utc": "2026-11-14T17:41:51+00:00",
+  "produced_utc": "2026-11-14T17:43:58+00:00",
   "script": "supplementary/scripts/ceiling_convergence.py",
   "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
   "basis": "stratified on min reference count, 400 splits, seed-20261114",
@@ -89,5 +89,5 @@
     0.623,
     0.9119
   ],
-  "interpretation": "The plug-in bound falls and the cross-fit bound rises as reference count grows, narrowing the bracket from 0.2889 to 0.1248. Both move toward roughly 0.70-0.75. The published 0.9119 is the plug-in bound in the noisiest stratum, where 63 per cent of units carry two references and 61.3 per cent of those sit at an endpoint of p-hat. It is an upper bound on the true ceiling, not an estimate of it."
+  "interpretation": "The plug-in bound falls and the cross-fit bound rises as reference count grows. Ceiling-2's bracket goes from 0.2889 at min k 2 to 0.1249 at min k 10, and Ceiling-1's from 0.2016 to 0.003. The published 0.9119 and 0.8237 are the plug-in bounds in the noisiest stratum, where most units carry two references. They are upper bounds on the true ceilings, not estimates of them. The level at which the two bounds meet on deeply measured units is a property of those more-studied epitopes and does not transfer to the audited subpopulation; the convergence is the evidence."
 }

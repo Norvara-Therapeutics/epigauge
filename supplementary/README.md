@@ -182,12 +182,16 @@ property of the literature.
 
 ### `artifacts/annotation/ceiling_crossfit.json`
 
-The lower bound of each ceiling's bracket. Both published ceiling figures are plug-ins:
-they rank by `p_ref` and weight by the same `p_ref`, so they inherit its estimation error,
-and most audited units carry only two references. This splits each unit's reference votes
-in half, scores from one half and takes the target from the other, so no vote supplies both
-a score and its own target. Over 400 splits Ceiling-2 is **0.6230** against the plug-in
-0.9119. Reads `iedb_unit_votes.json` and nothing else.
+The lower bound of **Ceiling-2's** bracket, and of that one only. Both published ceiling
+figures are plug-ins: they rank by `p_ref` and weight by the same `p_ref`, so they inherit
+its estimation error, and most audited units carry only two references. This splits each
+unit's reference votes in half, scores from one half and takes the target from the other,
+so no vote supplies both a score and its own target. Over 400 splits Ceiling-2 is
+**0.6230** against the plug-in 0.9119. Reads `iedb_unit_votes.json` and nothing else.
+
+Ceiling-1 is not cross-fit here: its score is the majority label, which on a two-vote split
+is the scoring vote itself, so the construction degenerates. Ceiling-1's lower bound comes
+from `ceiling_convergence.json`, as the `c1_crossfit_lower` field of each stratum.
 
 Note the definition the table actually stores: `p_ref = (n_pos_refs + n_tie_refs / 2) / k`.
 It is neither `n_pos_refs / k` (which gives 0.9080) nor `n_pos_refs / (n_pos_refs +
@@ -196,11 +200,13 @@ published 0.9119 from the shipped table.
 
 ### `artifacts/annotation/ceiling_convergence.json`
 
-The bracket for both ceilings at each minimum reference count from 2 to 10. The plug-in
-bound is biased up and the cross-fit bound down, so each ceiling lies between them, and
-both biases shrink as a unit accumulates references. Ceiling-1's bracket closes to **0.0030**
-on the 209 units carrying at least ten references, which is what identifies its width of
-0.2016 at `k >= 2` as estimation noise rather than ignorance. Headroom from the
+The bracket for both ceilings at seven minimum reference counts: 2, 3, 4, 5, 6, 8 and 10.
+The plug-in bound is biased up and the cross-fit bound down, so each ceiling lies between
+them, and both biases shrink as a unit accumulates references. Ceiling-1's bracket closes
+to **0.0030** on the 209 units carrying at least ten references, which is what identifies
+its width of 0.2016 at `k >= 2` as estimation noise rather than ignorance. Ceiling-2's
+bracket is non-monotone across the first step, 0.2889 at `k >= 2` against 0.2900 at
+`k >= 3`, and narrows from there. Headroom from the
 in-distribution 0.6125 to Ceiling-1 is 0.2112 at the plug-in bound and 0.0096 at the
 cross-fit bound.
 

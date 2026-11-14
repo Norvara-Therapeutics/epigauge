@@ -140,13 +140,18 @@ def main(argv=None) -> int:
                                              base["c1_plugin_upper"]],
         "c2_bracket_audited_subpopulation": [base["c2_crossfit_lower"],
                                              base["c2_plugin_upper"]],
+        # Derived, never hardcoded: a fixed string drifts from the numbers beside it
+        # the first time the split count or the strata change.
         "interpretation": (
-            "The plug-in bound falls and the cross-fit bound rises as reference count "
-            "grows, narrowing the bracket from 0.2889 to 0.1248. Both move toward roughly "
-            "0.70-0.75. The published 0.9119 is the plug-in bound in the noisiest stratum, "
-            "where 63 per cent of units carry two references and 61.3 per cent of those sit "
-            "at an endpoint of p-hat. It is an upper bound on the true ceiling, not an "
-            "estimate of it."
+            f"The plug-in bound falls and the cross-fit bound rises as reference count "
+            f"grows. Ceiling-2's bracket goes from {base['c2_bracket']} at min k 2 to "
+            f"{rows[-1]['c2_bracket']} at min k {rows[-1]['min_k']}, and Ceiling-1's from "
+            f"{base['c1_bracket']} to {rows[-1]['c1_bracket']}. The published "
+            f"{PLUGIN_C2} and {PLUGIN_C1} are the plug-in bounds in the noisiest stratum, "
+            f"where most units carry two references. They are upper bounds on the true "
+            f"ceilings, not estimates of them. The level at which the two bounds meet on "
+            f"deeply measured units is a property of those more-studied epitopes and does "
+            f"not transfer to the audited subpopulation; the convergence is the evidence."
         ),
     }
     OUT.write_text(json.dumps(out, indent=2) + "\n")
