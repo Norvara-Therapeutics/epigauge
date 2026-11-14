@@ -1,7 +1,7 @@
 {
-  "produced_utc": "2026-11-14T13:01:44+00:00",
+  "produced_utc": "2026-11-14T14:56:10+00:00",
   "script": "supplementary/scripts/score_unscored_arms.py",
-  "B": 50,
+  "B": 10000,
   "cluster_mode": "proteome",
   "cluster_basis": "cluster",
   "proteomes": [
@@ -37,10 +37,10 @@
           "provisional": false,
           "pooled": 0.4443,
           "ci95": [
-            0.2355,
-            0.3826
+            0.2222,
+            0.3846
           ],
-          "basis": "cluster/50/fresh/4e45a96e/1.000",
+          "basis": "cluster/10000/fresh/4e45a96e/1.000",
           "interval_provisional": false
         },
         {
@@ -57,8 +57,27 @@
             0.4479,
             0.5625
           ],
-          "basis": "cluster/50/fresh/4e45a96e/1.000",
+          "basis": "cluster/10000/fresh/4e45a96e/1.000",
           "interval_provisional": false
+        },
+        {
+          "entry": "MHCflurry 2.3.28 (presentation score)",
+          "n_scored": 105,
+          "n_total": 105,
+          "coverage": 1.0,
+          "within_allele": 0.5339,
+          "strata": "15/22",
+          "rows_evaluable": "92/105",
+          "provisional": false,
+          "pooled": 0.478,
+          "ci95": [
+            0.4078,
+            0.75
+          ],
+          "basis": "cluster/10000/fresh/4e45a96e/1.000",
+          "interval_provisional": false,
+          "alleles_supported_rows": "105/105",
+          "model_version": "models_class1_presentation 2.3.0"
         }
       ],
       "contrasts": [
@@ -68,11 +87,35 @@
           "delta": 0.1441,
           "lo": 0.1368,
           "hi": 0.3333,
-          "p": 0.0196,
-          "se": 0.0569,
-          "mde": 0.1594,
+          "p": 0.0001,
+          "se": 0.0388,
+          "mde": 0.1088,
+          "resolvable": true,
+          "basis": "cluster/10000/fresh/4e45a96e/1.000"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 peptide length",
+          "delta": 0.1949,
+          "lo": 0.0348,
+          "hi": 0.375,
+          "p": 0.0001,
+          "se": 0.1059,
+          "mde": 0.2966,
           "resolvable": false,
-          "basis": "cluster/50/fresh/4e45a96e/1.000"
+          "basis": "cluster/10000/fresh/4e45a96e/1.000"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.0508,
+          "lo": -0.1456,
+          "hi": 0.2137,
+          "p": 0.2864,
+          "se": 0.1189,
+          "mde": 0.3331,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/4e45a96e/1.000"
         }
       ]
     },
@@ -96,10 +139,10 @@
           "provisional": true,
           "pooled": 0.5104,
           "ci95": [
-            0.4565,
-            0.6425
+            0.4557,
+            0.6442
           ],
-          "basis": "cluster/50/fresh/2cae8e07/0.036",
+          "basis": "cluster/10000/fresh/2cae8e07/0.036",
           "interval_provisional": true
         },
         {
@@ -113,11 +156,30 @@
           "provisional": true,
           "pooled": 0.4965,
           "ci95": [
-            0.2443,
-            0.561
+            0.248,
+            0.5692
           ],
-          "basis": "cluster/50/fresh/2cae8e07/0.036",
+          "basis": "cluster/10000/fresh/2cae8e07/0.036",
           "interval_provisional": true
+        },
+        {
+          "entry": "MHCflurry 2.3.28 (presentation score)",
+          "n_scored": 138,
+          "n_total": 138,
+          "coverage": 1.0,
+          "within_allele": 0.5547,
+          "strata": "9/29",
+          "rows_evaluable": "111/138",
+          "provisional": true,
+          "pooled": 0.5578,
+          "ci95": [
+            0.4101,
+            0.6991
+          ],
+          "basis": "cluster/10000/fresh/2cae8e07/0.036",
+          "interval_provisional": true,
+          "alleles_supported_rows": "138/138",
+          "model_version": "models_class1_presentation 2.3.0"
         }
       ],
       "contrasts": [
@@ -125,13 +187,37 @@
           "a": "BASELINE \u2014 peptide length",
           "b": "BASELINE \u2014 mean hydropathy",
           "delta": 0.1459,
-          "lo": 0.0051,
-          "hi": 0.3075,
-          "p": 0.0392,
-          "se": 0.0926,
-          "mde": 0.2594,
+          "lo": -0.0271,
+          "hi": 0.3099,
+          "p": 0.0478,
+          "se": 0.087,
+          "mde": 0.2437,
           "resolvable": false,
-          "basis": "cluster/50/fresh/2cae8e07/0.036"
+          "basis": "cluster/10000/fresh/2cae8e07/0.036"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 peptide length",
+          "delta": 0.0038,
+          "lo": -0.1839,
+          "hi": 0.1871,
+          "p": 0.4759,
+          "se": 0.0928,
+          "mde": 0.2601,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/2cae8e07/0.036"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.1497,
+          "lo": -0.087,
+          "hi": 0.3899,
+          "p": 0.1052,
+          "se": 0.1208,
+          "mde": 0.3383,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/2cae8e07/0.036"
         }
       ]
     },
@@ -155,10 +241,10 @@
           "provisional": true,
           "pooled": 0.4933,
           "ci95": [
-            0.4529,
-            0.6027
+            0.4274,
+            0.6129
           ],
-          "basis": "cluster/50/fresh/86727bde/0.453",
+          "basis": "cluster/10000/fresh/86727bde/0.453",
           "interval_provisional": true
         },
         {
@@ -172,11 +258,30 @@
           "provisional": true,
           "pooled": 0.5479,
           "ci95": [
-            0.3305,
-            0.5501
+            0.2901,
+            0.555
           ],
-          "basis": "cluster/50/fresh/86727bde/0.453",
+          "basis": "cluster/10000/fresh/86727bde/0.453",
           "interval_provisional": true
+        },
+        {
+          "entry": "MHCflurry 2.3.28 (presentation score)",
+          "n_scored": 243,
+          "n_total": 243,
+          "coverage": 1.0,
+          "within_allele": 0.5506,
+          "strata": "23/42",
+          "rows_evaluable": "213/243",
+          "provisional": true,
+          "pooled": 0.4815,
+          "ci95": [
+            0.4334,
+            0.6733
+          ],
+          "basis": "cluster/10000/fresh/86727bde/0.453",
+          "interval_provisional": true,
+          "alleles_supported_rows": "243/243",
+          "model_version": "models_class1_presentation 2.3.0"
         }
       ],
       "contrasts": [
@@ -184,13 +289,37 @@
           "a": "BASELINE \u2014 peptide length",
           "b": "BASELINE \u2014 mean hydropathy",
           "delta": 0.0947,
-          "lo": -0.0585,
-          "hi": 0.2365,
-          "p": 0.2745,
-          "se": 0.0897,
-          "mde": 0.2512,
+          "lo": -0.0612,
+          "hi": 0.2516,
+          "p": 0.1455,
+          "se": 0.0814,
+          "mde": 0.228,
           "resolvable": false,
-          "basis": "cluster/50/fresh/86727bde/0.453"
+          "basis": "cluster/10000/fresh/86727bde/0.453"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 peptide length",
+          "delta": 0.0325,
+          "lo": -0.1314,
+          "hi": 0.1816,
+          "p": 0.3175,
+          "se": 0.0805,
+          "mde": 0.2255,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/86727bde/0.453"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.1272,
+          "lo": -0.0644,
+          "hi": 0.3262,
+          "p": 0.0973,
+          "se": 0.099,
+          "mde": 0.2773,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/86727bde/0.453"
         }
       ]
     },
@@ -214,10 +343,10 @@
           "provisional": true,
           "pooled": 0.6128,
           "ci95": [
-            0.5271,
-            0.6594
+            0.5258,
+            0.6716
           ],
-          "basis": "cluster/50/fresh/3e046951/0.030",
+          "basis": "cluster/10000/fresh/3e046951/0.030",
           "interval_provisional": true
         },
         {
@@ -231,11 +360,30 @@
           "provisional": true,
           "pooled": 0.6014,
           "ci95": [
-            0.4148,
-            0.6966
+            0.4113,
+            0.6781
           ],
-          "basis": "cluster/50/fresh/3e046951/0.030",
+          "basis": "cluster/10000/fresh/3e046951/0.030",
           "interval_provisional": true
+        },
+        {
+          "entry": "MHCflurry 2.3.28 (presentation score)",
+          "n_scored": 199,
+          "n_total": 199,
+          "coverage": 1.0,
+          "within_allele": 0.7164,
+          "strata": "8/31",
+          "rows_evaluable": "160/199",
+          "provisional": true,
+          "pooled": 0.5928,
+          "ci95": [
+            0.6088,
+            0.8116
+          ],
+          "basis": "cluster/10000/fresh/3e046951/0.030",
+          "interval_provisional": true,
+          "alleles_supported_rows": "199/199",
+          "model_version": "models_class1_presentation 2.3.0"
         }
       ],
       "contrasts": [
@@ -243,13 +391,37 @@
           "a": "BASELINE \u2014 peptide length",
           "b": "BASELINE \u2014 mean hydropathy",
           "delta": 0.057,
-          "lo": -0.0733,
-          "hi": 0.1959,
-          "p": 0.1765,
-          "se": 0.063,
-          "mde": 0.1765,
+          "lo": -0.093,
+          "hi": 0.2095,
+          "p": 0.2292,
+          "se": 0.0772,
+          "mde": 0.2164,
           "resolvable": false,
-          "basis": "cluster/50/fresh/3e046951/0.030"
+          "basis": "cluster/10000/fresh/3e046951/0.030"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 peptide length",
+          "delta": 0.1172,
+          "lo": -0.0203,
+          "hi": 0.2402,
+          "p": 0.0479,
+          "se": 0.0662,
+          "mde": 0.1854,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/3e046951/0.030"
+        },
+        {
+          "a": "MHCflurry 2.3.28 (presentation score)",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.1742,
+          "lo": 0.0191,
+          "hi": 0.323,
+          "p": 0.0132,
+          "se": 0.0779,
+          "mde": 0.2182,
+          "resolvable": false,
+          "basis": "cluster/10000/fresh/3e046951/0.030"
         }
       ]
     }
