@@ -37,7 +37,8 @@ ARMS = {
 
 BEGIN = "<!-- BEGIN GENERATED TABLE -->"
 END = "<!-- END GENERATED TABLE -->"
-COLUMNS = ["rank", "within_allele", "pooled", "entry", "flag", "submitted_by", "date"]
+COLUMNS = ["rank", "within_allele", "pooled", "entry", "score_provenance", "flag",
+           "submitted_by", "date"]
 
 
 def _f(value: str) -> float | None:
@@ -73,6 +74,7 @@ def load_ledger(arm: dict) -> list[dict]:
                 "rank": "", "within_allele": f"{wa:.4f}",
                 "pooled": f"{_f(r.get('pooled', '')) or 0:.4f}",
                 "entry": name or r.get("team", "unnamed"),
+                "score_provenance": "fresh-inference",
                 "flag": "", "submitted_by": r.get("team", ""),
                 "date": (r.get("scored_utc", "") or "")[:10],
             })
@@ -109,6 +111,8 @@ def to_markdown(rows: list[dict]) -> str:
         entry = r["entry"]
         if r.get("flag", "").startswith("not-a-capability"):
             entry += " ⚠"
+        if r.get("score_provenance", "") == "table-column":
+            entry += " †"
         if entry.startswith("BASELINE"):
             entry = f"**{entry}**"
             cells = (f"**{r['rank']}**", f"**{r['within_allele']}**", r["pooled"])
