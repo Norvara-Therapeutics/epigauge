@@ -14,8 +14,6 @@ contamination mapped, every baseline shipped, so a result means the same thing w
 
 ### 📊 [Infectious leaderboard](https://norvara-therapeutics.github.io/epigauge/) · [Neoantigen leaderboard](https://norvara-therapeutics.github.io/epigauge/neoantigen)
 
-<img src="assets/norvara-leaderboard.gif" alt="EpiGauge leaderboard" width="760">
-
 </div>
 
 ---
