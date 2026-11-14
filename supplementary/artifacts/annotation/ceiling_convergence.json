@@ -1,5 +1,5 @@
 {
-  "produced_utc": "2026-11-14T17:43:58+00:00",
+  "produced_utc": "2026-11-14T17:50:22+00:00",
   "script": "supplementary/scripts/ceiling_convergence.py",
   "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
   "basis": "stratified on min reference count, 400 splits, seed-20261114",
@@ -75,6 +75,19 @@
       "c2_bracket": 0.1249
     }
   ],
+  "variance_decomposition": {
+    "share_of_units_with_two_refs": 62.9,
+    "share_of_two_ref_units_at_an_endpoint": 61.3,
+    "k_range_fitted": [
+      2,
+      8
+    ],
+    "n_strata_fitted": 7,
+    "var_true_p_intercept": 0.0049,
+    "mean_p_one_minus_p_slope": 0.2126,
+    "sd_true_p": 0.0698,
+    "noise_share_of_variance_at_k2": 95.6
+  },
   "bracket_narrows_with_k": true,
   "widest_bracket": 0.29,
   "narrowest_bracket": 0.1249,
@@ -89,5 +102,5 @@
     0.623,
     0.9119
   ],
-  "interpretation": "The plug-in bound falls and the cross-fit bound rises as reference count grows. Ceiling-2's bracket goes from 0.2889 at min k 2 to 0.1249 at min k 10, and Ceiling-1's from 0.2016 to 0.003. The published 0.9119 and 0.8237 are the plug-in bounds in the noisiest stratum, where most units carry two references. They are upper bounds on the true ceilings, not estimates of them. The level at which the two bounds meet on deeply measured units is a property of those more-studied epitopes and does not transfer to the audited subpopulation; the convergence is the evidence."
+  "interpretation": "The plug-in bound falls at every step on both ceilings. The cross-fit bound moves over a narrower span and is not monotone, so it is the BRACKET WIDTH that narrows. Ceiling-2's goes from 0.2889 at min k 2 to 0.1249 at min k 10, and Ceiling-1's from 0.2016 to 0.003. The published 0.9119 and 0.8237 are the plug-in bounds in the noisiest stratum, where most units carry two references. They are upper bounds on the true ceilings, not estimates of them. A population shift moves one bound without closing the gap between two, so the closing of both brackets is the signature of estimation noise. The level at which the bounds meet on deeply measured units is a property of those more-studied epitopes and does not transfer to the audited subpopulation; the convergence is the evidence."
 }

@@ -44,7 +44,9 @@ ROOT = Path(__file__).resolve().parents[2]
 VOTES = ROOT / "supplementary" / "artifacts" / "annotation" / "iedb_unit_votes.json"
 CROSSFIT = ROOT / "supplementary" / "artifacts" / "annotation" / "ceiling_crossfit.json"
 OUT = ROOT / "supplementary" / "artifacts" / "annotation" / "ceiling_deconvolved.json"
+REFUSED = ROOT / "supplementary" / "artifacts" / "annotation" / "ceiling_deconvolved_refused.json"
 
+XF_TOL = 0.08
 PLUGIN_C1 = 0.8237
 PLUGIN_C2 = 0.9119
 
@@ -161,8 +163,33 @@ def main(argv=None) -> int:
         xf = json.loads(CROSSFIT.read_text()).get("ceiling_2_crossfit_mean")
 
     ok_var = worst < 0.01
-    ok_xf = xf is None or abs(c2 - xf) < 0.08
+    ok_xf = xf is None or abs(c2 - xf) < XF_TOL
     if not (ok_var and ok_xf):
+        # A refusal is a result about the model, so it is recorded rather than only
+        # printed. The exit status stays 1: nothing here is a figure of the analysis.
+        REFUSED.write_text(json.dumps({
+            "produced_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+            "script": "supplementary/scripts/ceiling_deconvolved.py",
+            "source_sha256": v.get("source_sha256"),
+            "verdict": "REFUSED",
+            "what_was_fitted": "Beta(a,b)-Binomial on the decisive vote rate, MLE",
+            "why_refused": [
+                None if ok_var else
+                "the fitted model does not reproduce the observed variance of p-hat at "
+                f"every k; worst absolute gap {round(worst, 5)}",
+                None if ok_xf else
+                "the deconvolved Ceiling-2 disagrees with the model-free cross-fit by "
+                f"more than {XF_TOL}",
+            ],
+            "beta_a": round(a, 4), "beta_b": round(b, 4),
+            "variance_check": rows,
+            "variance_check_worst_abs_gap": round(worst, 5),
+            "refused_ceiling_2": round(c2, 4),
+            "refused_ceiling_1": round(c1, 4),
+            "crossfit_ceiling_2_for_comparison": xf,
+            "note": "No figure in the manuscript is taken from this file. It records that "
+                    "a latent-family model was fitted and rejected, and by how much.",
+        }, indent=2) + "\n")
         print("REFUSING TO REPORT a deconvolved ceiling.", file=sys.stderr)
         if not ok_var:
             print(f"  the fitted beta-binomial misses the observed variance of p-hat by "
@@ -173,6 +200,7 @@ def main(argv=None) -> int:
         for r in rows:
             print(f"    k={r['k']:<2} n={r['n']:<5} observed {r['observed_var']:.5f} "
                   f"predicted {r['predicted_var']:.5f}", file=sys.stderr)
+        print(f"  refusal recorded: {REFUSED}", file=sys.stderr)
         return 1
 
     out = {

@@ -64,6 +64,38 @@ def auroc(points: list[tuple[float, float]]) -> float:
     return tot / (P * N)
 
 
+def noise_share(units: list[list[float]]) -> dict:
+    """Split the spread of p-hat into true heterogeneity and reference-sampling noise.
+
+    Var(p-hat | k) = Var(p_true) + E[p(1-p)]/k, so regressing the observed variance on 1/k
+    gives the true heterogeneity as the intercept and the per-draw variance as the slope.
+    This is the figure the manuscript quotes for how much of the apparent disagreement
+    spread at two references is noise.
+    """
+    pts = []
+    for kk in range(2, 9):
+        g = [sum(u) / len(u) for u in units if len(u) == kk]
+        if len(g) >= 50:
+            pts.append((1.0 / kk, st.pvariance(g), kk, len(g)))
+    n = len(pts)
+    sx = sum(x for x, _, _, _ in pts); sy = sum(y for _, y, _, _ in pts)
+    sxx = sum(x * x for x, _, _, _ in pts); sxy = sum(x * y for x, y, _, _ in pts)
+    slope = (n * sxy - sx * sy) / (n * sxx - sx * sx)
+    icpt = (sy - slope * sx) / n
+    share2 = (slope / 2) / (icpt + slope / 2)
+    at2 = [sum(u) / len(u) for u in units if len(u) == 2]
+    return {
+        "share_of_units_with_two_refs": round(100 * len(at2) / len(units), 1),
+        "share_of_two_ref_units_at_an_endpoint": round(
+            100 * sum(1 for x in at2 if x in (0.0, 1.0)) / len(at2), 1),
+        "k_range_fitted": [pts[0][2], pts[-1][2]],
+        "n_strata_fitted": n,
+        "var_true_p_intercept": round(icpt, 4),
+        "mean_p_one_minus_p_slope": round(slope, 4),
+        "sd_true_p": round(icpt ** 0.5, 4) if icpt > 0 else None,
+        "noise_share_of_variance_at_k2": round(share2 * 100, 1),
+    }
+
 def majority(x: float) -> float:
     return 1.0 if x > 0.5 else (0.0 if x < 0.5 else 0.5)
 
@@ -130,6 +162,7 @@ def main(argv=None) -> int:
         "source_sha256": v.get("source_sha256"),
         "basis": f"stratified on min reference count, {args.splits} splits, seed-{args.seed}",
         "strata": rows,
+        "variance_decomposition": noise_share(units),
         "bracket_narrows_with_k": monotone,
         "widest_bracket": round(max(widths), 4),
         "narrowest_bracket": round(min(widths), 4),
@@ -143,13 +176,16 @@ def main(argv=None) -> int:
         # Derived, never hardcoded: a fixed string drifts from the numbers beside it
         # the first time the split count or the strata change.
         "interpretation": (
-            f"The plug-in bound falls and the cross-fit bound rises as reference count "
-            f"grows. Ceiling-2's bracket goes from {base['c2_bracket']} at min k 2 to "
+            f"The plug-in bound falls at every step on both ceilings. The cross-fit "
+            f"bound moves over a narrower span and is not monotone, so it is the BRACKET "
+            f"WIDTH that narrows. Ceiling-2's goes from {base['c2_bracket']} at min k 2 to "
             f"{rows[-1]['c2_bracket']} at min k {rows[-1]['min_k']}, and Ceiling-1's from "
             f"{base['c1_bracket']} to {rows[-1]['c1_bracket']}. The published "
             f"{PLUGIN_C2} and {PLUGIN_C1} are the plug-in bounds in the noisiest stratum, "
             f"where most units carry two references. They are upper bounds on the true "
-            f"ceilings, not estimates of them. The level at which the two bounds meet on "
+            f"ceilings, not estimates of them. A population shift moves one bound "
+            f"without closing the gap between two, so the closing of both brackets is the "
+            f"signature of estimation noise. The level at which the bounds meet on "
             f"deeply measured units is a property of those more-studied epitopes and does "
             f"not transfer to the audited subpopulation; the convergence is the evidence."
         ),
@@ -162,7 +198,11 @@ def main(argv=None) -> int:
               f"{r['c1_crossfit_lower']:.4f}   {r['c1_bracket']:+.4f}   "
               f"{r['c2_plugin_upper']:.4f}    {r['c2_crossfit_lower']:.4f}   "
               f"{r['c2_bracket']:+.4f}")
-    print(f"\n  headroom from {REFERENCE} to Ceiling-1: "
+    nd = out["variance_decomposition"]
+    print(f"\n  variance of p-hat at two references is "
+          f"{nd['noise_share_of_variance_at_k2']}% reference-sampling noise "
+          f"(true Var {nd['var_true_p_intercept']}, slope {nd['mean_p_one_minus_p_slope']})")
+    print(f"  headroom from {REFERENCE} to Ceiling-1: "
           f"{base['c1_plugin_upper'] - REFERENCE:+.4f} at the plug-in bound, "
           f"{base['c1_crossfit_lower'] - REFERENCE:+.4f} at the cross-fit bound")
     print(f"\nbracket narrows monotonically from k>=3: {monotone}")

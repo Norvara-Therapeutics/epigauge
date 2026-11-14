@@ -1,0 +1,50 @@
+{
+  "produced_utc": "2026-11-14T17:50:23+00:00",
+  "script": "supplementary/scripts/ceiling_deconvolved.py",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "verdict": "REFUSED",
+  "what_was_fitted": "Beta(a,b)-Binomial on the decisive vote rate, MLE",
+  "why_refused": [
+    "the fitted model does not reproduce the observed variance of p-hat at every k; worst absolute gap 0.03768",
+    "the deconvolved Ceiling-2 disagrees with the model-free cross-fit by more than 0.08"
+  ],
+  "beta_a": 2.5496,
+  "beta_b": 0.8688,
+  "variance_check": [
+    {
+      "k": 2,
+      "n": 2654,
+      "observed_var": 0.14534,
+      "predicted_var": 0.11623
+    },
+    {
+      "k": 3,
+      "n": 686,
+      "observed_var": 0.06647,
+      "predicted_var": 0.09179
+    },
+    {
+      "k": 4,
+      "n": 303,
+      "observed_var": 0.04188,
+      "predicted_var": 0.07956
+    },
+    {
+      "k": 5,
+      "n": 149,
+      "observed_var": 0.05265,
+      "predicted_var": 0.07223
+    },
+    {
+      "k": 6,
+      "n": 102,
+      "observed_var": 0.04725,
+      "predicted_var": 0.06734
+    }
+  ],
+  "variance_check_worst_abs_gap": 0.03768,
+  "refused_ceiling_2": 0.8016,
+  "refused_ceiling_1": 0.6455,
+  "crossfit_ceiling_2_for_comparison": 0.623,
+  "note": "No figure in the manuscript is taken from this file. It records that a latent-family model was fitted and rejected, and by how much."
+}

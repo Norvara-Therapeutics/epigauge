@@ -214,14 +214,17 @@ The level at which the two bounds meet on deeply measured units is a property of
 more-studied epitopes and does not transfer to the audited subpopulation. The convergence
 is the evidence; the level is not.
 
-### `scripts/ceiling_deconvolved.py` — a model that was rejected, and no artifact
+### `artifacts/annotation/ceiling_deconvolved_refused.json` — a model that was rejected
 
 A beta-binomial deconvolution of the latent disagreement rate, kept because a reader should
-know it was tried. It **exits 1 and writes nothing**: the observed variance of `p_ref` falls
+know it was tried. It **exits 1**, and records the refusal rather than only printing it:
+the fitted parameters, the per-stratum variance comparison, both gate verdicts and the
+ceilings it would have reported. The observed variance of `p_ref` falls
 faster with reference count than any beta-binomial permits (at `k = 2`, 0.145 observed
 against 0.116 predicted; at `k = 4`, 0.042 against 0.080), so its own goodness-of-fit gate
-refuses it. Its answer of 0.8016 is recorded here as refused, not as a result. The bracket
-in `ceiling_convergence.json` assumes no latent family and is the reportable version.
+refuses it. Its answer of 0.8016 is held as a rejected fit, not a result, and the record's
+own `note` field says so. No figure in the paper is computed from it. The bracket in
+`ceiling_convergence.json` assumes no latent family and is the reportable version.
 
 ## Scripts
 
