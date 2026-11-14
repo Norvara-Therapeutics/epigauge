@@ -159,7 +159,7 @@ is real.
 
 ## Status
 
-**Released, v0.1.2.** 102 regression fixtures pass.
+**Released, v0.1.3.** 102 regression fixtures pass.
 
 ## Citation
 
@@ -173,9 +173,9 @@ version DOI when a figure needs to be reproducible against the exact release it 
                epitope immunogenicity prediction},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {v0.1.2},
-  doi       = {10.5281/zenodo.24223115},
-  url       = {https://doi.org/10.5281/zenodo.24223115}
+  version   = {v0.1.3},
+  doi       = {10.5281/zenodo.24226052},
+  url       = {https://doi.org/10.5281/zenodo.24226052}
 }
 ```
 
@@ -184,6 +184,7 @@ version DOI when a figure needs to be reproducible against the exact release it 
 | All versions | [10.5281/zenodo.24222640](https://doi.org/10.5281/zenodo.24222640) |
 | v0.1.1 | [10.5281/zenodo.24222641](https://doi.org/10.5281/zenodo.24222641) |
 | v0.1.2 | [10.5281/zenodo.24223115](https://doi.org/10.5281/zenodo.24223115) |
+| v0.1.3 | [10.5281/zenodo.24226052](https://doi.org/10.5281/zenodo.24226052) |
 
 Please also cite the upstream data sources listed in `benchmarks/*/NOTICE.md`.
 
