@@ -138,7 +138,7 @@ touching the 1.35 GB export, and can check the published figures against it dire
 ### `artifacts/annotation/iedb_disagreement_ceiling.json`
 
 The audited filter chain from the raw export to the analysed units, with every row count
-along it and the two ceiling point estimates on both the reference-voting and row-voting
+along it and the two plug-in ceiling figures on both the reference-voting and row-voting
 bases: Ceiling-1 `0.8237`, Ceiling-2 `0.9119`, from 4,815 units of 53,754 total.
 
 ### `artifacts/annotation/iedb_ceiling_interval.json`
@@ -179,6 +179,43 @@ disagreement-and-consistency figure. Of the raw `0.0515` decline in mean per-uni
 consistency, a single reference-count-independent latent distribution already predicts
 `0.0428`, leaving `0.0087`: the decline is the estimator's own small-sample bias, not a
 property of the literature.
+
+### `artifacts/annotation/ceiling_crossfit.json`
+
+The lower bound of each ceiling's bracket. Both published ceiling figures are plug-ins:
+they rank by `p_ref` and weight by the same `p_ref`, so they inherit its estimation error,
+and most audited units carry only two references. This splits each unit's reference votes
+in half, scores from one half and takes the target from the other, so no vote supplies both
+a score and its own target. Over 400 splits Ceiling-2 is **0.6230** against the plug-in
+0.9119. Reads `iedb_unit_votes.json` and nothing else.
+
+Note the definition the table actually stores: `p_ref = (n_pos_refs + n_tie_refs / 2) / k`.
+It is neither `n_pos_refs / k` (which gives 0.9080) nor `n_pos_refs / (n_pos_refs +
+n_neg_refs)` (0.9523). The script refuses to report unless it first reproduces the
+published 0.9119 from the shipped table.
+
+### `artifacts/annotation/ceiling_convergence.json`
+
+The bracket for both ceilings at each minimum reference count from 2 to 10. The plug-in
+bound is biased up and the cross-fit bound down, so each ceiling lies between them, and
+both biases shrink as a unit accumulates references. Ceiling-1's bracket closes to **0.0030**
+on the 209 units carrying at least ten references, which is what identifies its width of
+0.2016 at `k >= 2` as estimation noise rather than ignorance. Headroom from the
+in-distribution 0.6125 to Ceiling-1 is 0.2112 at the plug-in bound and 0.0096 at the
+cross-fit bound.
+
+The level at which the two bounds meet on deeply measured units is a property of those
+more-studied epitopes and does not transfer to the audited subpopulation. The convergence
+is the evidence; the level is not.
+
+### `scripts/ceiling_deconvolved.py` — a model that was rejected, and no artifact
+
+A beta-binomial deconvolution of the latent disagreement rate, kept because a reader should
+know it was tried. It **exits 1 and writes nothing**: the observed variance of `p_ref` falls
+faster with reference count than any beta-binomial permits (at `k = 2`, 0.145 observed
+against 0.116 predicted; at `k = 4`, 0.042 against 0.080), so its own goodness-of-fit gate
+refuses it. Its answer of 0.8016 is recorded here as refused, not as a result. The bracket
+in `ceiling_convergence.json` assumes no latent family and is the reportable version.
 
 ## Scripts
 

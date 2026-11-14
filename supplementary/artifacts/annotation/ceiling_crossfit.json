@@ -1,0 +1,17 @@
+{
+  "produced_utc": "2026-11-14T17:41:47+00:00",
+  "script": "supplementary/scripts/ceiling_crossfit.py",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "basis": "split/400/fresh/seed-20261114/half-vote-partition",
+  "n_units_audited": 4815,
+  "n_units_crossfittable": 4815,
+  "ceiling_2_in_sample_published": 0.9119,
+  "ceiling_2_in_sample_on_subset": 0.9119,
+  "ceiling_2_crossfit_mean": 0.623,
+  "ceiling_2_crossfit_sd": 0.0021,
+  "ceiling_2_crossfit_range": [
+    0.6172,
+    0.6289
+  ],
+  "optimism_in_sample_minus_crossfit": 0.2889
+}

@@ -1,0 +1,93 @@
+{
+  "produced_utc": "2026-11-14T17:41:51+00:00",
+  "script": "supplementary/scripts/ceiling_convergence.py",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "basis": "stratified on min reference count, 400 splits, seed-20261114",
+  "strata": [
+    {
+      "min_k": 2,
+      "n_units": 4815,
+      "c1_plugin_upper": 0.8237,
+      "c1_crossfit_lower": 0.6221,
+      "c1_bracket": 0.2016,
+      "c2_plugin_upper": 0.9119,
+      "c2_crossfit_lower": 0.623,
+      "c2_bracket": 0.2889
+    },
+    {
+      "min_k": 3,
+      "n_units": 1786,
+      "c1_plugin_upper": 0.6806,
+      "c1_crossfit_lower": 0.5439,
+      "c1_bracket": 0.1367,
+      "c2_plugin_upper": 0.835,
+      "c2_crossfit_lower": 0.545,
+      "c2_bracket": 0.29
+    },
+    {
+      "min_k": 4,
+      "n_units": 996,
+      "c1_plugin_upper": 0.6497,
+      "c1_crossfit_lower": 0.5558,
+      "c1_bracket": 0.0939,
+      "c2_plugin_upper": 0.8128,
+      "c2_crossfit_lower": 0.5748,
+      "c2_bracket": 0.238
+    },
+    {
+      "min_k": 5,
+      "n_units": 655,
+      "c1_plugin_upper": 0.6367,
+      "c1_crossfit_lower": 0.5757,
+      "c1_bracket": 0.061,
+      "c2_plugin_upper": 0.8076,
+      "c2_crossfit_lower": 0.6158,
+      "c2_bracket": 0.1917
+    },
+    {
+      "min_k": 6,
+      "n_units": 496,
+      "c1_plugin_upper": 0.642,
+      "c1_crossfit_lower": 0.5803,
+      "c1_bracket": 0.0616,
+      "c2_plugin_upper": 0.8046,
+      "c2_crossfit_lower": 0.6414,
+      "c2_bracket": 0.1632
+    },
+    {
+      "min_k": 8,
+      "n_units": 311,
+      "c1_plugin_upper": 0.5991,
+      "c1_crossfit_lower": 0.565,
+      "c1_bracket": 0.0341,
+      "c2_plugin_upper": 0.7904,
+      "c2_crossfit_lower": 0.6461,
+      "c2_bracket": 0.1443
+    },
+    {
+      "min_k": 10,
+      "n_units": 209,
+      "c1_plugin_upper": 0.5526,
+      "c1_crossfit_lower": 0.5497,
+      "c1_bracket": 0.003,
+      "c2_plugin_upper": 0.7927,
+      "c2_crossfit_lower": 0.6678,
+      "c2_bracket": 0.1249
+    }
+  ],
+  "bracket_narrows_with_k": true,
+  "widest_bracket": 0.29,
+  "narrowest_bracket": 0.1249,
+  "reference_in_distribution": 0.6125,
+  "headroom_at_c1_plugin": 0.2112,
+  "headroom_at_c1_crossfit": 0.0096,
+  "c1_bracket_audited_subpopulation": [
+    0.6221,
+    0.8237
+  ],
+  "c2_bracket_audited_subpopulation": [
+    0.623,
+    0.9119
+  ],
+  "interpretation": "The plug-in bound falls and the cross-fit bound rises as reference count grows, narrowing the bracket from 0.2889 to 0.1248. Both move toward roughly 0.70-0.75. The published 0.9119 is the plug-in bound in the noisiest stratum, where 63 per cent of units carry two references and 61.3 per cent of those sit at an endpoint of p-hat. It is an upper bound on the true ceiling, not an estimate of it."
+}
