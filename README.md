@@ -5,6 +5,7 @@
 A shared instrument for T-cell epitope immunogenicity prediction — one estimator, every
 contamination mapped, every baseline shipped, so a result means the same thing wherever it is read.
 
+[![DOI](https://zenodo.org/badge/1457024517.svg)](https://doi.org/10.5281/zenodo.24222640)
 [![Latest release](https://img.shields.io/github/v/release/norvara-therapeutics/epigauge?label=latest%20release&sort=semver)](https://github.com/norvara-therapeutics/epigauge/releases)
 [![Build](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml/badge.svg)](https://github.com/norvara-therapeutics/epigauge/actions/workflows/ci.yml)
 [![Pages](https://github.com/norvara-therapeutics/epigauge/actions/workflows/pages.yml/badge.svg)](https://github.com/norvara-therapeutics/epigauge/actions/workflows/pages.yml)
@@ -159,6 +160,31 @@ is real.
 ## Status
 
 **Released, v0.1.1.** 102 regression fixtures pass.
+
+## Citation
+
+Archived on Zenodo. The concept DOI always resolves to the current version; cite the
+version DOI when a figure needs to be reproducible against the exact release it came from.
+
+```bibtex
+@software{epigauge,
+  author    = {Ribeiro, Ryan},
+  title     = {{EpiGauge}: a measurement instrument for class-I T-cell
+               epitope immunogenicity prediction},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v0.1.1},
+  doi       = {10.5281/zenodo.24222641},
+  url       = {https://doi.org/10.5281/zenodo.24222641}
+}
+```
+
+| | DOI |
+|---|---|
+| All versions | [10.5281/zenodo.24222640](https://doi.org/10.5281/zenodo.24222640) |
+| v0.1.1 | [10.5281/zenodo.24222641](https://doi.org/10.5281/zenodo.24222641) |
+
+Please also cite the upstream data sources listed in `benchmarks/*/NOTICE.md`.
 
 ## License
 
