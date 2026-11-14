@@ -158,7 +158,7 @@ is real.
 
 ## Status
 
-**Released, v0.1.0.** 102 regression fixtures pass.
+**Released, v0.1.1.** 102 regression fixtures pass.
 
 ## License
 
