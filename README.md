@@ -133,7 +133,7 @@ pip install -e .
 
 Zero runtime dependencies — the metric layer is standard library only, so it runs anywhere. A
 reviewer with a bare interpreter reproduces both leaderboards, the stratum diagnostic, the
-rank-reversal tables and both annotation-ceiling brackets. Three analyses need an input this
+rank-reversal tables and the Ceiling-2 bracket and the refused deconvolution. Three analyses need an input this
 package does not redistribute: the clustered intervals need the nine UniProt reference proteomes,
 the contamination census needs the three upstream CSVs, and the MHCflurry column needs that
 predictor installed. `supplementary/README.md` states which figure needs which.
@@ -168,7 +168,7 @@ is real.
 
 ## Status
 
-**Released, v0.1.3.** 102 regression fixtures pass.
+**Released, v0.1.4.** 102 regression fixtures pass.
 
 ## Citation
 

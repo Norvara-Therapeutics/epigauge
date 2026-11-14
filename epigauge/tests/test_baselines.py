@@ -297,8 +297,8 @@ def test_residualising_hydropathy_against_itself_drives_it_to_chance() -> None:
 
 
 def test_residualisation_leaves_a_column_the_basis_cannot_explain() -> None:
-    """An artifact shrinks, a leak does not move: ESM-2 0.5540 -> 0.5336 and PRIME-2.0
-    0.5348 -> 0.5183, while the leaked TITANiAN column went 0.7040 -> 0.7113."""
+    """An artifact shrinks, a leak does not move: PRIME-2.0 0.5348 -> 0.5183, while the
+    leaked TITANiAN column went 0.7040 -> 0.7113."""
     rng = random.Random(7)
     leaked = [r["label"] + 0.30 * rng.random() for r in KD_ROWS]
     before = stratified_auroc(KD_Y, leaked, KD_G).value

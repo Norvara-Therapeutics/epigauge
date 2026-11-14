@@ -466,7 +466,7 @@ class PWM(Baseline):
 
 class HydropathyLengthAllele(Baseline):
     """Four inputs: mean KD, non-anchor mean KD, length, allele rate. Measured 0.5514
-    within-allele / 0.7084 pooled, matching a 641-parameter frozen-ESM-2 head.
+    within-allele / 0.7084 pooled.
 
         score(row) = rate(allele) + b0 + b1*meanKD + b2*meanKD_nonanchor + b3*length
         b fitted by OLS of (label - rate(allele)) on [1, meanKD, meanKD_nonanchor, length]
@@ -680,9 +680,9 @@ _RESIDUAL_BASIS = {
 def residualise(scores, rows, *, predictors=("kd", "kd2", "length")) -> list[float]:
     """Within-allele-rank the score, then OLS out [mean KD, KD^2, length].
 
-    Measured costs on the infectious benchmark: frozen ESM-2 0.5540 -> 0.5336,
-    PRIME-2.0 0.5348 -> 0.5183, TITANiAN-IM (leaked) 0.7040 -> 0.7113. An artifact
-    shrinks, a leak does not move, and what is left is signal.
+    Measured costs on the infectious benchmark: PRIME-2.0 0.5348 -> 0.5183,
+    TITANiAN-IM (leaked) 0.7040 -> 0.7113. An artifact shrinks, a leak does not move,
+    and what is left is signal.
 
     CAVEAT, which must travel with any residualised number: residualising mean KD
     against itself gives 0.4072 on infectious (n=2,093) but 0.5748 on neoantigen

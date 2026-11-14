@@ -13,8 +13,8 @@ which is how a third party confirms it holds the same input.
 
 ```
 supplementary/
-  artifacts/              17 JSON records, 4.2 MB
-    annotation/           the 10 annotation-ceiling records, 4.0 MB
+  artifacts/              17 JSON records, 4.35 MB
+    annotation/           the 10 annotation-ceiling records, 4.22 MB
   scripts/                8 runnable analysis scripts
   proteomes/              not shipped; see "The nine reference proteomes"
 ```
@@ -23,7 +23,7 @@ supplementary/
 
 ### `artifacts/contamination_census.json`
 
-The tier assignment applied mechanically to all 72 leaderboard rows of both arms, with
+The tier assignment applied mechanically to all 66 leaderboard rows of both arms, with
 per-tier counts, the measured containment figure behind each tier-2 assignment, the
 `sha256` of every input table, and the rows where the stated rule and the flag shipped on
 disk disagree. Backs the contamination census section.
@@ -152,8 +152,9 @@ touching the 1.35 GB export, and can check the published figures against it dire
 
 ### `artifacts/annotation/iedb_disagreement_ceiling.json`
 
-The audited filter chain from the raw export to the analysed units, with every row count
-along it and the two plug-in ceiling figures on both the reference-voting and row-voting
+The audited filter chain from the raw export to the analysed units, with the endpoints of
+that chain and not its intermediate counts, and the two plug-in ceiling figures on both the
+reference-voting and row-voting
 bases: Ceiling-1 `0.8237`, Ceiling-2 `0.9119`, from 4,815 units of 53,754 total.
 
 ### `artifacts/annotation/iedb_ceiling_interval.json`
@@ -375,11 +376,30 @@ With the nine reference proteomes added, and nothing else:
   `ceiling_crossfit.json`, `ceiling_convergence.json` and
   `ceiling_deconvolved_refused.json`, need nothing beyond this package.
 
-Two rows of each leaderboard are not recomputable by anyone from the released material,
-the authors included. The NetMHCpan-4.1 columns are withheld under a licence clause and
-their figures are not published. The three NORVARA columns are absent from the shipped
-score files, so a third party can read those figures in the leaderboard tables but cannot
-recompute them, or attach an interval to them, from this package.
+Two rows of each leaderboard carry no published figure at all. The NetMHCpan-4.1 score and
+percentile-rank columns are withheld under a named third-party licence clause, DTU academic
+licence §7(v), which is recorded in the `flag` column of each withheld row; their figures
+exist and are not published.
+
+**The organiser's own three entries are withdrawn from both arms and no figure for them is
+published here.** Their score columns are not distributed, so neither a third party nor the
+authors can recompute those figures or attach an interval to them, and the instrument
+therefore could not audit them on the terms it applies to every other entry. No licence
+clause barred those columns, and `benchmarks/MANIFEST.json` carries no clearance entry for
+them at all: the NetMHCpan rows are the only *published figure* in either arm that a
+licence clause compels the package to withhold.
+
+Most remaining rows are also not recomputable from this package. Their `score_provenance`
+reads `table-column`, meaning the figure was read from a column of the upstream evaluation
+table rather than produced by inference here, and that column is not redistributed — 31 of
+34 infectious rows and 30 of 32 neoantigen rows are `table-column`.
+`benchmarks/MANIFEST.json` records the reason column by column, as a verdict and a stated
+reason per predictor column. Most excluded columns name an operative third-party clause
+(the DTU academic licence, the BigMHC Academic License, the LICR academic terms); the rest
+name no clause, having been excluded because no terms were read for the tool and the
+clearance rule treats an unread licence as unlicensed. The 9 infectious and 8 neoantigen
+entries whose per-row scores do ship are the cleared columns, and they are the ones
+carrying an interval and a contrast in `leaderboard_uncertainty_*.json`.
 
 ## Licence
 
