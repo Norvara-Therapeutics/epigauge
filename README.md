@@ -174,8 +174,8 @@ version DOI when a figure needs to be reproducible against the exact release it 
   year      = {2026},
   publisher = {Zenodo},
   version   = {v0.1.2},
-  doi       = {10.5281/zenodo.24222641},
-  url       = {https://doi.org/10.5281/zenodo.24222641}
+  doi       = {10.5281/zenodo.24223115},
+  url       = {https://doi.org/10.5281/zenodo.24223115}
 }
 ```
 
@@ -183,7 +183,7 @@ version DOI when a figure needs to be reproducible against the exact release it 
 |---|---|
 | All versions | [10.5281/zenodo.24222640](https://doi.org/10.5281/zenodo.24222640) |
 | v0.1.1 | [10.5281/zenodo.24222641](https://doi.org/10.5281/zenodo.24222641) |
-| v0.1.2 | minted on release |
+| v0.1.2 | [10.5281/zenodo.24223115](https://doi.org/10.5281/zenodo.24223115) |
 
 Please also cite the upstream data sources listed in `benchmarks/*/NOTICE.md`.
 
