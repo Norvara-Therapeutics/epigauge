@@ -1,0 +1,25 @@
+{
+  "title": "EpiGauge: a measurement instrument for class-I T-cell epitope immunogenicity prediction",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Ribeiro, Ryan",
+      "affiliation": "Norvara Therapeutics"
+    }
+  ],
+  "description": "<p>A benchmark and measurement instrument for class-I T-cell epitope immunogenicity prediction. Ships one specified estimator (pair-weighted within-allele AUROC with degeneracy guards that raise rather than return a plausible wrong number), a contamination census attached to every leaderboard row, and a measured resolution limit below which differences are not reportable.</p><p>Standard-library Python only, no third-party dependencies. Includes two scored benchmark arms, four further arms with no competitor columns, 102 regression fixtures, and the supplementary artifacts behind every published figure.</p>",
+  "keywords": [
+    "immunogenicity prediction",
+    "T-cell epitope",
+    "peptide-MHC",
+    "neoantigen",
+    "benchmark",
+    "AUROC",
+    "data contamination",
+    "reproducibility",
+    "immunoinformatics"
+  ],
+  "access_right": "open",
+  "language": "eng"
+}
