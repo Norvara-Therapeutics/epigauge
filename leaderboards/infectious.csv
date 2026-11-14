@@ -34,5 +34,5 @@ rank,within_allele,pooled,entry,score_provenance,flag,submitted_by,date
 33,0.4714,0.5233,"HLAthena (percentile ranks, sign-corrected)",table-column,,,
 34,0.4705,0.5048,HLAthena (scores),table-column,,,
 35,0.4132,0.4512,BASELINE — peptide length,computed-from-row,baseline,,
-35-36,withheld,withheld,NetMHCpan-4.1 (scores),table-column,withheld: DTU academic licence §7(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline.,,
-35-36,withheld,withheld,NetMHCpan-4.1 (percentile ranks),table-column,withheld: DTU academic licence §7(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline.,,
+withheld,withheld,withheld,NetMHCpan-4.1 (scores),table-column,withheld: DTU academic licence §7(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.,,
+withheld,withheld,withheld,NetMHCpan-4.1 (percentile ranks),table-column,withheld: DTU academic licence §7(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.,,

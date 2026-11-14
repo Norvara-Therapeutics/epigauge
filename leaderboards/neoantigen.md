@@ -63,8 +63,8 @@ single-class, so 228 of 833 rows are excluded from the estimator rather than imp
 | 31 | 0.4309 | 0.5180 | BigMHC_Ablation_Wide_LSTM_IM ⚠ |
 | 32 | 0.4203 | 0.4669 | NORVARA-3B |
 | 33 | 0.4053 | 0.4253 | NORVARA-650M |
-| 33-34 | withheld | withheld | NetMHCpan-4.1 (scores) |
-| 33-34 | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
+| withheld | withheld | withheld | NetMHCpan-4.1 (scores) |
+| withheld | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
 
 <!-- END GENERATED TABLE -->
 

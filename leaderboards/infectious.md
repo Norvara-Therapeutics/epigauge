@@ -61,8 +61,8 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 | 33 | 0.4714 | 0.5233 | HLAthena (percentile ranks, sign-corrected) |
 | 34 | 0.4705 | 0.5048 | HLAthena (scores) |
 | **35** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
-| 35-36 | withheld | withheld | NetMHCpan-4.1 (scores) |
-| 35-36 | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
+| withheld | withheld | withheld | NetMHCpan-4.1 (scores) |
+| withheld | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
 
 <!-- END GENERATED TABLE -->
 
