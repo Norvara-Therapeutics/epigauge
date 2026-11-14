@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "epigauge"
-version = "0.1.1"
+version = "0.1.2"
 description = "Standard-library-only measurement instruments for immune-epitope benchmarks: key canonicalisation and stratified AUROC estimators that raise rather than return a plausible wrong number."
 readme = "README.md"
 # 3.11 is the floor: the package uses `X | Y` annotations under
