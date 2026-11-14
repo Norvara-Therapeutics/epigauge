@@ -4,15 +4,18 @@
 deposited at Dryad, doi:10.5061/dryad.s7h44j1k7, which the Dryad API reports as
 `spdx: CC0-1.0`.
 
-The local bytes match the project's download manifest. That manifest records a digest and
-a manifest-generation date, **not a retrieval from this deposit**: the local CSVs are
-dated 2025-05-06 and the Dryad deposit published 2025-11-20, so the shipped rows predate
-it and cannot be its published bytes. Dryad exposes a sha256 for `test.zip`
-(`cefad8a75a5b7ea9100f08820cb66df24d84d0c39de266b688d678219562ed94`, 518,023 bytes) but
-no member-level digest, and its download endpoint refuses unauthenticated requests, so
-the archive has not been compared against the shipped rows. Doing so is one manual
-download; until then, treat the upstream correspondence as asserted rather than
-verified.
+**Upstream identity is verified, not asserted.** The deposit was downloaded on
+2026-11-14 and `test.zip` matches the sha256 Dryad publishes
+(`cefad8a75a5b7ea9100f08820cb66df24d84d0c39de266b688d678219562ed94`, 518,023 bytes). All
+seven shipped CSVs are **byte-identical** to the archive's members, including
+`TITANiAN_IM_Infectious.csv` (843,836 B) and `TITANiAN_IM_Neoantigen.csv` (328,449 B).
+
+> An earlier version of this notice stated that the shipped rows predated the deposit and
+> "cannot be its published bytes", reasoning from the local files' 2025-05-06 modification
+> time against the deposit's 2025-11-20 publication date. **That was wrong.** A zip
+> preserves its members' mtimes, so extracting this deposit yields files stamped when its
+> authors created them. A modification time is not provenance; a digest against a named
+> upstream is.
 
 CC0 waives copyright; attribution is not a legal condition. **Cite the TITANiAN authors anyway** — a scientific norm, not a licence term.
 

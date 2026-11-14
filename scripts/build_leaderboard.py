@@ -111,8 +111,6 @@ def to_markdown(rows: list[dict]) -> str:
         entry = r["entry"]
         if r.get("flag", "").startswith("not-a-capability"):
             entry += " ⚠"
-        if r.get("score_provenance", "") == "table-column":
-            entry += " †"
         if entry.startswith("BASELINE"):
             entry = f"**{entry}**"
             cells = (f"**{r['rank']}**", f"**{r['within_allele']}**", r["pooled"])

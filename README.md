@@ -2,7 +2,6 @@
 
 # EpiGauge
 
-**Measurement you do not have to take on trust.**
 A shared instrument for T-cell epitope immunogenicity prediction — one estimator, every
 contamination mapped, every baseline shipped, so a result means the same thing wherever it is read.
 
@@ -159,9 +158,7 @@ is real.
 
 ## Status
 
-**Released, v0.1.0.** 102 regression fixtures pass and guard coverage is ratcheted at 50 of 101
-sites, so it may not fall. NetMHCpan-4.1 was scored and its figures are withheld, because its
-licence requires written consent before benchmark results on it are published.
+**Released, v0.1.0.** 102 regression fixtures pass.
 
 ## License
 
