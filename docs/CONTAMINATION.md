@@ -19,7 +19,7 @@ redistributes neither.
 
 | | file | source | sha256 |
 |---|---|---|---|
-| `--a` | `datasets/im_test.csv`, 937 rows, 279,819 B | inside `datasets.zip` at Mendeley Data **10.17632/dvmz6pkzvb version 2**, CC BY 4.0 | `70ba5dbe…1be7b634` |
+| `--a` | `datasets/im_test.csv`, 937 rows, 279,819 B | inside `datasets.zip` at Mendeley Data **10.17632/dvmz6pkzvb version 2**, CC BY 4.0 | `70ba5dbeecb0e62ccc95f2aa11a28801773893f4ebf209b5e68b58318be7b634` |
 | `--b` | `TITANiAN_IM_Neoantigen.csv`, 833 rows, 328,449 B | inside `test.zip` at Dryad **10.5061/dryad.s7h44j1k7**, CC0 1.0 | `da2442cd…1dfed9661` |
 
 Both DOIs resolve and both licences are open, so anyone can obtain these. Check what you
@@ -50,7 +50,7 @@ labels and the same predictor columns, and therefore that a score on that table 
 capability on data the scorer has not seen.
 
 - The claims are about files: a file *contains* rows, a label *is recoverable from* a prior table.
-- 0.704 is not reachable without access to that assay table, so it is not a capability bar.
+- A score on that arm is not a capability bar for a method with access to that table. Whether any particular method had that access is not established here, and nothing about how either file came to exist is measured.
 
 **Scope.** `verify_contamination.py` compares two CSVs on a canonicalised `(allele, peptide)` key and reports pair overlap, label agreement and per-column byte equality. It measures no model's training data, computes no AUROC, evaluates no predictor, and does not adjudicate how either file was assembled.
 

@@ -3,14 +3,13 @@
 **833 rows · 178 positive / 655 negative (21.4%) · 49 alleles**
 Estimator: pair-weighted within-allele AUROC over **22 of 49 admissible strata** (605 / 833 rows).
 
-> **This is a null result, not a ranking.** All 33 ranked entries fall between **0.405 and 0.540**,
-> with chance at 0.500 — **22 of them below it as point estimates**. The ordering is sorted, but the
-> spread is narrower than this arm can resolve: the full distance from first to last is **0.134**
-> while the smallest difference the arm can detect is **0.111**. Of the 8 entries whose raw scores
-> ship here and can therefore be given an interval, **all 8 intervals include chance** and none of
-> the 28 pairwise contrasts between them is resolvable. Nothing here is measurably better than
-> anything else, including the entries submitted by this benchmark's own authors, which rank 23rd,
-> 32nd and 33rd.
+> **This is a null result, not a ranking.** All 30 ranked entries fall between **0.431 and 0.540**,
+> with chance at 0.500 — **19 of them below it as point estimates**. The ordering is sorted, but the
+> whole arm fits inside its own resolution limit: the distance from first to last is **0.109**,
+> smaller than the **0.111** that is the least this arm can detect. Of the 8 entries whose raw
+> scores ship here and can therefore be given an interval, **all 8 intervals include chance** and
+> none of the 28 pairwise contrasts between them is resolvable. Nothing here is measurably better
+> than anything else.
 
 ## Read these three before the table
 
@@ -52,17 +51,14 @@ single-class, so 228 of 833 rows are excluded from the estimator rather than imp
 | 20 | 0.4724 | 0.5026 | PRIME-1.0 (percentile ranks, sign-corrected) |
 | 21 | 0.4722 | 0.4998 | PRIME-1.0 (scores) |
 | 22 | 0.4639 | 0.4801 | TITANiAN-IM-ablation-1,2,5,6,7 ⚠ |
-| 23 | 0.4556 | 0.4663 | NORVARA-150M |
-| **24** | **0.4497** | 0.4681 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
-| 25 | 0.4489 | 0.5646 | TITANiAN-IM-ablation-1,2,3,4,7 ⚠ |
-| 26 | 0.4438 | 0.5524 | BigMHC_ELIM ⚠ |
-| 27 | 0.4434 | 0.5459 | BigMHC_Ablation_Canonical_LSTM_ELIM ⚠ |
-| 28 | 0.4413 | 0.5094 | BigMHC_IM ⚠ |
-| 29 | 0.4383 | 0.5157 | BigMHC_Ablation_Canonical_LSTM_IM ⚠ |
-| 30 | 0.4377 | 0.5804 | BigMHC_Ablation_Wide_LSTM_ELIM ⚠ |
-| 31 | 0.4309 | 0.5180 | BigMHC_Ablation_Wide_LSTM_IM ⚠ |
-| 32 | 0.4203 | 0.4669 | NORVARA-3B |
-| 33 | 0.4053 | 0.4253 | NORVARA-650M |
+| **23** | **0.4497** | 0.4681 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
+| 24 | 0.4489 | 0.5646 | TITANiAN-IM-ablation-1,2,3,4,7 ⚠ |
+| 25 | 0.4438 | 0.5524 | BigMHC_ELIM ⚠ |
+| 26 | 0.4434 | 0.5459 | BigMHC_Ablation_Canonical_LSTM_ELIM ⚠ |
+| 27 | 0.4413 | 0.5094 | BigMHC_IM ⚠ |
+| 28 | 0.4383 | 0.5157 | BigMHC_Ablation_Canonical_LSTM_IM ⚠ |
+| 29 | 0.4377 | 0.5804 | BigMHC_Ablation_Wide_LSTM_ELIM ⚠ |
+| 30 | 0.4309 | 0.5180 | BigMHC_Ablation_Wide_LSTM_IM ⚠ |
 | withheld | withheld | withheld | NetMHCpan-4.1 (scores) |
 | withheld | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
 
@@ -77,8 +73,8 @@ single-class, so 228 of 833 rows are excluded from the estimator rather than imp
 
 ### Peptide length ranks first here and last on infectious
 
-A single integer — the length of the peptide — tops this table at **0.5397**, and places **37th of
-37 at 0.4132** on [the infectious benchmark](infectious.md). A feature cannot be the best predictor
+A single integer — the length of the peptide — tops this table at **0.5397**, and places **last of the
+32 ranked entries at 0.4132** on [the infectious benchmark](infectious.md). A feature cannot be the best predictor
 of immunogenicity on one set and the worst on another. It is reading how each set was assembled.
 
 ### TITANiAN-IM falls 0.744 → 0.483
@@ -86,7 +82,6 @@ of immunogenicity on one set and the worst on another. It is reading how each se
 | | infectious | neoantigen |
 |---|---|---|
 | TITANiAN-IM | 0.7444 | **0.4827** |
-| NORVARA-150M | 0.5664 | 0.4556 |
 | PRIME-2.0 | 0.5205 | 0.4751 |
 | MHCflurry-2.0 | 0.5129 | 0.5234 |
 

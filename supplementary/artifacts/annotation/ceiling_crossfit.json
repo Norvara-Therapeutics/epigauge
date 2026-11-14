@@ -1,5 +1,5 @@
 {
-  "produced_utc": "2026-11-14T17:41:47+00:00",
+  "produced_utc": "2026-11-14T19:00:21+00:00",
   "script": "supplementary/scripts/ceiling_crossfit.py",
   "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
   "basis": "split/400/fresh/seed-20261114/half-vote-partition",

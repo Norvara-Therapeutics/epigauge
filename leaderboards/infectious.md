@@ -28,39 +28,36 @@ Ranked on within-allele. Pooled is printed but never ranked on.
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ |
 | 2 | 0.5742 | 0.6053 | TITANiAN-IM ablation 1,2,3,4,7 ⚠ |
-| 3 | 0.5712 | 0.5952 | NORVARA-3B — frozen ESM-2 3B backbone, 2,561-param head |
-| 4 | 0.5675 | 0.6106 | NORVARA-650M — frozen ESM-2 650M backbone, 1,281-param head |
-| 5 | 0.5664 | 0.6169 | NORVARA-150M — frozen ESM-2 150M backbone, 641-param head |
-| 6 | 0.5657 | 0.6210 | TITANiAN-IM ablation 3,4,5,6,7 ⚠ |
-| 7 | 0.5445 | 0.5758 | TITANiAN-IM ablation 1,2,5,6,7 ⚠ |
-| 8 | 0.5328 | 0.5687 | BigMHC canonical-LSTM IM ablation |
-| 9 | 0.5319 | 0.5669 | BigMHC canonical-LSTM ELIM ablation |
-| 10 | 0.5267 | 0.5934 | TITANiAN-IM ablation 1,2,3,4,5,6 ⚠ |
-| **11** | **0.5264** | 0.5650 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
-| 12 | 0.5205 | 0.5663 | PRIME-2.0 (scores) |
-| 13 | 0.5205 | 0.5518 | PRIME-2.0 (percentile ranks, sign-corrected) |
-| 14 | 0.5195 | 0.5673 | BigMHC_IM ⚠ |
-| 15 | 0.5189 | 0.5692 | BigMHC_ELIM ⚠ |
-| 16 | 0.5180 | 0.5614 | PRIME-1.0 (scores) |
-| 17 | 0.5175 | 0.5540 | PRIME-1.0 (percentile ranks, sign-corrected) |
-| 18 | 0.5162 | 0.5555 | MixMHCpred-2.1 (percentile ranks, sign-corrected) |
-| 19 | 0.5148 | 0.5518 | MixMHCpred-2.1 (scores) |
-| 20 | 0.5129 | 0.5541 | MHCflurry-2.0 (scores) |
-| 21 | 0.5129 | 0.5541 | MHCflurry-2.0 (percentile ranks, sign-corrected) |
-| 22 | 0.5119 | 0.5608 | MixMHCpred-2.2 (scores) |
-| 23 | 0.5119 | 0.5567 | MixMHCpred-2.2 (percentile ranks, sign-corrected) |
-| 24 | 0.5088 | 0.5652 | BigMHC wide-LSTM IM ablation |
-| 25 | 0.5080 | 0.5632 | BigMHC wide-LSTM ELIM ablation |
-| **26** | **0.5000** | 0.7122 | **BASELINE — allele lookup, no peptide input** |
-| 27 | 0.4969 | 0.4540 | MHCnuggets-2.4.0 |
-| 28 | 0.4901 | 0.5599 | TITANiAN-IM baseline ⚠ |
-| 29 | 0.4879 | 0.5465 | TransPHLA |
-| 30 | 0.4813 | 0.5421 | BigMHC_EL |
-| 31 | 0.4803 | 0.5460 | BigMHC canonical-LSTM EL ablation |
-| 32 | 0.4746 | 0.5417 | BigMHC wide-LSTM EL ablation |
-| 33 | 0.4714 | 0.5233 | HLAthena (percentile ranks, sign-corrected) |
-| 34 | 0.4705 | 0.5048 | HLAthena (scores) |
-| **35** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
+| 3 | 0.5657 | 0.6210 | TITANiAN-IM ablation 3,4,5,6,7 ⚠ |
+| 4 | 0.5445 | 0.5758 | TITANiAN-IM ablation 1,2,5,6,7 ⚠ |
+| 5 | 0.5328 | 0.5687 | BigMHC canonical-LSTM IM ablation |
+| 6 | 0.5319 | 0.5669 | BigMHC canonical-LSTM ELIM ablation |
+| 7 | 0.5267 | 0.5934 | TITANiAN-IM ablation 1,2,3,4,5,6 ⚠ |
+| **8** | **0.5264** | 0.5650 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
+| 9 | 0.5205 | 0.5663 | PRIME-2.0 (scores) |
+| 10 | 0.5205 | 0.5518 | PRIME-2.0 (percentile ranks, sign-corrected) |
+| 11 | 0.5195 | 0.5673 | BigMHC_IM ⚠ |
+| 12 | 0.5189 | 0.5692 | BigMHC_ELIM ⚠ |
+| 13 | 0.5180 | 0.5614 | PRIME-1.0 (scores) |
+| 14 | 0.5175 | 0.5540 | PRIME-1.0 (percentile ranks, sign-corrected) |
+| 15 | 0.5162 | 0.5555 | MixMHCpred-2.1 (percentile ranks, sign-corrected) |
+| 16 | 0.5148 | 0.5518 | MixMHCpred-2.1 (scores) |
+| 17 | 0.5129 | 0.5541 | MHCflurry-2.0 (scores) |
+| 18 | 0.5129 | 0.5541 | MHCflurry-2.0 (percentile ranks, sign-corrected) |
+| 19 | 0.5119 | 0.5608 | MixMHCpred-2.2 (scores) |
+| 20 | 0.5119 | 0.5567 | MixMHCpred-2.2 (percentile ranks, sign-corrected) |
+| 21 | 0.5088 | 0.5652 | BigMHC wide-LSTM IM ablation |
+| 22 | 0.5080 | 0.5632 | BigMHC wide-LSTM ELIM ablation |
+| **23** | **0.5000** | 0.7122 | **BASELINE — allele lookup, no peptide input** |
+| 24 | 0.4969 | 0.4540 | MHCnuggets-2.4.0 |
+| 25 | 0.4901 | 0.5599 | TITANiAN-IM baseline ⚠ |
+| 26 | 0.4879 | 0.5465 | TransPHLA |
+| 27 | 0.4813 | 0.5421 | BigMHC_EL |
+| 28 | 0.4803 | 0.5460 | BigMHC canonical-LSTM EL ablation |
+| 29 | 0.4746 | 0.5417 | BigMHC wide-LSTM EL ablation |
+| 30 | 0.4714 | 0.5233 | HLAthena (percentile ranks, sign-corrected) |
+| 31 | 0.4705 | 0.5048 | HLAthena (scores) |
+| **32** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
 | withheld | withheld | withheld | NetMHCpan-4.1 (scores) |
 | withheld | withheld | withheld | NetMHCpan-4.1 (percentile ranks) |
 

@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-14T12:59:47Z",
+  "generated_utc": "2026-11-14T19:11:58Z",
   "script": "supplementary/scripts/contamination_census.py",
   "rule": {
     "statement": "A leaderboard row is contamination-affected if (tier 1) its score column is a column of the upstream evaluation table it is scored against, or (tier 2) the method's own public data deposit contains every row of the arm. Tier 1a marks a column present in both the evaluation deposit and BigMHC's im_test.csv; tier 1b a column present only in the evaluation deposit. Tier 0 is fresh inference, a function of the row's own fields, or a fit on a declared non-evaluation pool.",
@@ -183,8 +183,8 @@
   },
   "counts": {
     "infectious": {
-      "leaderboard_rows": 37,
-      "rows_publishing_a_figure": 35,
+      "leaderboard_rows": 34,
+      "rows_publishing_a_figure": 32,
       "rows_withheld": 2,
       "affected_total": 31,
       "affected_publishing_a_figure": 29,
@@ -193,18 +193,17 @@
       "tier1b_column_in_evaluation_deposit_only": 6,
       "tier2": 6,
       "tier2_nontrivial": 0,
-      "tier0_unaffected": 6,
+      "tier0_unaffected": 3,
       "currently_flagged_contamination": 8,
       "by_score_source_kind": {
         "computed_from_row": 2,
         "fitted_other_pool": 1,
-        "fresh_inference": 3,
         "table_column": 31
       }
     },
     "neoantigen": {
-      "leaderboard_rows": 35,
-      "rows_publishing_a_figure": 33,
+      "leaderboard_rows": 32,
+      "rows_publishing_a_figure": 30,
       "rows_withheld": 2,
       "affected_total": 30,
       "affected_publishing_a_figure": 28,
@@ -213,11 +212,10 @@
       "tier1b_column_in_evaluation_deposit_only": 5,
       "tier2": 14,
       "tier2_nontrivial": 9,
-      "tier0_unaffected": 5,
+      "tier0_unaffected": 2,
       "currently_flagged_contamination": 14,
       "by_score_source_kind": {
         "computed_from_row": 2,
-        "fresh_inference": 3,
         "table_column": 30
       }
     }
@@ -286,72 +284,6 @@
     {
       "arm": "infectious",
       "rank": "3",
-      "entry": "NORVARA-3B \u2014 frozen ESM-2 3B backbone, 2,561-param head",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.5712",
-      "pooled": "0.5952",
-      "current_flag": "organiser-submission: submitted by the benchmark's authors; not independently assessed",
-      "current_flag_class": "organiser-submission",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "infectious",
-      "rank": "4",
-      "entry": "NORVARA-650M \u2014 frozen ESM-2 650M backbone, 1,281-param head",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.5675",
-      "pooled": "0.6106",
-      "current_flag": "organiser-submission: submitted by the benchmark's authors; not independently assessed",
-      "current_flag_class": "organiser-submission",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "infectious",
-      "rank": "5",
-      "entry": "NORVARA-150M \u2014 frozen ESM-2 150M backbone, 641-param head",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.5664",
-      "pooled": "0.6169",
-      "current_flag": "organiser-submission: submitted by the benchmark's authors; not independently assessed",
-      "current_flag_class": "organiser-submission",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "infectious",
-      "rank": "6",
       "entry": "TITANiAN-IM ablation 3,4,5,6,7",
       "method": "TITANiAN",
       "score_source_kind": "table_column",
@@ -381,7 +313,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "7",
+      "rank": "4",
       "entry": "TITANiAN-IM ablation 1,2,5,6,7",
       "method": "TITANiAN",
       "score_source_kind": "table_column",
@@ -411,7 +343,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "8",
+      "rank": "5",
       "entry": "BigMHC canonical-LSTM IM ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -433,7 +365,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "9",
+      "rank": "6",
       "entry": "BigMHC canonical-LSTM ELIM ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -455,7 +387,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "10",
+      "rank": "7",
       "entry": "TITANiAN-IM ablation 1,2,3,4,5,6",
       "method": "TITANiAN",
       "score_source_kind": "table_column",
@@ -485,7 +417,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "11",
+      "rank": "8",
       "entry": "BASELINE \u2014 mean Kyte-Doolittle hydropathy, unfitted",
       "method": "baseline",
       "score_source_kind": "computed_from_row",
@@ -507,7 +439,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "12",
+      "rank": "9",
       "entry": "PRIME-2.0 (scores)",
       "method": "PRIME-2.0",
       "score_source_kind": "table_column",
@@ -529,7 +461,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "13",
+      "rank": "10",
       "entry": "PRIME-2.0 (percentile ranks, sign-corrected)",
       "method": "PRIME-2.0",
       "score_source_kind": "table_column",
@@ -551,7 +483,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "14",
+      "rank": "11",
       "entry": "BigMHC_IM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -573,7 +505,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "15",
+      "rank": "12",
       "entry": "BigMHC_ELIM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -595,7 +527,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "16",
+      "rank": "13",
       "entry": "PRIME-1.0 (scores)",
       "method": "PRIME-1.0",
       "score_source_kind": "table_column",
@@ -617,7 +549,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "17",
+      "rank": "14",
       "entry": "PRIME-1.0 (percentile ranks, sign-corrected)",
       "method": "PRIME-1.0",
       "score_source_kind": "table_column",
@@ -639,7 +571,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "18",
+      "rank": "15",
       "entry": "MixMHCpred-2.1 (percentile ranks, sign-corrected)",
       "method": "MixMHCpred-2.1",
       "score_source_kind": "table_column",
@@ -661,7 +593,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "19",
+      "rank": "16",
       "entry": "MixMHCpred-2.1 (scores)",
       "method": "MixMHCpred-2.1",
       "score_source_kind": "table_column",
@@ -683,7 +615,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "20",
+      "rank": "17",
       "entry": "MHCflurry-2.0 (scores)",
       "method": "MHCflurry-2.0",
       "score_source_kind": "table_column",
@@ -705,7 +637,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "21",
+      "rank": "18",
       "entry": "MHCflurry-2.0 (percentile ranks, sign-corrected)",
       "method": "MHCflurry-2.0",
       "score_source_kind": "table_column",
@@ -727,7 +659,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "22",
+      "rank": "19",
       "entry": "MixMHCpred-2.2 (scores)",
       "method": "MixMHCpred-2.2",
       "score_source_kind": "table_column",
@@ -749,7 +681,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "23",
+      "rank": "20",
       "entry": "MixMHCpred-2.2 (percentile ranks, sign-corrected)",
       "method": "MixMHCpred-2.2",
       "score_source_kind": "table_column",
@@ -771,7 +703,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "24",
+      "rank": "21",
       "entry": "BigMHC wide-LSTM IM ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -793,7 +725,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "25",
+      "rank": "22",
       "entry": "BigMHC wide-LSTM ELIM ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -815,7 +747,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "26",
+      "rank": "23",
       "entry": "BASELINE \u2014 allele lookup, no peptide input",
       "method": "baseline",
       "score_source_kind": "fitted_other_pool",
@@ -837,7 +769,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "27",
+      "rank": "24",
       "entry": "MHCnuggets-2.4.0",
       "method": "MHCnuggets-2.4.0",
       "score_source_kind": "table_column",
@@ -859,7 +791,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "28",
+      "rank": "25",
       "entry": "TITANiAN-IM baseline",
       "method": "TITANiAN",
       "score_source_kind": "table_column",
@@ -889,7 +821,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "29",
+      "rank": "26",
       "entry": "TransPHLA",
       "method": "TransPHLA",
       "score_source_kind": "table_column",
@@ -911,7 +843,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "30",
+      "rank": "27",
       "entry": "BigMHC_EL",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -933,7 +865,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "31",
+      "rank": "28",
       "entry": "BigMHC canonical-LSTM EL ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -955,7 +887,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "32",
+      "rank": "29",
       "entry": "BigMHC wide-LSTM EL ablation",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -977,7 +909,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "33",
+      "rank": "30",
       "entry": "HLAthena (percentile ranks, sign-corrected)",
       "method": "HLAthena",
       "score_source_kind": "table_column",
@@ -999,7 +931,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "34",
+      "rank": "31",
       "entry": "HLAthena (scores)",
       "method": "HLAthena",
       "score_source_kind": "table_column",
@@ -1021,7 +953,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "35",
+      "rank": "32",
       "entry": "BASELINE \u2014 peptide length",
       "method": "baseline",
       "score_source_kind": "computed_from_row",
@@ -1043,7 +975,7 @@
     },
     {
       "arm": "infectious",
-      "rank": "35-36",
+      "rank": "withheld",
       "entry": "NetMHCpan-4.1 (scores)",
       "method": "NetMHCpan-4.1",
       "score_source_kind": "table_column",
@@ -1059,13 +991,13 @@
       "figure_published": false,
       "within_allele": "withheld",
       "pooled": "withheld",
-      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline.",
+      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.",
       "current_flag_class": "withheld",
       "flagged_as_contamination": false
     },
     {
       "arm": "infectious",
-      "rank": "35-36",
+      "rank": "withheld",
       "entry": "NetMHCpan-4.1 (percentile ranks)",
       "method": "NetMHCpan-4.1",
       "score_source_kind": "table_column",
@@ -1081,7 +1013,7 @@
       "figure_published": false,
       "within_allele": "withheld",
       "pooled": "withheld",
-      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline.",
+      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Ranks below the hydropathy baseline. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.",
       "current_flag_class": "withheld",
       "flagged_as_contamination": false
     },
@@ -1628,28 +1560,6 @@
     {
       "arm": "neoantigen",
       "rank": "23",
-      "entry": "NORVARA-150M",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.4556",
-      "pooled": "0.4663",
-      "current_flag": "",
-      "current_flag_class": "none",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "neoantigen",
-      "rank": "24",
       "entry": "BASELINE \u2014 mean Kyte-Doolittle hydropathy, unfitted",
       "method": "baseline",
       "score_source_kind": "computed_from_row",
@@ -1671,7 +1581,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "25",
+      "rank": "24",
       "entry": "TITANiAN-IM-ablation-1,2,3,4,7",
       "method": "TITANiAN",
       "score_source_kind": "table_column",
@@ -1701,7 +1611,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "26",
+      "rank": "25",
       "entry": "BigMHC_ELIM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1731,7 +1641,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "27",
+      "rank": "26",
       "entry": "BigMHC_Ablation_Canonical_LSTM_ELIM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1761,7 +1671,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "28",
+      "rank": "27",
       "entry": "BigMHC_IM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1791,7 +1701,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "29",
+      "rank": "28",
       "entry": "BigMHC_Ablation_Canonical_LSTM_IM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1821,7 +1731,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "30",
+      "rank": "29",
       "entry": "BigMHC_Ablation_Wide_LSTM_ELIM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1851,7 +1761,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "31",
+      "rank": "30",
       "entry": "BigMHC_Ablation_Wide_LSTM_IM",
       "method": "BigMHC",
       "score_source_kind": "table_column",
@@ -1881,51 +1791,7 @@
     },
     {
       "arm": "neoantigen",
-      "rank": "32",
-      "entry": "NORVARA-3B",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.4203",
-      "pooled": "0.4669",
-      "current_flag": "",
-      "current_flag_class": "none",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "neoantigen",
-      "rank": "33",
-      "entry": "NORVARA-650M",
-      "method": "NORVARA",
-      "score_source_kind": "fresh_inference",
-      "score_column": null,
-      "column_in_evaluation_table": false,
-      "column_also_in_bigmhc_im_test": false,
-      "tier1": false,
-      "tier1_subtier": null,
-      "tier2": false,
-      "tier2_deposits": [],
-      "max_tier": 0,
-      "affected": false,
-      "figure_published": true,
-      "within_allele": "0.4053",
-      "pooled": "0.4253",
-      "current_flag": "",
-      "current_flag_class": "none",
-      "flagged_as_contamination": false
-    },
-    {
-      "arm": "neoantigen",
-      "rank": "33-34",
+      "rank": "withheld",
       "entry": "NetMHCpan-4.1 (scores)",
       "method": "NetMHCpan-4.1",
       "score_source_kind": "table_column",
@@ -1941,13 +1807,13 @@
       "figure_published": false,
       "within_allele": "withheld",
       "pooled": "withheld",
-      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Withheld on both arms for the same reason.",
+      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Withheld on both arms for the same reason. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.",
       "current_flag_class": "withheld",
       "flagged_as_contamination": false
     },
     {
       "arm": "neoantigen",
-      "rank": "33-34",
+      "rank": "withheld",
       "entry": "NetMHCpan-4.1 (percentile ranks)",
       "method": "NetMHCpan-4.1",
       "score_source_kind": "table_column",
@@ -1963,7 +1829,7 @@
       "figure_published": false,
       "within_allele": "withheld",
       "pooled": "withheld",
-      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Withheld on both arms for the same reason.",
+      "current_flag": "withheld: DTU academic licence \u00a77(v) forbids publishing benchmark results on NetMHCpan to a third party without HEALTH's prior written consent; no waiver exists. Withheld on both arms for the same reason. The rank is withheld on the same basis: the neighbouring published figures would bound the withheld one.",
       "current_flag_class": "withheld",
       "flagged_as_contamination": false
     }
@@ -1972,7 +1838,7 @@
     "rule_affected_unflagged_figure_published": [
       {
         "arm": "infectious",
-        "rank": "8",
+        "rank": "5",
         "entry": "BigMHC canonical-LSTM IM ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Canonical_LSTM_IM",
@@ -1985,7 +1851,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "9",
+        "rank": "6",
         "entry": "BigMHC canonical-LSTM ELIM ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Canonical_LSTM_ELIM",
@@ -1998,7 +1864,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "12",
+        "rank": "9",
         "entry": "PRIME-2.0 (scores)",
         "method": "PRIME-2.0",
         "score_column": "PRIME-2.0_Scores",
@@ -2011,7 +1877,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "13",
+        "rank": "10",
         "entry": "PRIME-2.0 (percentile ranks, sign-corrected)",
         "method": "PRIME-2.0",
         "score_column": "PRIME-2.0_Ranks",
@@ -2024,7 +1890,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "16",
+        "rank": "13",
         "entry": "PRIME-1.0 (scores)",
         "method": "PRIME-1.0",
         "score_column": "PRIME-1.0_Scores",
@@ -2037,7 +1903,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "17",
+        "rank": "14",
         "entry": "PRIME-1.0 (percentile ranks, sign-corrected)",
         "method": "PRIME-1.0",
         "score_column": "PRIME-1.0_Ranks",
@@ -2050,7 +1916,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "18",
+        "rank": "15",
         "entry": "MixMHCpred-2.1 (percentile ranks, sign-corrected)",
         "method": "MixMHCpred-2.1",
         "score_column": "MixMHCpred-2.1_Ranks",
@@ -2063,7 +1929,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "19",
+        "rank": "16",
         "entry": "MixMHCpred-2.1 (scores)",
         "method": "MixMHCpred-2.1",
         "score_column": "MixMHCpred-2.1_Scores",
@@ -2076,7 +1942,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "20",
+        "rank": "17",
         "entry": "MHCflurry-2.0 (scores)",
         "method": "MHCflurry-2.0",
         "score_column": "MHCflurry-2.0_Scores",
@@ -2089,7 +1955,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "21",
+        "rank": "18",
         "entry": "MHCflurry-2.0 (percentile ranks, sign-corrected)",
         "method": "MHCflurry-2.0",
         "score_column": "MHCflurry-2.0_Ranks",
@@ -2102,7 +1968,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "22",
+        "rank": "19",
         "entry": "MixMHCpred-2.2 (scores)",
         "method": "MixMHCpred-2.2",
         "score_column": "MixMHCpred-2.2_Scores",
@@ -2115,7 +1981,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "23",
+        "rank": "20",
         "entry": "MixMHCpred-2.2 (percentile ranks, sign-corrected)",
         "method": "MixMHCpred-2.2",
         "score_column": "MixMHCpred-2.2_Ranks",
@@ -2128,7 +1994,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "24",
+        "rank": "21",
         "entry": "BigMHC wide-LSTM IM ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Wide_LSTM_IM",
@@ -2141,7 +2007,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "25",
+        "rank": "22",
         "entry": "BigMHC wide-LSTM ELIM ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Wide_LSTM_ELIM",
@@ -2154,7 +2020,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "27",
+        "rank": "24",
         "entry": "MHCnuggets-2.4.0",
         "method": "MHCnuggets-2.4.0",
         "score_column": "MHCnuggets-2.4.0",
@@ -2167,7 +2033,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "29",
+        "rank": "26",
         "entry": "TransPHLA",
         "method": "TransPHLA",
         "score_column": "TransPHLA",
@@ -2180,7 +2046,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "30",
+        "rank": "27",
         "entry": "BigMHC_EL",
         "method": "BigMHC",
         "score_column": "BigMHC_EL",
@@ -2193,7 +2059,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "31",
+        "rank": "28",
         "entry": "BigMHC canonical-LSTM EL ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Canonical_LSTM_EL",
@@ -2206,7 +2072,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "32",
+        "rank": "29",
         "entry": "BigMHC wide-LSTM EL ablation",
         "method": "BigMHC",
         "score_column": "BigMHC_Ablation_Wide_LSTM_EL",
@@ -2219,7 +2085,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "33",
+        "rank": "30",
         "entry": "HLAthena (percentile ranks, sign-corrected)",
         "method": "HLAthena",
         "score_column": "HLAthena_Ranks",
@@ -2232,7 +2098,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "34",
+        "rank": "31",
         "entry": "HLAthena (scores)",
         "method": "HLAthena",
         "score_column": "HLAthena_Scores",
@@ -2429,7 +2295,7 @@
     "rule_affected_figure_withheld": [
       {
         "arm": "infectious",
-        "rank": "35-36",
+        "rank": "withheld",
         "entry": "NetMHCpan-4.1 (scores)",
         "method": "NetMHCpan-4.1",
         "score_column": "NetMHCpan-4.1_Scores",
@@ -2442,7 +2308,7 @@
       },
       {
         "arm": "infectious",
-        "rank": "35-36",
+        "rank": "withheld",
         "entry": "NetMHCpan-4.1 (percentile ranks)",
         "method": "NetMHCpan-4.1",
         "score_column": "NetMHCpan-4.1_Ranks",
@@ -2455,7 +2321,7 @@
       },
       {
         "arm": "neoantigen",
-        "rank": "33-34",
+        "rank": "withheld",
         "entry": "NetMHCpan-4.1 (scores)",
         "method": "NetMHCpan-4.1",
         "score_column": "NetMHCpan-4.1_Scores",
@@ -2468,7 +2334,7 @@
       },
       {
         "arm": "neoantigen",
-        "rank": "33-34",
+        "rank": "withheld",
         "entry": "NetMHCpan-4.1 (percentile ranks)",
         "method": "NetMHCpan-4.1",
         "score_column": "NetMHCpan-4.1_Ranks",

@@ -1,5 +1,5 @@
 {
-  "produced_utc": "2026-11-14T17:50:22+00:00",
+  "produced_utc": "2026-11-14T19:02:42+00:00",
   "script": "supplementary/scripts/ceiling_convergence.py",
   "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
   "basis": "stratified on min reference count, 400 splits, seed-20261114",
@@ -8,8 +8,9 @@
       "min_k": 2,
       "n_units": 4815,
       "c1_plugin_upper": 0.8237,
-      "c1_crossfit_lower": 0.6221,
-      "c1_bracket": 0.2016,
+      "c1_crossfit_half_vote": 0.6221,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.2016,
       "c2_plugin_upper": 0.9119,
       "c2_crossfit_lower": 0.623,
       "c2_bracket": 0.2889
@@ -18,8 +19,9 @@
       "min_k": 3,
       "n_units": 1786,
       "c1_plugin_upper": 0.6806,
-      "c1_crossfit_lower": 0.5439,
-      "c1_bracket": 0.1367,
+      "c1_crossfit_half_vote": 0.5439,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.1367,
       "c2_plugin_upper": 0.835,
       "c2_crossfit_lower": 0.545,
       "c2_bracket": 0.29
@@ -28,8 +30,9 @@
       "min_k": 4,
       "n_units": 996,
       "c1_plugin_upper": 0.6497,
-      "c1_crossfit_lower": 0.5558,
-      "c1_bracket": 0.0939,
+      "c1_crossfit_half_vote": 0.5558,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.0939,
       "c2_plugin_upper": 0.8128,
       "c2_crossfit_lower": 0.5748,
       "c2_bracket": 0.238
@@ -38,8 +41,9 @@
       "min_k": 5,
       "n_units": 655,
       "c1_plugin_upper": 0.6367,
-      "c1_crossfit_lower": 0.5757,
-      "c1_bracket": 0.061,
+      "c1_crossfit_half_vote": 0.5757,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.061,
       "c2_plugin_upper": 0.8076,
       "c2_crossfit_lower": 0.6158,
       "c2_bracket": 0.1917
@@ -48,8 +52,9 @@
       "min_k": 6,
       "n_units": 496,
       "c1_plugin_upper": 0.642,
-      "c1_crossfit_lower": 0.5803,
-      "c1_bracket": 0.0616,
+      "c1_crossfit_half_vote": 0.5803,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.0616,
       "c2_plugin_upper": 0.8046,
       "c2_crossfit_lower": 0.6414,
       "c2_bracket": 0.1632
@@ -58,8 +63,9 @@
       "min_k": 8,
       "n_units": 311,
       "c1_plugin_upper": 0.5991,
-      "c1_crossfit_lower": 0.565,
-      "c1_bracket": 0.0341,
+      "c1_crossfit_half_vote": 0.565,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.0341,
       "c2_plugin_upper": 0.7904,
       "c2_crossfit_lower": 0.6461,
       "c2_bracket": 0.1443
@@ -68,39 +74,48 @@
       "min_k": 10,
       "n_units": 209,
       "c1_plugin_upper": 0.5526,
-      "c1_crossfit_lower": 0.5497,
-      "c1_bracket": 0.003,
+      "c1_crossfit_half_vote": 0.5497,
+      "c1_crossfit_half_vote_is_a_bound": false,
+      "c1_plugin_minus_crossfit": 0.003,
       "c2_plugin_upper": 0.7927,
       "c2_crossfit_lower": 0.6678,
       "c2_bracket": 0.1249
     }
   ],
-  "variance_decomposition": {
+  "population_shares": {
     "share_of_units_with_two_refs": 62.9,
-    "share_of_two_ref_units_at_an_endpoint": 61.3,
-    "k_range_fitted": [
-      2,
-      8
-    ],
-    "n_strata_fitted": 7,
-    "var_true_p_intercept": 0.0049,
-    "mean_p_one_minus_p_slope": 0.2126,
-    "sd_true_p": 0.0698,
-    "noise_share_of_variance_at_k2": 95.6
+    "share_of_two_ref_units_at_an_endpoint": 61.3
   },
-  "bracket_narrows_with_k": true,
-  "widest_bracket": 0.29,
-  "narrowest_bracket": 0.1249,
-  "reference_in_distribution": 0.6125,
-  "headroom_at_c1_plugin": 0.2112,
-  "headroom_at_c1_crossfit": 0.0096,
-  "c1_bracket_audited_subpopulation": [
-    0.6221,
-    0.8237
+  "c2_width_narrows_overall": true,
+  "c2_width_rises_at": [
+    [
+      2,
+      3
+    ]
   ],
+  "c2_plugin_rises_at": [
+    [
+      8,
+      10
+    ]
+  ],
+  "c2_crossfit_falls_at": [
+    [
+      2,
+      3
+    ]
+  ],
+  "widest_c2_bracket": 0.29,
+  "narrowest_c2_bracket": 0.1249,
+  "reference_in_distribution": 0.6125,
+  "headroom_at_c2_plugin": 0.2994,
+  "headroom_at_c2_crossfit": 0.0105,
+  "c1_plugin_upper_audited_subpopulation": 0.8237,
+  "c1_lower_bound": null,
+  "c1_lower_bound_note": "Withdrawn. The half-vote construction degenerates on Ceiling-1 -- maj() on a single vote in {0, 0.5, 1} is the identity, so on a two-vote split the two cross-fit scorers are the same function and 62.9 per cent of audited units carry two references -- and no proof bounds Ceiling-1 below. `c1_crossfit_half_vote` is a descriptive statistic of that construction and is not a bound.",
   "c2_bracket_audited_subpopulation": [
     0.623,
     0.9119
   ],
-  "interpretation": "The plug-in bound falls at every step on both ceilings. The cross-fit bound moves over a narrower span and is not monotone, so it is the BRACKET WIDTH that narrows. Ceiling-2's goes from 0.2889 at min k 2 to 0.1249 at min k 10, and Ceiling-1's from 0.2016 to 0.003. The published 0.9119 and 0.8237 are the plug-in bounds in the noisiest stratum, where most units carry two references. They are upper bounds on the true ceilings, not estimates of them. A population shift moves one bound without closing the gap between two, so the closing of both brackets is the signature of estimation noise. The level at which the bounds meet on deeply measured units is a property of those more-studied epitopes and does not transfer to the audited subpopulation; the convergence is the evidence."
+  "interpretation": "Ceiling-2 is bracketed on the audited subpopulation by 0.6230 below and 0.9119 above. The plug-in bound is biased up because it ranks and weights by the same p-hat; the half-vote cross-fit bound is biased down, and provably so, because the half-B label masses are unbiased for p and independent of the half-A scores. The width narrows overall, from 0.2889 at min k 2 to 0.1249 at min k 10, and it does so non-monotonically: the width rises at min k 2 to 3, the plug-in bound rises at min k 8 to 10, and the cross-fit bound falls at min k 2 to 3. The published 0.9119 is the plug-in bound in the noisiest stratum, where 62.9 per cent of units carry two references, so it is an upper bound on the true ceiling and not an estimate of it. Ceiling-1 carries an upper bound only: 0.8237 is a plug-in upper bound on the score of one particular predictor, not a bound on model performance, and `c1_crossfit_half_vote` is not a lower bound on it. Headroom above the in-distribution cross-validated 0.6125 is therefore reported on Ceiling-2 alone: at most 0.2994, with 0.0105 not excluded. The level at which Ceiling-2's two bounds approach each other on deeply measured units is a property of those more-studied epitopes and does not transfer to the audited subpopulation."
 }

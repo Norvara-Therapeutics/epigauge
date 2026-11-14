@@ -20,7 +20,10 @@ is the draw-sensitive term and that the headroom argument rests on Ceiling-2.
 Standard library only, matching the shipped supplementary scripts, so this runs on a bare
 interpreter with no environment to reconstruct.
 
-    python3 supplementary/scripts/ceiling_crossfit.py [--splits 200] [--seed 20261114]
+    python3 supplementary/scripts/ceiling_crossfit.py [--splits 400] [--seed 20261114]
+
+The default split count is 400, which is the count recorded in the shipped artifact's
+basis string, so the command above with no arguments regenerates the shipped record.
 """
 
 from __future__ import annotations
@@ -69,7 +72,9 @@ def auroc_weighted(points: list[tuple[float, float]]) -> float:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--splits", type=int, default=200)
+    ap.add_argument("--splits", type=int, default=400,
+                    help="number of random half-vote partitions to average over "
+                         "(default 400, the count behind the shipped artifact)")
     ap.add_argument("--seed", type=int, default=20261114)
     args = ap.parse_args(argv)
 

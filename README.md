@@ -81,8 +81,10 @@ of these rows to carry with any figure:
   close to useless on it.
 - **`study_id` is constant** across all 2,093 infectious rows, so study-level clustering is
   *unmeasurable*, not merely unmeasured.
-- Row identity against the Dryad deposit is **not yet established**: the local files predate the
-  deposit and no checksum comparison has been run.
+- Row identity against the Dryad deposit **is** established: `test.zip` matches the sha256 Dryad
+  publishes for it, and all seven shipped members are byte-identical to the deposit's. An earlier
+  revision of this file inferred from file modification times that the local copies predated the
+  deposit; that inference was wrong, because a zip archive preserves its members' mtimes.
 
 A set nobody has trained on needs a prospective time-split against new IEDB curation. That is the
 roadmap, not this release.
@@ -94,27 +96,30 @@ roadmap, not this release.
 | # | within-allele | pooled | entry |
 |---|---|---|---|
 | 1 | 0.7444 | 0.7844 | TITANiAN-IM ⚠ *label recoverable from a public IEDB assay table at 0.9101* |
-| 3 | 0.5712 | 0.5952 | NORVARA-3B |
-| 4 | 0.5675 | 0.6106 | NORVARA-650M |
-| 5 | 0.5664 | 0.6169 | NORVARA-150M |
-| **11** | **0.5264** | 0.5650 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
-| 12 | 0.5205 | 0.5663 | PRIME-2.0 |
-| 20 | 0.5129 | 0.5541 | MHCflurry-2.0 |
-| **26** | **0.5000** | **0.7122** | **BASELINE — allele lookup, no peptide input** |
-| 29 | 0.4879 | 0.5465 | TransPHLA |
-| **37** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
+| **8** | **0.5264** | 0.5650 | **BASELINE — mean Kyte-Doolittle hydropathy, unfitted** |
+| 9 | 0.5205 | 0.5663 | PRIME-2.0 |
+| 17 | 0.5129 | 0.5541 | MHCflurry-2.0 |
+| **23** | **0.5000** | **0.7122** | **BASELINE — allele lookup, no peptide input** |
+| 26 | 0.4879 | 0.5465 | TransPHLA |
+| **32** | **0.4132** | 0.4512 | **BASELINE — peptide length** |
 
-Ranked on within-allele; pooled is printed, never ranked on. Nine rows of 37 — and nearly
+32 ranked entries, and two more whose figures are withheld under a licence clause. The
+benchmark's authors ran their own models on both arms and do not publish them here: their
+score columns are not distributed, so no third party can recompute those figures or attach
+an interval to them, and the instrument would not be auditing them on the terms it applies
+to every other entry.
+
+Ranked on within-allele; pooled is printed, never ranked on. Seven rows of 32 — and nearly
 every gap is below the MDE, so read the column as a band, not an order.
 
 **[Full leaderboard →](leaderboards/infectious.md)** · **[Neoantigen arm →](leaderboards/neoantigen.md)**
 
-On the neoantigen arm **no method performs above chance** — all 35 span 0.405–0.540 with 22 below
-0.500, peptide length alone ranks first, and TITANiAN-IM falls from 0.7444 to 0.4827 once its
+On the neoantigen arm **no published figure is above chance** — all 30 span 0.4309–0.5397 with 19
+below 0.500, peptide length alone ranks first, and TITANiAN-IM falls from 0.7444 to 0.4827 once its
 assay-table lookup covers 1.3% of rows instead of 100%.
 
-An unfitted 1982 physicochemical scale places 11th, above PRIME-2.0, MHCflurry-2.0, MixMHCpred,
-NetMHCpan-4.1, TransPHLA and six BigMHC variants.
+An unfitted 1982 physicochemical scale places 8th, above PRIME-2.0, MHCflurry-2.0, MixMHCpred,
+TransPHLA and seven BigMHC variants.
 
 ---
 
@@ -126,8 +131,12 @@ cd epigauge
 pip install -e .
 ```
 
-Zero runtime dependencies — the metric layer is standard library only, so it runs anywhere and a
-reviewer with a bare interpreter can reproduce every figure.
+Zero runtime dependencies — the metric layer is standard library only, so it runs anywhere. A
+reviewer with a bare interpreter reproduces both leaderboards, the stratum diagnostic, the
+rank-reversal tables and both annotation-ceiling brackets. Three analyses need an input this
+package does not redistribute: the clustered intervals need the nine UniProt reference proteomes,
+the contamination census needs the three upstream CSVs, and the MHCflurry column needs that
+predictor installed. `supplementary/README.md` states which figure needs which.
 
 ```bash
 epigauge list                                     # the row sets, their licences, what ships
@@ -151,8 +160,8 @@ Five independent arms — a capacity ladder, a 175-config gate study, better-lab
 positional representations, and a 150M → 3B backbone ladder — found no architecture, representation
 or scale that moves external transfer. In-distribution cross-validation on a benchmark's own labels
 reaches 0.6125. Meanwhile independent references **disagree on 55.0% of multiply-measured epitopes**,
-capping attainable AUROC at **0.8237–0.9119** on the 8.96% of units where disagreement is observable
-at all.
+capping attainable AUROC at **0.9119**, with **0.6230** not excluded, on the 8.96% of units where
+disagreement is observable at all.
 
 The useful contribution is not another model. It is the instrument that says whether anyone's model
 is real.

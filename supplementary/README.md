@@ -7,14 +7,15 @@ the data this package ships.
 Paths in this directory and inside every artifact are relative to the package root — the
 directory holding `pyproject.toml`, `leaderboards/` and `benchmarks/`. No artifact
 records an absolute path. Where an artifact was computed from an input that is not
-redistributed, the `script` or input field names the deposit and the `sha256` of the
-exact file used, which is how a third party confirms it holds the same input.
+redistributed, its `script` or input field names the deposit, and every such artifact but
+`annotation/ceiling_biased_draw.json` also carries the `sha256` of the exact file used,
+which is how a third party confirms it holds the same input.
 
 ```
 supplementary/
-  artifacts/              14 JSON records, 4.2 MB
-    annotation/           the 7 annotation-ceiling records
-  scripts/                5 runnable analysis scripts
+  artifacts/              17 JSON records, 4.2 MB
+    annotation/           the 10 annotation-ceiling records, 4.0 MB
+  scripts/                8 runnable analysis scripts
   proteomes/              not shipped; see "The nine reference proteomes"
 ```
 
@@ -116,12 +117,26 @@ T-cell full export, and the code is not redistributed.
 
 ## Annotation artifacts — `artifacts/annotation/`
 
-These seven records back the annotation-ceiling section. The analysis code is **not**
-redistributed, because its entry point reads a 1.35 GB IEDB T-cell full export that
-cannot be redistributed and the figures are specific to one dated version of it,
-identified by `source_sha256` in each record. Shipping code that cannot be run from the
-package would be worse than stating the dependency, so the artifacts ship and the code
-does not.
+These ten records back the annotation-ceiling section, and they divide into two groups.
+
+**Seven have no shipped code.** `iedb_unit_votes.json`, `iedb_disagreement_ceiling.json`,
+`iedb_ceiling_interval.json`, `ceiling_sensitivity.json`,
+`ceiling_partial_identification.json`, `ceiling_biased_draw.json` and
+`disagreement_null.json` are produced by entry points that read a 1.35 GB IEDB T-cell full
+export, which cannot be redistributed, and their figures are specific to one dated version
+of it. Six of the seven identify it by `source_sha256`; `ceiling_biased_draw.json` records
+its basis, its calibration and the solved logit shift instead. Shipping code that cannot be
+run from the package would be worse than stating the dependency, so the artifacts ship and
+the code does not. Each of the seven names the missing entry point in its own `script`
+field.
+
+**Three ship with their code and run on a bare interpreter.**
+`ceiling_crossfit.json`, `ceiling_convergence.json` and `ceiling_deconvolved_refused.json`
+are produced by `supplementary/scripts/ceiling_crossfit.py`,
+`ceiling_convergence.py` and `ceiling_deconvolved.py`. All three read
+`artifacts/annotation/iedb_unit_votes.json`, which ships, and need nothing else, so the
+bracket on Ceiling-2 and the refusal of the deconvolution are regenerable from this
+package alone.
 
 ### `artifacts/annotation/iedb_unit_votes.json` — the derived per-unit table
 
@@ -158,11 +173,13 @@ of the unit's annotation rate and leave no annotation-noise ceiling to report.
 
 ### `artifacts/annotation/ceiling_partial_identification.json`
 
-What the two ceilings would be at each assumed disagreement rate among the 48,939 units
+What the two ceilings would be at each assumed disagreement rate δ among the 48,939 units
 measured once, which no amount of the present data observes. Backs the headroom figure.
-The bound is not vacuous anywhere on the range evaluated: at the observed split rate
-`0.5084` the headroom to Ceiling-1 above the in-distribution cross-validated reference
-`0.6125` is still `0.2120`.
+Every row is an upper bound **at its own δ** and the record supports nothing stronger: the
+curve decreases in δ, from Ceiling-1 `0.9822` and Ceiling-2 `0.9991` at δ = 0 to `0.8245`
+and `0.9119` at the observed reference-level rate `0.5084`. No global bound is stated from
+it. The headroom the paper reports is the subpopulation statement in
+`ceiling_convergence.json`, on Ceiling-2.
 
 ### `artifacts/annotation/ceiling_biased_draw.json`
 
@@ -189,9 +206,23 @@ unit's reference votes in half, scores from one half and takes the target from t
 so no vote supplies both a score and its own target. Over 400 splits Ceiling-2 is
 **0.6230** against the plug-in 0.9119. Reads `iedb_unit_votes.json` and nothing else.
 
-Ceiling-1 is not cross-fit here: its score is the majority label, which on a two-vote split
-is the scoring vote itself, so the construction degenerates. Ceiling-1's lower bound comes
-from `ceiling_convergence.json`, as the `c1_crossfit_lower` field of each stratum.
+```bash
+python3 -I supplementary/scripts/ceiling_crossfit.py          # --splits defaults to 400
+```
+
+The bound holds for Ceiling-2 term by term: the half-B label masses are unbiased for `p`
+and independent of the half-A scores, so each unordered pair's cross-fit contribution is at
+most its true contribution, with equality when the two units share a rate.
+
+**Ceiling-1 is not cross-fit here, and it has no lower bound anywhere in this package.**
+Its score is the majority label, and `maj()` on a single vote in {0, ½, 1} is the identity,
+so on a two-vote split the Ceiling-1 and Ceiling-2 cross-fit scorers are the same function
+and 62.9% of audited units carry two references. No proof bounds Ceiling-1 below, and there
+is a counterexample class: for two units with `p_u > p_v` sharing a majority label the
+cross-fit contribution strictly exceeds the true one. Ceiling-1 is reported as `0.8237`, a
+plug-in **upper** bound on the score of one particular predictor, which is not a bound on
+model performance. `ceiling_convergence.json` records the analogous half-vote statistic as
+`c1_crossfit_half_vote`, flagged `c1_crossfit_half_vote_is_a_bound: false`.
 
 Note the definition the table actually stores: `p_ref = (n_pos_refs + n_tie_refs / 2) / k`.
 It is neither `n_pos_refs / k` (which gives 0.9080) nor `n_pos_refs / (n_pos_refs +
@@ -200,19 +231,34 @@ published 0.9119 from the shipped table.
 
 ### `artifacts/annotation/ceiling_convergence.json`
 
-The bracket for both ceilings at seven minimum reference counts: 2, 3, 4, 5, 6, 8 and 10.
-The plug-in bound is biased up and the cross-fit bound down, so each ceiling lies between
-them, and both biases shrink as a unit accumulates references. Ceiling-1's bracket closes
-to **0.0030** on the 209 units carrying at least ten references, which is what identifies
-its width of 0.2016 at `k >= 2` as estimation noise rather than ignorance. Ceiling-2's
-bracket is non-monotone across the first step, 0.2889 at `k >= 2` against 0.2900 at
-`k >= 3`, and narrows from there. Headroom from the
-in-distribution 0.6125 to Ceiling-1 is 0.2112 at the plug-in bound and 0.0096 at the
-cross-fit bound.
+Both bounds on **Ceiling-2**, and the plug-in upper bound on Ceiling-1, at seven minimum
+reference counts: 2, 3, 4, 5, 6, 8 and 10. All seven strata are recorded. For Ceiling-2 the
+plug-in bound is biased up and the cross-fit bound down, so the ceiling lies between them,
+and both biases shrink as a unit accumulates references. The bracket narrows **overall**,
+from 0.2889 at `k >= 2` to 0.1249 at `k >= 10`, and it does so non-monotonically: the width
+rises across the first step (0.2889 against 0.2900 at `k >= 3`), the plug-in bound rises at
+`k` 8 to 10 (0.7904 against 0.7927), and the cross-fit bound falls across the first step
+(0.6230 against 0.5450). The record states each exception in its own
+`c2_width_rises_at`, `c2_plugin_rises_at` and `c2_crossfit_falls_at` fields rather than
+leaving a monotonicity claim to be checked by hand, and the `interpretation` string is
+derived from the rows so it cannot drift from them.
 
-The level at which the two bounds meet on deeply measured units is a property of those
-more-studied epitopes and does not transfer to the audited subpopulation. The convergence
-is the evidence; the level is not.
+**Headroom is reported on Ceiling-2 only**, because Ceiling-1 has no lower bound: above the
+in-distribution cross-validated 0.6125 it is at most **0.2994**, with **0.0105** not
+excluded. `c1_crossfit_half_vote` is the half-vote statistic for Ceiling-1 and is not a
+bound; `c1_lower_bound` is `null` and `c1_lower_bound_note` says why.
+
+The level at which Ceiling-2's two bounds approach each other on deeply measured units is a
+property of those more-studied epitopes and does not transfer to the audited subpopulation.
+The narrowing is the evidence; the level is not.
+
+```bash
+python3 -I supplementary/scripts/ceiling_convergence.py       # --splits defaults to 400
+```
+
+The record states no variance decomposition of `p_ref` and the bracket does not rest on
+one. `population_shares` carries only counts: 62.9% of audited units hold two references
+and 61.3% of those sit exactly at an endpoint.
 
 ### `artifacts/annotation/ceiling_deconvolved_refused.json` — a model that was rejected
 
@@ -228,19 +274,27 @@ own `note` field says so. No figure in the paper is computed from it. The bracke
 
 ## Scripts
 
-Five scripts run against data this package ships. Each inserts the package root on
-`sys.path` itself, so `python3 -I` works from any working directory and no `PYTHONPATH`
-is needed. Each writes into `supplementary/artifacts/`.
+Eight scripts ship. Each inserts the package root on `sys.path` itself, so `python3 -I`
+works from any working directory and no `PYTHONPATH` is needed. Each writes into
+`supplementary/artifacts/`. Five run on the shipped data alone; three need an input this
+package does not redistribute, named in the last column.
 
 | script | command | needs beyond the package |
 |---|---|---|
 | `stratum_choice.py` | `python3 -I supplementary/scripts/stratum_choice.py` | nothing |
 | `rank_reversal.py` | `python3 -I supplementary/scripts/rank_reversal.py` | nothing |
+| `ceiling_crossfit.py` | `python3 -I supplementary/scripts/ceiling_crossfit.py` | nothing |
+| `ceiling_convergence.py` | `python3 -I supplementary/scripts/ceiling_convergence.py` | nothing |
+| `ceiling_deconvolved.py` | `python3 -I supplementary/scripts/ceiling_deconvolved.py` | nothing; **exits 1 by design** |
 | `leaderboard_uncertainty.py` | `python3 -I supplementary/scripts/leaderboard_uncertainty.py --set titanian_infectious --B 10000` | the nine proteomes |
-| `score_unscored_arms.py` | `python3 -I supplementary/scripts/score_unscored_arms.py --B 10000` | the nine proteomes, MHCflurry |
+| `score_unscored_arms.py` | `python3 -I supplementary/scripts/score_unscored_arms.py --B 10000` | the nine proteomes, and MHCflurry for its own column |
 | `contamination_census.py` | `python3 -I supplementary/scripts/contamination_census.py --im-test <f> --infectious-table <f> --neoantigen-table <f>` | the three upstream CSVs |
 
-The annotation scripts are not among them. They require the IEDB export, as stated above.
+**The three ceiling scripts need no IEDB export.** They read the shipped per-unit vote
+table, `artifacts/annotation/iedb_unit_votes.json`, and nothing else, and each refuses to
+write unless it first reproduces the published plug-in figures from that table. The seven
+annotation records listed above as having no shipped code are the ones whose entry points
+read the export; those seven are not regenerable here.
 
 ### The nine reference proteomes
 
@@ -288,8 +342,12 @@ From this package and a standard-library interpreter, with no network access and
 third-party module:
 
 - `stratum_choice.json`, from the shipped rows.
-- `rank_reversal.json`, and with `--emit-pgfplots` the reversal figure's data tables, from
-  the shipped leaderboard CSVs.
+- `rank_reversal.json`, and with `--emit-pgfplots DIR` the reversal figure's data tables,
+  from the shipped leaderboard CSVs.
+- `annotation/ceiling_crossfit.json` and `annotation/ceiling_convergence.json`, and
+  therefore the bracket on Ceiling-2, from the shipped per-unit vote table.
+- `annotation/ceiling_deconvolved_refused.json`, from the same table; the script exits 1
+  and records the refusal.
 
 With the nine reference proteomes added, and nothing else:
 
@@ -307,11 +365,15 @@ With the nine reference proteomes added, and nothing else:
 - **The nine reference proteomes** are required by the two clustered-interval scripts.
   They are public UniProt downloads; the queries and checksums are above.
 - **MHCflurry** is required for the MHCflurry column of `unscored_arms_scored.json` only.
-- **The annotation figures** — the disagreement-and-consistency figure and the headroom
-  figure — need the IEDB T-cell full export, 1.35 GB, identified by `source_sha256` in
-  each annotation record, plus NumPy and pandas. The analysis code is not redistributed.
+- **Seven of the ten annotation records** — the per-unit vote table itself, the filter
+  chain, the bootstrap interval, the sensitivity analysis, the partial-identification
+  curve, the biased draw and the disagreement null — need the IEDB T-cell full export,
+  1.35 GB, plus NumPy and pandas. Six identify the export by `source_sha256`. That code is
+  not redistributed, so those seven ship as artifacts only, and
   `artifacts/annotation/iedb_unit_votes.json` is shipped so the derived per-unit table
-  behind those figures is checkable without the export.
+  behind them is checkable without the export. The remaining three annotation records,
+  `ceiling_crossfit.json`, `ceiling_convergence.json` and
+  `ceiling_deconvolved_refused.json`, need nothing beyond this package.
 
 Two rows of each leaderboard are not recomputable by anyone from the released material,
 the authors included. The NetMHCpan-4.1 columns are withheld under a licence clause and

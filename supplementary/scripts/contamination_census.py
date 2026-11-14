@@ -317,18 +317,10 @@ ENTRY_MAP["neoantigen"].update({
     },
 })
 
-# Organiser submissions: inference run on the rows by this project. No column is read.
-for _arm, _entries in (
-    ("infectious", [
-        "NORVARA-3B — frozen ESM-2 3B backbone, 2,561-param head",
-        "NORVARA-650M — frozen ESM-2 650M backbone, 1,281-param head",
-        "NORVARA-150M — frozen ESM-2 150M backbone, 641-param head",
-    ]),
-    ("neoantigen", ["NORVARA-3B", "NORVARA-650M", "NORVARA-150M"]),
-):
-    for _entry in _entries:
-        ENTRY_MAP[_arm][_entry] = {"col": None, "method": "NORVARA",
-                                   "kind": "fresh_inference"}
+# The organiser's own submissions are withdrawn from both leaderboards and are therefore
+# absent from this map. The instrument cannot audit them on the terms it applies to the
+# other entries: their score columns are not distributed, so no third party can recompute
+# the figures or attach an interval to them.
 
 # Baselines.
 for _arm in ("infectious", "neoantigen"):
