@@ -1,0 +1,72 @@
+{
+  "produced_utc": "2026-11-13T23:51:49+00:00",
+  "script": "not redistributed: internal ceiling_partial_identification.py requires the IEDB T-cell full export (sha256 in source_sha256); see supplementary/README.md",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "basis": "analytic over the empirical p_u mixture, seed-20261113",
+  "units_total": 53754,
+  "units_observable": 4815,
+  "units_singly_measured": 48939,
+  "observed_split_fraction": 0.5084,
+  "prevalence_among_unanimous_observed": 0.8074,
+  "cv_reference": 0.6125,
+  "subpopulation_ceiling_1": 0.8237,
+  "subpopulation_ceiling_2": 0.9119,
+  "curve": [
+    {
+      "delta": 0.0,
+      "n_unobserved_disagreeing": 0,
+      "ceiling_1_global": 0.9822,
+      "ceiling_2_global": 0.9991,
+      "headroom_vs_cv_c1": 0.3697,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.05,
+      "n_unobserved_disagreeing": 2447,
+      "ceiling_1_global": 0.9652,
+      "ceiling_2_global": 0.9966,
+      "headroom_vs_cv_c1": 0.3527,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.1,
+      "n_unobserved_disagreeing": 4894,
+      "ceiling_1_global": 0.9485,
+      "ceiling_2_global": 0.9925,
+      "headroom_vs_cv_c1": 0.336,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.2,
+      "n_unobserved_disagreeing": 9788,
+      "ceiling_1_global": 0.9161,
+      "ceiling_2_global": 0.98,
+      "headroom_vs_cv_c1": 0.3036,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.3,
+      "n_unobserved_disagreeing": 14682,
+      "ceiling_1_global": 0.8852,
+      "ceiling_2_global": 0.9627,
+      "headroom_vs_cv_c1": 0.2727,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.4,
+      "n_unobserved_disagreeing": 19576,
+      "ceiling_1_global": 0.8551,
+      "ceiling_2_global": 0.9404,
+      "headroom_vs_cv_c1": 0.2426,
+      "is_observed_rate": false
+    },
+    {
+      "delta": 0.5084,
+      "n_unobserved_disagreeing": 24881,
+      "ceiling_1_global": 0.8245,
+      "ceiling_2_global": 0.9119,
+      "headroom_vs_cv_c1": 0.212,
+      "is_observed_rate": true
+    }
+  ]
+}

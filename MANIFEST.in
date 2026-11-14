@@ -41,6 +41,17 @@ recursive-include epigauge/tests *.py
 recursive-include scripts *.py
 include .github/workflows/ci.yml
 
+# --- Supplementary data for the preprint ----------------------------------------
+# The paper's supplementary index cites `supplementary/artifacts/...` and
+# `supplementary/scripts/...`, so both must be IN the sdist: a cited path that is not
+# distributed is the defect this directory exists to fix. Only the five scripts that run
+# against data this package ships are here; the annotation scripts need a 1.35 GB IEDB
+# export that is not redistributable, so their artifacts ship and their code does not.
+# `supplementary/proteomes/` is deliberately NOT packaged -- the nine UniProt FASTA files
+# are third-party downloads under their own terms, and the two scripts that need them
+# fail loudly and name them rather than falling back to a weaker clustering basis.
+recursive-include supplementary *.json *.py *.md
+
 # --- Never packaged -------------------------------------------------------------
 # internal/ in every form it could be referenced under, belt and braces.
 prune internal

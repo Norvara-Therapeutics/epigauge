@@ -1,0 +1,19 @@
+{
+  "produced_utc": "2026-11-13T23:30:34+00:00",
+  "script": "not redistributed: internal iedb_disagreement_ceiling.py requires the IEDB T-cell full export (sha256 in source_sha256); see supplementary/README.md",
+  "source_csv": "IEDB T-cell full export, tcell_full_v3.csv (1.35 GB); not redistributed, verify against source_sha256",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "figures": {
+    "population": "human host, MHC class I, plain-AA, length 8-11",
+    "unit": "(peptide, mhc_allele)",
+    "units_total": 53754,
+    "units_ge2_refs": 4815,
+    "observable_fraction": 0.08957,
+    "disagree_ge2_refs": 0.5499,
+    "ceiling_1_majority_label_ref_voting": 0.8237,
+    "ceiling_2_bayes_optimal_ref_voting": 0.9119,
+    "ceiling_1_row_voting": 0.7964,
+    "ceiling_2_row_voting": 0.9058,
+    "mean_consistency_ref": 0.8329
+  }
+}

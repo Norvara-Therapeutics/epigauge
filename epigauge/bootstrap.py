@@ -5,6 +5,12 @@ expected under independence, over 507 pairs in 398 proteins, so the row is not t
 independent unit. The design effect is MEASURED per comparison by `paired`, never scaled
 by a stored factor; across the 833 rows it runs 1.00-1.08x (BigMHC_IM 1.00, MHCflurry
 1.01, NetMHCpan-4.1 1.03, PRIME-2.0 1.04, TITANiAN-IM 1.05) and sub-1.0 is reported as is.
+
+That range is specific to the 833-row arm, where source-protein assignment reaches only
+0.150 and clusters stay small. On the 2,093-row infectious arm, where assignment reaches
+0.859, the same measurement runs 0.881-7.469: union-find merges the pathogen proteins into
+one component holding 652 rows, so the effective cluster count is near 8.5 and the design
+effect is an order of magnitude larger. Do not carry the 1.00-1.08x figure across arms.
 """
 
 from __future__ import annotations

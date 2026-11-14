@@ -1,0 +1,167 @@
+{
+  "produced_utc": "2026-11-14T13:01:09+00:00",
+  "script": "supplementary/scripts/stratum_choice.py",
+  "note": "the lookup is fitted on the arm it scores; the diagnostic asks how much label signal the variable carries, not how a V-only model generalises",
+  "arms": {
+    "titanian_infectious": {
+      "n_rows": 2093,
+      "candidates": {
+        "allele": {
+          "n_strata": 78,
+          "pooled_auroc_of_lookup": 0.8342,
+          "within_auroc_of_lookup": 0.5,
+          "guard": null,
+          "strata_admissible": "36/78",
+          "rows_evaluable": "1787/2093",
+          "gap_pooled_minus_within": 0.3342,
+          "usable_as_stratum": true
+        },
+        "length": {
+          "n_strata": 4,
+          "pooled_auroc_of_lookup": 0.5963,
+          "within_auroc_of_lookup": 0.5,
+          "guard": null,
+          "strata_admissible": "4/4",
+          "rows_evaluable": "2093/2093",
+          "gap_pooled_minus_within": 0.0963,
+          "usable_as_stratum": true
+        },
+        "leakage_group": {
+          "n_strata": 2093,
+          "pooled_auroc_of_lookup": 1.0,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 2093 groups are singletons; the stratified estimate would be exactly 0.5 regardless of the scores",
+          "usable_as_stratum": false
+        },
+        "mhc_class": {
+          "n_strata": 1,
+          "pooled_auroc_of_lookup": 0.5,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 2093 rows share one group key ('I'); the stratified estimate would equal pooled AUROC exactly",
+          "usable_as_stratum": false
+        },
+        "label_origin": {
+          "n_strata": 1,
+          "pooled_auroc_of_lookup": 0.5,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 2093 rows share one group key ('measured'); the stratified estimate would equal pooled AUROC exactly",
+          "usable_as_stratum": false
+        }
+      },
+      "rankings": {
+        "allele_vs_length": {
+          "n_entries": 9,
+          "max_abs_shift": 3,
+          "mean_abs_shift": 1.11,
+          "n_moving_3_or_more": 1,
+          "largest": [
+            {
+              "entry": "mhcflurry_2_0_scores",
+              "rank_allele": 6,
+              "rank_length": 9,
+              "shift": 3
+            },
+            {
+              "entry": "titanian_ablation_keeps_1_2_3_4_7",
+              "rank_allele": 2,
+              "rank_length": 4,
+              "shift": 2
+            },
+            {
+              "entry": "titanian_ablation_keeps_1_2_5_6_7",
+              "rank_allele": 4,
+              "rank_length": 2,
+              "shift": 2
+            },
+            {
+              "entry": "titanian_no_pretrain",
+              "rank_allele": 7,
+              "rank_length": 6,
+              "shift": 1
+            }
+          ]
+        }
+      }
+    },
+    "titanian_neoantigen": {
+      "n_rows": 833,
+      "candidates": {
+        "allele": {
+          "n_strata": 49,
+          "pooled_auroc_of_lookup": 0.859,
+          "within_auroc_of_lookup": 0.5,
+          "guard": null,
+          "strata_admissible": "22/49",
+          "rows_evaluable": "605/833",
+          "gap_pooled_minus_within": 0.359,
+          "usable_as_stratum": true
+        },
+        "length": {
+          "n_strata": 4,
+          "pooled_auroc_of_lookup": 0.5478,
+          "within_auroc_of_lookup": 0.5,
+          "guard": null,
+          "strata_admissible": "4/4",
+          "rows_evaluable": "833/833",
+          "gap_pooled_minus_within": 0.0478,
+          "usable_as_stratum": true
+        },
+        "leakage_group": {
+          "n_strata": 833,
+          "pooled_auroc_of_lookup": 1.0,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 833 groups are singletons; the stratified estimate would be exactly 0.5 regardless of the scores",
+          "usable_as_stratum": false
+        },
+        "mhc_class": {
+          "n_strata": 1,
+          "pooled_auroc_of_lookup": 0.5,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 833 rows share one group key ('I'); the stratified estimate would equal pooled AUROC exactly",
+          "usable_as_stratum": false
+        },
+        "label_origin": {
+          "n_strata": 1,
+          "pooled_auroc_of_lookup": 0.5,
+          "within_auroc_of_lookup": null,
+          "guard": "DegenerateGroupingError: all 833 rows share one group key ('measured'); the stratified estimate would equal pooled AUROC exactly",
+          "usable_as_stratum": false
+        }
+      },
+      "rankings": {
+        "allele_vs_length": {
+          "n_entries": 8,
+          "max_abs_shift": 7,
+          "mean_abs_shift": 3.5,
+          "n_moving_3_or_more": 5,
+          "largest": [
+            {
+              "entry": "mhcflurry_2_0_scores",
+              "rank_allele": 1,
+              "rank_length": 8,
+              "shift": 7
+            },
+            {
+              "entry": "titanian_ablation_keeps_1_2_3_4_7",
+              "rank_allele": 8,
+              "rank_length": 2,
+              "shift": 6
+            },
+            {
+              "entry": "transphla",
+              "rank_allele": 2,
+              "rank_length": 7,
+              "shift": 5
+            },
+            {
+              "entry": "titanian",
+              "rank_allele": 4,
+              "rank_length": 1,
+              "shift": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

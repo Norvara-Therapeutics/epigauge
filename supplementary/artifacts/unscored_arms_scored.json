@@ -1,0 +1,257 @@
+{
+  "produced_utc": "2026-11-14T13:01:44+00:00",
+  "script": "supplementary/scripts/score_unscored_arms.py",
+  "B": 50,
+  "cluster_mode": "proteome",
+  "cluster_basis": "cluster",
+  "proteomes": [
+    "escherichia_reviewed.fasta",
+    "human_reviewed.fasta",
+    "mouse_reviewed.fasta",
+    "mycobacterium_reviewed.fasta",
+    "plasmodium_reviewed.fasta",
+    "salmonella_reviewed.fasta",
+    "staphylococcus_reviewed.fasta",
+    "streptococcus_reviewed.fasta",
+    "virus_reviewed.fasta"
+  ],
+  "note": "these arms carry no shipped predictor columns; every figure here is computed by this script and is tier 0 under the contamination census",
+  "arms": {
+    "hbv_hlabc_screen": {
+      "n_rows": 105,
+      "n_positive": 61,
+      "n_alleles": 22,
+      "clusters": 3,
+      "assigned_fraction": 1.0,
+      "cluster_basis": "cluster",
+      "cluster_provisional": false,
+      "entries": [
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "n_scored": 105,
+          "n_total": 105,
+          "coverage": 1.0,
+          "within_allele": 0.339,
+          "strata": "15/22",
+          "rows_evaluable": "92/105",
+          "provisional": false,
+          "pooled": 0.4443,
+          "ci95": [
+            0.2355,
+            0.3826
+          ],
+          "basis": "cluster/50/fresh/4e45a96e/1.000",
+          "interval_provisional": false
+        },
+        {
+          "entry": "BASELINE \u2014 mean hydropathy",
+          "n_scored": 105,
+          "n_total": 105,
+          "coverage": 1.0,
+          "within_allele": 0.4831,
+          "strata": "15/22",
+          "rows_evaluable": "92/105",
+          "provisional": false,
+          "pooled": 0.6159,
+          "ci95": [
+            0.4479,
+            0.5625
+          ],
+          "basis": "cluster/50/fresh/4e45a96e/1.000",
+          "interval_provisional": false
+        }
+      ],
+      "contrasts": [
+        {
+          "a": "BASELINE \u2014 mean hydropathy",
+          "b": "BASELINE \u2014 peptide length",
+          "delta": 0.1441,
+          "lo": 0.1368,
+          "hi": 0.3333,
+          "p": 0.0196,
+          "se": 0.0569,
+          "mde": 0.1594,
+          "resolvable": false,
+          "basis": "cluster/50/fresh/4e45a96e/1.000"
+        }
+      ]
+    },
+    "xmuimmu_noncanonical": {
+      "n_rows": 138,
+      "n_positive": 51,
+      "n_alleles": 29,
+      "clusters": 136,
+      "assigned_fraction": 0.0362,
+      "cluster_basis": "cluster",
+      "cluster_provisional": true,
+      "entries": [
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "n_scored": 138,
+          "n_total": 138,
+          "coverage": 1.0,
+          "within_allele": 0.5509,
+          "strata": "9/29",
+          "rows_evaluable": "111/138",
+          "provisional": true,
+          "pooled": 0.5104,
+          "ci95": [
+            0.4565,
+            0.6425
+          ],
+          "basis": "cluster/50/fresh/2cae8e07/0.036",
+          "interval_provisional": true
+        },
+        {
+          "entry": "BASELINE \u2014 mean hydropathy",
+          "n_scored": 138,
+          "n_total": 138,
+          "coverage": 1.0,
+          "within_allele": 0.405,
+          "strata": "9/29",
+          "rows_evaluable": "111/138",
+          "provisional": true,
+          "pooled": 0.4965,
+          "ci95": [
+            0.2443,
+            0.561
+          ],
+          "basis": "cluster/50/fresh/2cae8e07/0.036",
+          "interval_provisional": true
+        }
+      ],
+      "contrasts": [
+        {
+          "a": "BASELINE \u2014 peptide length",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.1459,
+          "lo": 0.0051,
+          "hi": 0.3075,
+          "p": 0.0392,
+          "se": 0.0926,
+          "mde": 0.2594,
+          "resolvable": false,
+          "basis": "cluster/50/fresh/2cae8e07/0.036"
+        }
+      ]
+    },
+    "independent_composite": {
+      "n_rows": 243,
+      "n_positive": 112,
+      "n_alleles": 42,
+      "clusters": 139,
+      "assigned_fraction": 0.4527,
+      "cluster_basis": "cluster",
+      "cluster_provisional": true,
+      "entries": [
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "n_scored": 243,
+          "n_total": 243,
+          "coverage": 1.0,
+          "within_allele": 0.5181,
+          "strata": "23/42",
+          "rows_evaluable": "213/243",
+          "provisional": true,
+          "pooled": 0.4933,
+          "ci95": [
+            0.4529,
+            0.6027
+          ],
+          "basis": "cluster/50/fresh/86727bde/0.453",
+          "interval_provisional": true
+        },
+        {
+          "entry": "BASELINE \u2014 mean hydropathy",
+          "n_scored": 243,
+          "n_total": 243,
+          "coverage": 1.0,
+          "within_allele": 0.4234,
+          "strata": "23/42",
+          "rows_evaluable": "213/243",
+          "provisional": true,
+          "pooled": 0.5479,
+          "ci95": [
+            0.3305,
+            0.5501
+          ],
+          "basis": "cluster/50/fresh/86727bde/0.453",
+          "interval_provisional": true
+        }
+      ],
+      "contrasts": [
+        {
+          "a": "BASELINE \u2014 peptide length",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.0947,
+          "lo": -0.0585,
+          "hi": 0.2365,
+          "p": 0.2745,
+          "se": 0.0897,
+          "mde": 0.2512,
+          "resolvable": false,
+          "basis": "cluster/50/fresh/86727bde/0.453"
+        }
+      ]
+    },
+    "itsndb": {
+      "n_rows": 199,
+      "n_positive": 129,
+      "n_alleles": 31,
+      "clusters": 197,
+      "assigned_fraction": 0.0302,
+      "cluster_basis": "cluster",
+      "cluster_provisional": true,
+      "entries": [
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "n_scored": 199,
+          "n_total": 199,
+          "coverage": 1.0,
+          "within_allele": 0.5992,
+          "strata": "8/31",
+          "rows_evaluable": "160/199",
+          "provisional": true,
+          "pooled": 0.6128,
+          "ci95": [
+            0.5271,
+            0.6594
+          ],
+          "basis": "cluster/50/fresh/3e046951/0.030",
+          "interval_provisional": true
+        },
+        {
+          "entry": "BASELINE \u2014 mean hydropathy",
+          "n_scored": 199,
+          "n_total": 199,
+          "coverage": 1.0,
+          "within_allele": 0.5422,
+          "strata": "8/31",
+          "rows_evaluable": "160/199",
+          "provisional": true,
+          "pooled": 0.6014,
+          "ci95": [
+            0.4148,
+            0.6966
+          ],
+          "basis": "cluster/50/fresh/3e046951/0.030",
+          "interval_provisional": true
+        }
+      ],
+      "contrasts": [
+        {
+          "a": "BASELINE \u2014 peptide length",
+          "b": "BASELINE \u2014 mean hydropathy",
+          "delta": 0.057,
+          "lo": -0.0733,
+          "hi": 0.1959,
+          "p": 0.1765,
+          "se": 0.063,
+          "mde": 0.1765,
+          "resolvable": false,
+          "basis": "cluster/50/fresh/3e046951/0.030"
+        }
+      ]
+    }
+  }
+}

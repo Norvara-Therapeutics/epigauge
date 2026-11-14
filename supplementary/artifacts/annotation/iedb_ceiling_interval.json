@@ -1,0 +1,33 @@
+{
+  "produced_utc": "2026-11-13T23:31:14+00:00",
+  "script": "not redistributed: internal ceiling_interval.py requires the IEDB T-cell full export (sha256 in source_sha256); see supplementary/README.md",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "basis": "unit/10000/fresh/seed-20261113/all-units-resampled",
+  "resampling_unit": "(peptide, mhc_allele) unit",
+  "n_units": 4815,
+  "subpopulation": "n_refs >= 2, human host, MHC class I, plain-AA, length 8-11",
+  "ceiling_1": {
+    "point": 0.8237,
+    "ci95": [
+      0.8163,
+      0.8309
+    ],
+    "se": 0.0038
+  },
+  "ceiling_2": {
+    "point": 0.9119,
+    "ci95": [
+      0.9068,
+      0.9166
+    ],
+    "se": 0.0025
+  },
+  "disagreement_ref_level_ge2_refs": {
+    "point": 0.5084,
+    "ci95": [
+      0.4943,
+      0.5225
+    ],
+    "se": 0.0072
+  }
+}

@@ -1,0 +1,412 @@
+{
+  "produced_utc": "2026-11-14T00:06:21+00:00",
+  "script": "not redistributed: internal disagreement_null.py requires the IEDB T-cell full export (sha256 in source_sha256); see supplementary/README.md",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "vote_table": "supplementary/artifacts/annotation/iedb_unit_votes.json",
+  "seed": 20261113,
+  "bootstrap_B": 10000,
+  "bootstrap_B_beta_refit": 1000,
+  "gate": {
+    "expected": {
+      "units_ge2_refs": 4815,
+      "disagree_ge2_refs": 0.5499,
+      "ceiling_1_majority_label_ref_voting": 0.8237,
+      "ceiling_2_bayes_optimal_ref_voting": 0.9119,
+      "mean_consistency_ref": 0.8329
+    },
+    "recomputed": {
+      "units_ge2_refs": 4815.0,
+      "disagree_ge2_refs": 0.549948,
+      "ceiling_1_majority_label_ref_voting": 0.823691,
+      "ceiling_2_bayes_optimal_ref_voting": 0.911872,
+      "mean_consistency_ref": 0.832885
+    },
+    "tolerance": 5e-05,
+    "passed": true
+  },
+  "bases": {
+    "audited": "strata by the audited reference count k; consistency from p_ref, in which an internally tied reference casts 0.5",
+    "vote": "strata by k_eff = n_pos + n_neg decisive reference votes; consistency = max(n_pos, n_neg)/k_eff. Every null is on this basis"
+  },
+  "n_units_ge2_refs": 4815,
+  "n_units_keff_ge2": 4230,
+  "n_references": 17405,
+  "n_references_internally_tied": 1379,
+  "n_units_with_any_tied_reference": 1183,
+  "pooled_c_hat_audited_basis": 0.8329,
+  "pooled_c_hat_vote_basis": 0.8565,
+  "a1_consistency_by_exact_k_audited_basis": [
+    {
+      "k": "2",
+      "units": 3029,
+      "c_bar": 0.8511,
+      "ci95": [
+        0.8437,
+        0.8583
+      ],
+      "se": 0.0037,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k-stratum"
+    },
+    {
+      "k": "3",
+      "units": 790,
+      "c_bar": 0.8063,
+      "ci95": [
+        0.7945,
+        0.8179
+      ],
+      "se": 0.0059,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k-stratum"
+    },
+    {
+      "k": "4",
+      "units": 341,
+      "c_bar": 0.798,
+      "ci95": [
+        0.7801,
+        0.8156
+      ],
+      "se": 0.0091,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k-stratum"
+    },
+    {
+      "k": ">=5",
+      "units": 655,
+      "c_bar": 0.7988,
+      "ci95": [
+        0.787,
+        0.8107
+      ],
+      "se": 0.0061,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k-stratum"
+    }
+  ],
+  "a2_consistency_by_exact_k_eff_with_nulls": [
+    {
+      "k_eff": "2",
+      "mean_k_eff": 2.0,
+      "units": 2654,
+      "c_bar": 0.8738,
+      "ci95": [
+        0.8655,
+        0.8821
+      ],
+      "se": 0.0043,
+      "null_const_c": 0.8771,
+      "null_beta_binomial": 0.8533,
+      "obs_minus_beta_binomial": 0.0204,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k_eff-stratum"
+    },
+    {
+      "k_eff": "3",
+      "mean_k_eff": 3.0,
+      "units": 686,
+      "c_bar": 0.8358,
+      "ci95": [
+        0.8236,
+        0.8484
+      ],
+      "se": 0.0063,
+      "null_const_c": 0.8771,
+      "null_beta_binomial": 0.8533,
+      "obs_minus_beta_binomial": -0.0176,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k_eff-stratum"
+    },
+    {
+      "k_eff": "4",
+      "mean_k_eff": 4.0,
+      "units": 303,
+      "c_bar": 0.8185,
+      "ci95": [
+        0.7987,
+        0.8383
+      ],
+      "se": 0.0103,
+      "null_const_c": 0.862,
+      "null_beta_binomial": 0.8254,
+      "obs_minus_beta_binomial": -0.0069,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k_eff-stratum"
+    },
+    {
+      "k_eff": ">=5",
+      "mean_k_eff": 11.724,
+      "units": 587,
+      "c_bar": 0.8223,
+      "ci95": [
+        0.8093,
+        0.8352
+      ],
+      "se": 0.0066,
+      "null_const_c": 0.8585,
+      "null_beta_binomial": 0.8105,
+      "obs_minus_beta_binomial": 0.0118,
+      "basis": "unit/10000/fresh/seed-20261113/within-exact-k_eff-stratum"
+    }
+  ],
+  "b_latent_modal_consistency_per_k_beta_fit": [
+    {
+      "k_eff": "2",
+      "units": 2654,
+      "alpha": 1.08048,
+      "beta": 0.45464,
+      "mean_c": 0.7038,
+      "latent_modal_consistency": 0.8159,
+      "ci95": [
+        0.8034,
+        0.8279
+      ],
+      "loglik": -3027.4,
+      "basis": "unit/1000/fresh/seed-20261113/within-k_eff-stratum-ML-refit"
+    },
+    {
+      "k_eff": "3",
+      "units": 686,
+      "alpha": 10.93022,
+      "beta": 3.22635,
+      "mean_c": 0.7721,
+      "latent_modal_consistency": 0.7735,
+      "ci95": [
+        0.7551,
+        0.7925
+      ],
+      "loglik": -1100.365,
+      "basis": "unit/1000/fresh/seed-20261113/within-k_eff-stratum-ML-refit"
+    },
+    {
+      "k_eff": "4",
+      "units": 303,
+      "alpha": 36.10337,
+      "beta": 8.8214,
+      "mean_c": 0.8036,
+      "latent_modal_consistency": 0.8036,
+      "ci95": [
+        0.7797,
+        0.8259
+      ],
+      "loglik": -599.947,
+      "basis": "unit/1000/fresh/seed-20261113/within-k_eff-stratum-ML-refit"
+    },
+    {
+      "k_eff": ">=5",
+      "units": 587,
+      "alpha": 4.4549,
+      "beta": 1.05748,
+      "mean_c": 0.8082,
+      "latent_modal_consistency": 0.8174,
+      "ci95": [
+        0.804,
+        0.8313
+      ],
+      "loglik": -2587.886,
+      "basis": "unit/1000/fresh/seed-20261113/within-k_eff-stratum-ML-refit"
+    }
+  ],
+  "b_likelihood_ratio_test": {
+    "null": "one Beta(alpha,beta) shared by every k_eff stratum",
+    "alt": "a separate Beta per k_eff stratum",
+    "all_keff_ge2": {
+      "loglik_pooled": -7429.387,
+      "loglik_separate": -7315.598,
+      "LR": 227.577,
+      "df": 6,
+      "p_value": 2.51811e-46
+    },
+    "keff_ge3_only": {
+      "loglik_pooled": -4305.975,
+      "loglik_separate": -4288.198,
+      "LR": 35.554,
+      "df": 4,
+      "p_value": 3.5739e-07,
+      "pooled_alpha": 5.29329,
+      "pooled_beta": 1.35073,
+      "why": "the k_eff=2 cell is exactly identified (3 cells, 2 parameters) and so fits by construction; this test drops it"
+    },
+    "direction_among_keff_ge3": {
+      "latent_modal_consistency_sequence": [
+        0.7735,
+        0.8036,
+        0.8174
+      ],
+      "rises_with_k": true,
+      "lowest_and_highest_intervals_disjoint": true,
+      "range": [
+        0.7735,
+        0.8174
+      ],
+      "note": "the claim requires this sequence to FALL with k"
+    }
+  },
+  "c_disagreement_at_exact_k": [
+    {
+      "k": "2",
+      "units": 3029,
+      "disagree_row_level": 0.4193,
+      "wilson95_row": [
+        0.4018,
+        0.4369
+      ],
+      "disagree_ref_level": 0.2027,
+      "wilson95_ref": [
+        0.1888,
+        0.2174
+      ]
+    },
+    {
+      "k": "3",
+      "units": 790,
+      "disagree_row_level": 0.6747,
+      "wilson95_row": [
+        0.6412,
+        0.7064
+      ],
+      "disagree_ref_level": 0.438,
+      "wilson95_ref": [
+        0.4038,
+        0.4728
+      ]
+    },
+    {
+      "k": "4",
+      "units": 341,
+      "disagree_row_level": 0.7478,
+      "wilson95_row": [
+        0.6991,
+        0.791
+      ],
+      "disagree_ref_level": 0.5396,
+      "wilson95_ref": [
+        0.4865,
+        0.5918
+      ]
+    },
+    {
+      "k": ">=5",
+      "units": 655,
+      "disagree_row_level": 0.9008,
+      "wilson95_row": [
+        0.8755,
+        0.9214
+      ],
+      "disagree_ref_level": 0.7008,
+      "wilson95_ref": [
+        0.6646,
+        0.7346
+      ]
+    }
+  ],
+  "de_nulls_vs_observed": [
+    {
+      "k_eff": "2",
+      "mean_k_eff": 2.0,
+      "units": 2654,
+      "observed_ref_level": 0.2524,
+      "wilson95": [
+        0.2363,
+        0.2693
+      ],
+      "naive_null": 0.2458,
+      "obs_over_naive": 1.027,
+      "beta_binomial_null": 0.2933,
+      "obs_minus_beta_binomial": -0.0409,
+      "null_inside_observed_wilson95": false
+    },
+    {
+      "k_eff": "3",
+      "mean_k_eff": 3.0,
+      "units": 686,
+      "observed_ref_level": 0.4927,
+      "wilson95": [
+        0.4554,
+        0.5301
+      ],
+      "naive_null": 0.3687,
+      "obs_over_naive": 1.336,
+      "beta_binomial_null": 0.44,
+      "obs_minus_beta_binomial": 0.0528,
+      "null_inside_observed_wilson95": false
+    },
+    {
+      "k_eff": "4",
+      "mean_k_eff": 4.0,
+      "units": 303,
+      "observed_ref_level": 0.5644,
+      "wilson95": [
+        0.5081,
+        0.619
+      ],
+      "naive_null": 0.4614,
+      "obs_over_naive": 1.223,
+      "beta_binomial_null": 0.5307,
+      "obs_minus_beta_binomial": 0.0337,
+      "null_inside_observed_wilson95": true
+    },
+    {
+      "k_eff": ">=5",
+      "mean_k_eff": 11.724,
+      "units": 587,
+      "observed_ref_level": 0.7223,
+      "wilson95": [
+        0.6847,
+        0.757
+      ],
+      "naive_null": 0.7073,
+      "obs_over_naive": 1.021,
+      "beta_binomial_null": 0.7025,
+      "obs_minus_beta_binomial": 0.0198,
+      "null_inside_observed_wilson95": true
+    }
+  ],
+  "f_nested_table_with_nulls": [
+    {
+      "threshold": 2,
+      "units": 4815,
+      "disagree_row_level": 0.5499,
+      "disagree_ref_level": 0.3329,
+      "naive_null_at_k": 0.2458,
+      "naive_null_subset_averaged": 0.3452,
+      "beta_binomial_null_at_k": 0.2933,
+      "beta_binomial_null_subset_averaged": 0.3909
+    },
+    {
+      "threshold": 3,
+      "units": 1786,
+      "disagree_row_level": 0.7716,
+      "disagree_ref_level": 0.5538,
+      "naive_null_at_k": 0.3687,
+      "naive_null_subset_averaged": 0.485,
+      "beta_binomial_null_at_k": 0.44,
+      "beta_binomial_null_subset_averaged": 0.5281
+    },
+    {
+      "threshold": 5,
+      "units": 655,
+      "disagree_row_level": 0.9008,
+      "disagree_ref_level": 0.7008,
+      "naive_null_at_k": 0.539,
+      "naive_null_subset_averaged": 0.6806,
+      "beta_binomial_null_at_k": 0.5934,
+      "beta_binomial_null_subset_averaged": 0.6834
+    }
+  ],
+  "beta_binomial_fit": {
+    "population": "the 4230 units with k>=2 and >=2 decisive votes",
+    "alpha": 2.54954,
+    "beta": 0.86872,
+    "mean_c": 0.7459,
+    "latent_mean_modal_consistency": 0.7856,
+    "loglik": -7429.387,
+    "all_k_fit": {
+      "alpha": 0.23928,
+      "beta": 0.52849,
+      "units_fitted": 52819,
+      "note": "includes k=1 units, which carry prevalence but no within-unit information"
+    },
+    "tied_reference_handling": "a reference whose own rows tie casts 0.5 in the audited p_ref and is dropped from the decisive vote counts the nulls are fitted to"
+  },
+  "decline_accounting_vote_basis": {
+    "observed_c_bar_decline_k2_to_top": 0.0515,
+    "beta_binomial_null_predicted_decline": 0.0428,
+    "unexplained": 0.0087
+  },
+  "verdict": "THE MONOTONICITY CLAIM DOES NOT SURVIVE THE HIERARCHICAL NULL, AND ITS SECOND SENTENCE IS CONTRADICTED. (1) The first sentence is true and uninformative: disagreement MUST rise with the vote count, because 'at least one Positive and at least one Negative' is monotone increasing in the number of votes by construction, and the published subsets are nested on top of that. Removing the nesting does not remove the construction -- panel C still rises. (2) Of the raw +0.0515 decline in mean per-unit consistency from k_eff=2 to >=5, the hierarchical null with a single k-INDEPENDENT latent distribution already predicts +0.0428, leaving +0.0087. The decline is the estimator's own small-k bias, not a property of the literature. (3) That null reproduces observed disagreement at exact k_eff inside the Wilson interval in 2 of 4 strata. (4) The latent distribution does depend on k (LR 35.55, df 4, p 3.57e-07, with the exactly-identified k_eff=2 cell dropped), but NOT in the direction claimed: among k_eff>=3 the latent modal consistency RISES 0.7735 -> 0.8036 -> 0.8174, and the k_eff=3 and >=5 intervals are disjoint. CONSEQUENCE: the sentence 'The more a peptide is studied, the less the literature agrees about it' is not supported by this measurement and should be deleted, and the triple 0.5499 / 0.7716 / 0.9008 should be labelled a conditioning artifact wherever it is kept. WHAT SURVIVES IS THE LEVEL, NOT THE TREND: the latent consistency distribution is strongly overdispersed (Beta(2.550, 0.869), far from a point mass), and both ceilings are functionals of that distribution and of no trend in k, so section 1's 0.8237 / 0.9119 are untouched by this result."
+}

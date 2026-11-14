@@ -1,0 +1,505 @@
+{
+  "produced_utc": "2026-11-14T13:01:09+00:00",
+  "script": "supplementary/scripts/rank_reversal.py",
+  "source": "leaderboards",
+  "arms": [
+    {
+      "arm": "infectious",
+      "n_entries_total": 37,
+      "n_ranked": 35,
+      "n_withheld": 2,
+      "max_abs_shift": 24,
+      "mean_abs_shift": 4.17,
+      "median_abs_shift": 3,
+      "n_moving_5_or_more": 10,
+      "n_moving_10_or_more": 2,
+      "largest_moves": [
+        {
+          "entry": "BASELINE \u2014 allele lookup, no peptide input",
+          "within_allele_rank": 26,
+          "pooled_rank": 2,
+          "shift": -24
+        },
+        {
+          "entry": "PRIME-2.0 (percentile ranks, sign-corrected)",
+          "within_allele_rank": 13,
+          "pooled_rank": 26,
+          "shift": 13
+        },
+        {
+          "entry": "BigMHC wide-LSTM IM ablation",
+          "within_allele_rank": 24,
+          "pooled_rank": 15,
+          "shift": -9
+        },
+        {
+          "entry": "PRIME-1.0 (percentile ranks, sign-corrected)",
+          "within_allele_rank": 17,
+          "pooled_rank": 25,
+          "shift": 8
+        },
+        {
+          "entry": "MixMHCpred-2.1 (scores)",
+          "within_allele_rank": 19,
+          "pooled_rank": 27,
+          "shift": 8
+        }
+      ],
+      "points": [
+        {
+          "entry": "TITANiAN-IM",
+          "within_allele": 0.7444,
+          "pooled": 0.7844,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM ablation 1,2,3,4,7",
+          "within_allele": 0.5742,
+          "pooled": 0.6053,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-3B \u2014 frozen ESM-2 3B backbone, 2,561-param head",
+          "within_allele": 0.5712,
+          "pooled": 0.5952,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-650M \u2014 frozen ESM-2 650M backbone, 1,281-param head",
+          "within_allele": 0.5675,
+          "pooled": 0.6106,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-150M \u2014 frozen ESM-2 150M backbone, 641-param head",
+          "within_allele": 0.5664,
+          "pooled": 0.6169,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM ablation 3,4,5,6,7",
+          "within_allele": 0.5657,
+          "pooled": 0.621,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM ablation 1,2,5,6,7",
+          "within_allele": 0.5445,
+          "pooled": 0.5758,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC canonical-LSTM IM ablation",
+          "within_allele": 0.5328,
+          "pooled": 0.5687,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC canonical-LSTM ELIM ablation",
+          "within_allele": 0.5319,
+          "pooled": 0.5669,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM ablation 1,2,3,4,5,6",
+          "within_allele": 0.5267,
+          "pooled": 0.5934,
+          "baseline": false
+        },
+        {
+          "entry": "BASELINE \u2014 mean Kyte-Doolittle hydropathy, unfitted",
+          "within_allele": 0.5264,
+          "pooled": 0.565,
+          "baseline": true
+        },
+        {
+          "entry": "PRIME-2.0 (scores)",
+          "within_allele": 0.5205,
+          "pooled": 0.5663,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-2.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5205,
+          "pooled": 0.5518,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_IM",
+          "within_allele": 0.5195,
+          "pooled": 0.5673,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_ELIM",
+          "within_allele": 0.5189,
+          "pooled": 0.5692,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-1.0 (scores)",
+          "within_allele": 0.518,
+          "pooled": 0.5614,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-1.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5175,
+          "pooled": 0.554,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.1 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5162,
+          "pooled": 0.5555,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.1 (scores)",
+          "within_allele": 0.5148,
+          "pooled": 0.5518,
+          "baseline": false
+        },
+        {
+          "entry": "MHCflurry-2.0 (scores)",
+          "within_allele": 0.5129,
+          "pooled": 0.5541,
+          "baseline": false
+        },
+        {
+          "entry": "MHCflurry-2.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5129,
+          "pooled": 0.5541,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.2 (scores)",
+          "within_allele": 0.5119,
+          "pooled": 0.5608,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.2 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5119,
+          "pooled": 0.5567,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC wide-LSTM IM ablation",
+          "within_allele": 0.5088,
+          "pooled": 0.5652,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC wide-LSTM ELIM ablation",
+          "within_allele": 0.508,
+          "pooled": 0.5632,
+          "baseline": false
+        },
+        {
+          "entry": "BASELINE \u2014 allele lookup, no peptide input",
+          "within_allele": 0.5,
+          "pooled": 0.7122,
+          "baseline": true
+        },
+        {
+          "entry": "MHCnuggets-2.4.0",
+          "within_allele": 0.4969,
+          "pooled": 0.454,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM baseline",
+          "within_allele": 0.4901,
+          "pooled": 0.5599,
+          "baseline": false
+        },
+        {
+          "entry": "TransPHLA",
+          "within_allele": 0.4879,
+          "pooled": 0.5465,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_EL",
+          "within_allele": 0.4813,
+          "pooled": 0.5421,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC canonical-LSTM EL ablation",
+          "within_allele": 0.4803,
+          "pooled": 0.546,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC wide-LSTM EL ablation",
+          "within_allele": 0.4746,
+          "pooled": 0.5417,
+          "baseline": false
+        },
+        {
+          "entry": "HLAthena (percentile ranks, sign-corrected)",
+          "within_allele": 0.4714,
+          "pooled": 0.5233,
+          "baseline": false
+        },
+        {
+          "entry": "HLAthena (scores)",
+          "within_allele": 0.4705,
+          "pooled": 0.5048,
+          "baseline": false
+        },
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "within_allele": 0.4132,
+          "pooled": 0.4512,
+          "baseline": true
+        }
+      ]
+    },
+    {
+      "arm": "neoantigen",
+      "n_entries_total": 35,
+      "n_ranked": 33,
+      "n_withheld": 2,
+      "max_abs_shift": 28,
+      "mean_abs_shift": 10.3,
+      "median_abs_shift": 9,
+      "n_moving_5_or_more": 24,
+      "n_moving_10_or_more": 14,
+      "largest_moves": [
+        {
+          "entry": "BigMHC_Ablation_Wide_LSTM_ELIM",
+          "within_allele_rank": 30,
+          "pooled_rank": 2,
+          "shift": -28
+        },
+        {
+          "entry": "MHCflurry-2.0 (scores)",
+          "within_allele_rank": 4,
+          "pooled_rank": 27,
+          "shift": 23
+        },
+        {
+          "entry": "TITANiAN-IM-ablation-1,2,3,4,7",
+          "within_allele_rank": 25,
+          "pooled_rank": 3,
+          "shift": -22
+        },
+        {
+          "entry": "MHCflurry-2.0 (percentile ranks, sign-corrected)",
+          "within_allele_rank": 7,
+          "pooled_rank": 28,
+          "shift": 21
+        },
+        {
+          "entry": "BigMHC_ELIM",
+          "within_allele_rank": 26,
+          "pooled_rank": 5,
+          "shift": -21
+        }
+      ],
+      "points": [
+        {
+          "entry": "BASELINE \u2014 peptide length",
+          "within_allele": 0.5397,
+          "pooled": 0.5201,
+          "baseline": true
+        },
+        {
+          "entry": "MixMHCpred-2.1 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5265,
+          "pooled": 0.5256,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.1 (scores)",
+          "within_allele": 0.5242,
+          "pooled": 0.524,
+          "baseline": false
+        },
+        {
+          "entry": "MHCflurry-2.0 (scores)",
+          "within_allele": 0.5234,
+          "pooled": 0.4788,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.2 (scores)",
+          "within_allele": 0.5234,
+          "pooled": 0.5383,
+          "baseline": false
+        },
+        {
+          "entry": "MixMHCpred-2.2 (percentile ranks, sign-corrected)",
+          "within_allele": 0.5234,
+          "pooled": 0.5522,
+          "baseline": false
+        },
+        {
+          "entry": "MHCflurry-2.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.523,
+          "pooled": 0.4788,
+          "baseline": false
+        },
+        {
+          "entry": "HLAthena (percentile ranks, sign-corrected)",
+          "within_allele": 0.5118,
+          "pooled": 0.5215,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_EL",
+          "within_allele": 0.5102,
+          "pooled": 0.51,
+          "baseline": false
+        },
+        {
+          "entry": "HLAthena (scores)",
+          "within_allele": 0.5081,
+          "pooled": 0.5024,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Wide_LSTM_EL",
+          "within_allele": 0.5075,
+          "pooled": 0.5159,
+          "baseline": false
+        },
+        {
+          "entry": "TransPHLA",
+          "within_allele": 0.4955,
+          "pooled": 0.4742,
+          "baseline": false
+        },
+        {
+          "entry": "MHCnuggets-2.4.0",
+          "within_allele": 0.4874,
+          "pooled": 0.5568,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM-baseline",
+          "within_allele": 0.4835,
+          "pooled": 0.5135,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Canonical_LSTM_EL",
+          "within_allele": 0.4827,
+          "pooled": 0.5039,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM",
+          "within_allele": 0.4827,
+          "pooled": 0.6048,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM-ablation-1,2,3,4,5,6",
+          "within_allele": 0.48,
+          "pooled": 0.5107,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-2.0 (scores)",
+          "within_allele": 0.4751,
+          "pooled": 0.5352,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-2.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.4751,
+          "pooled": 0.5452,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-1.0 (percentile ranks, sign-corrected)",
+          "within_allele": 0.4724,
+          "pooled": 0.5026,
+          "baseline": false
+        },
+        {
+          "entry": "PRIME-1.0 (scores)",
+          "within_allele": 0.4722,
+          "pooled": 0.4998,
+          "baseline": false
+        },
+        {
+          "entry": "TITANiAN-IM-ablation-1,2,5,6,7",
+          "within_allele": 0.4639,
+          "pooled": 0.4801,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-150M",
+          "within_allele": 0.4556,
+          "pooled": 0.4663,
+          "baseline": false
+        },
+        {
+          "entry": "BASELINE \u2014 mean Kyte-Doolittle hydropathy, unfitted",
+          "within_allele": 0.4497,
+          "pooled": 0.4681,
+          "baseline": true
+        },
+        {
+          "entry": "TITANiAN-IM-ablation-1,2,3,4,7",
+          "within_allele": 0.4489,
+          "pooled": 0.5646,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_ELIM",
+          "within_allele": 0.4438,
+          "pooled": 0.5524,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Canonical_LSTM_ELIM",
+          "within_allele": 0.4434,
+          "pooled": 0.5459,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_IM",
+          "within_allele": 0.4413,
+          "pooled": 0.5094,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Canonical_LSTM_IM",
+          "within_allele": 0.4383,
+          "pooled": 0.5157,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Wide_LSTM_ELIM",
+          "within_allele": 0.4377,
+          "pooled": 0.5804,
+          "baseline": false
+        },
+        {
+          "entry": "BigMHC_Ablation_Wide_LSTM_IM",
+          "within_allele": 0.4309,
+          "pooled": 0.518,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-3B",
+          "within_allele": 0.4203,
+          "pooled": 0.4669,
+          "baseline": false
+        },
+        {
+          "entry": "NORVARA-650M",
+          "within_allele": 0.4053,
+          "pooled": 0.4253,
+          "baseline": false
+        }
+      ]
+    }
+  ]
+}

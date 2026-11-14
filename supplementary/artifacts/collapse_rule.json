@@ -1,0 +1,29 @@
+{
+  "produced_utc": "2026-11-14T11:33:19+00:00",
+  "script": "not redistributed: internal collapse_rule.py requires the IEDB T-cell full export (sha256 in iedb_source_sha256); see supplementary/README.md",
+  "iedb_source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "arms": {
+    "titanian_infectious": {
+      "n_rows": 2093,
+      "n_distinct_units": 2093,
+      "n_units_with_both_labels_in_arm": 0,
+      "n_matched_to_iedb": 2093,
+      "n_observable": 254,
+      "agreement_positive_wins": 0.7677,
+      "agreement_negative_wins": 0.2323,
+      "agreement_majority": 0.7355,
+      "n_majority_evaluable": 121,
+      "mean_p_ref_on_observable": 0.5653,
+      "arm_positive_rate_on_observable": 0.7677,
+      "verdict": "no deterministic rule fits; consistent with a single-source label or a draw"
+    },
+    "titanian_neoantigen": {
+      "n_rows": 833,
+      "n_distinct_units": 833,
+      "n_units_with_both_labels_in_arm": 0,
+      "n_matched_to_iedb": 10,
+      "n_observable": 0,
+      "verdict": "not determinable: no unit of this arm is recorded as disagreeing in the IEDB export, so every rule predicts the same label"
+    }
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "produced_utc": "2026-11-14T00:05:51+00:00",
+  "script": "not redistributed: internal ceiling_sensitivity.py requires the IEDB T-cell full export (sha256 in source_sha256); see supplementary/README.md",
+  "source_sha256": "62b7a586e6ef0d6d1cb42b0f2162dabf13d63d3ac9dd4967633598777d2a16d9",
+  "vote_table": "supplementary/artifacts/annotation/iedb_unit_votes.json",
+  "seed": 20261114,
+  "bootstrap_B": 10000,
+  "basis": "unit/10000/fresh/seed-20261114/all-units-resampled",
+  "gate": {
+    "expected": {
+      "ceiling_1": 0.8237,
+      "ceiling_2": 0.9119,
+      "units": 4815,
+      "disagree_row_ge2": 0.5499
+    },
+    "tolerance": 5e-05,
+    "passed": true
+  },
+  "unit": "(peptide, mhc_allele)",
+  "subpopulation": "k>=2, human host, MHC class I, plain-AA, length 8-11",
+  "baseline": {
+    "ceiling_1": 0.8237,
+    "ceiling_2": 0.9119,
+    "units": 4815,
+    "prevalence": 0.7218
+  },
+  "variants": [
+    {
+      "group": "1 duplicate collapse (A2)",
+      "variant": "(a) random draw  [PUBLISHED]",
+      "units": 4815,
+      "ceiling_1": 0.8237,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": 0.0,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": true,
+      "note": "the test label is one draw from the unit's annotation distribution",
+      "ceiling_1_ci95": [
+        0.8163,
+        0.831
+      ],
+      "ceiling_2_ci95": [
+        0.9069,
+        0.9167
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "1 duplicate collapse (A2)",
+      "variant": "(b) positive-wins",
+      "units": 4815,
+      "ceiling_1": 0.9765,
+      "ceiling_2": 1.0,
+      "d_ceiling_1": 0.1528,
+      "d_ceiling_2": 0.0881,
+      "prevalence": 0.9053,
+      "published": false,
+      "note": "test label Positive if ANY reference says Positive",
+      "ceiling_1_ci95": [
+        0.9733,
+        0.9796
+      ],
+      "ceiling_2_ci95": [
+        1.0,
+        1.0
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "1 duplicate collapse (A2)",
+      "variant": "(c) majority",
+      "units": 4815,
+      "ceiling_1": 0.9815,
+      "ceiling_2": 0.9815,
+      "d_ceiling_1": 0.1578,
+      "d_ceiling_2": 0.0696,
+      "prevalence": 0.7834,
+      "published": false,
+      "note": "test label is the unit's majority annotation; an exact tie splits its mass",
+      "ceiling_1_ci95": [
+        0.9791,
+        0.9836
+      ],
+      "ceiling_2_ci95": [
+        0.9791,
+        0.9836
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "2 tie rule (A1)",
+      "variant": "tie -> 0.5  [PUBLISHED]",
+      "units": 4815,
+      "ceiling_1": 0.8237,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": 0.0,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": true,
+      "note": "",
+      "ceiling_1_ci95": [
+        0.8162,
+        0.8309
+      ],
+      "ceiling_2_ci95": [
+        0.9069,
+        0.9167
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "2 tie rule (A1)",
+      "variant": "tie -> Positive",
+      "units": 4815,
+      "ceiling_1": 0.7141,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": -0.1096,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": false,
+      "note": "",
+      "ceiling_1_ci95": [
+        0.7033,
+        0.7246
+      ],
+      "ceiling_2_ci95": [
+        0.9069,
+        0.9166
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "2 tie rule (A1)",
+      "variant": "tie -> Negative",
+      "units": 4815,
+      "ceiling_1": 0.8017,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": -0.0219,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": false,
+      "note": "",
+      "ceiling_1_ci95": [
+        0.7953,
+        0.808
+      ],
+      "ceiling_2_ci95": [
+        0.9068,
+        0.9166
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "2 tie rule (A1)",
+      "variant": "tie units excluded",
+      "units": 4051,
+      "ceiling_1": 0.802,
+      "ceiling_2": 0.9406,
+      "d_ceiling_1": -0.0217,
+      "d_ceiling_2": 0.0288,
+      "prevalence": 0.7637,
+      "published": false,
+      "note": "764 units dropped",
+      "ceiling_1_ci95": [
+        0.7913,
+        0.8125
+      ],
+      "ceiling_2_ci95": [
+        0.9359,
+        0.9451
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "3 prevalence (A4)",
+      "variant": "own prevalence 0.7218  [PUBLISHED]",
+      "units": 4815,
+      "ceiling_1": 0.8237,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": 0.0,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": true,
+      "note": "",
+      "ceiling_1_ci95": [
+        0.8163,
+        0.831
+      ],
+      "ceiling_2_ci95": [
+        0.9069,
+        0.9167
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "3 prevalence (A4)",
+      "variant": "reweighted to neoantigen arm 178/833 = 0.2137",
+      "units": 4815,
+      "ceiling_1": 0.9002,
+      "ceiling_2": 0.9518,
+      "d_ceiling_1": 0.0765,
+      "d_ceiling_2": 0.0399,
+      "prevalence": 0.2137,
+      "published": false,
+      "note": "target 0.2137, achieved 0.213685, exponential tilt lambda=-4.0481 on p_u",
+      "ceiling_1_ci95": [
+        0.8926,
+        0.9077
+      ],
+      "ceiling_2_ci95": [
+        0.9471,
+        0.9562
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "3 prevalence (A4)",
+      "variant": "reweighted to class-I human IEDB 46/54 = 0.46",
+      "units": 4815,
+      "ceiling_1": 0.8855,
+      "ceiling_2": 0.9264,
+      "d_ceiling_1": 0.0618,
+      "d_ceiling_2": 0.0145,
+      "prevalence": 0.46,
+      "published": false,
+      "note": "target 0.4600, achieved 0.460000, exponential tilt lambda=-2.0799 on p_u",
+      "ceiling_1_ci95": [
+        0.879,
+        0.8916
+      ],
+      "ceiling_2_ci95": [
+        0.9207,
+        0.9317
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "k >= 2  [PUBLISHED]",
+      "units": 4815,
+      "ceiling_1": 0.8237,
+      "ceiling_2": 0.9119,
+      "d_ceiling_1": 0.0,
+      "d_ceiling_2": 0.0,
+      "prevalence": 0.7218,
+      "published": true,
+      "note": "100.00% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.8161,
+        0.8309
+      ],
+      "ceiling_2_ci95": [
+        0.9069,
+        0.9167
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "k >= 3",
+      "units": 1786,
+      "ceiling_1": 0.6806,
+      "ceiling_2": 0.835,
+      "d_ceiling_1": -0.1431,
+      "d_ceiling_2": -0.0768,
+      "prevalence": 0.7635,
+      "published": false,
+      "note": "37.09% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.6668,
+        0.6938
+      ],
+      "ceiling_2_ci95": [
+        0.8265,
+        0.8432
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "k >= 5",
+      "units": 655,
+      "ceiling_1": 0.6367,
+      "ceiling_2": 0.8076,
+      "d_ceiling_1": -0.187,
+      "d_ceiling_2": -0.1043,
+      "prevalence": 0.7756,
+      "published": false,
+      "note": "13.60% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.6154,
+        0.6579
+      ],
+      "ceiling_2_ci95": [
+        0.7947,
+        0.8199
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "excluding HLA-A*02:01",
+      "units": 3126,
+      "ceiling_1": 0.8351,
+      "ceiling_2": 0.9262,
+      "d_ceiling_1": 0.0114,
+      "d_ceiling_2": 0.0144,
+      "prevalence": 0.7399,
+      "published": false,
+      "note": "64.92% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.8255,
+        0.8443
+      ],
+      "ceiling_2_ci95": [
+        0.9206,
+        0.9316
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "excluding SARS-CoV-2",
+      "units": 3554,
+      "ceiling_1": 0.8364,
+      "ceiling_2": 0.9223,
+      "d_ceiling_1": 0.0128,
+      "d_ceiling_2": 0.0104,
+      "prevalence": 0.7206,
+      "published": false,
+      "note": "73.81% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.8279,
+        0.8446
+      ],
+      "ceiling_2_ci95": [
+        0.9167,
+        0.9274
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    },
+    {
+      "group": "4 subpopulation",
+      "variant": "excluding both",
+      "units": 2291,
+      "ceiling_1": 0.8469,
+      "ceiling_2": 0.9323,
+      "d_ceiling_1": 0.0232,
+      "d_ceiling_2": 0.0204,
+      "prevalence": 0.7282,
+      "published": false,
+      "note": "47.58% of the 4,815 units",
+      "ceiling_1_ci95": [
+        0.8363,
+        0.8571
+      ],
+      "ceiling_2_ci95": [
+        0.926,
+        0.9384
+      ],
+      "basis": "unit/10000/fresh/seed-20261114/all-units-resampled"
+    }
+  ],
+  "tie_units": {
+    "exact_ties_p_ref_eq_0.5": 764,
+    "share_of_all_units": 0.1587,
+    "share_of_disagreeing_units": 0.3121,
+    "exact_ties_that_are_2_reference_units": 633,
+    "units_with_exactly_2_references": 3029,
+    "note": "the tie rule cannot move Ceiling-2, which ranks by p_u and never consults a majority label"
+  },
+  "load_bearing_ranking": [
+    {
+      "assumption": "4 subpopulation",
+      "worst_d_ceiling_1": -0.187,
+      "at_variant_1": "k >= 5",
+      "worst_d_ceiling_2": -0.1043,
+      "at_variant_2": "k >= 5",
+      "changes": "which units the ceiling describes"
+    },
+    {
+      "assumption": "1 duplicate collapse (A2)",
+      "worst_d_ceiling_1": 0.1578,
+      "at_variant_1": "(c) majority",
+      "worst_d_ceiling_2": 0.0881,
+      "at_variant_2": "(b) positive-wins",
+      "changes": "how a fixed unit set is modelled"
+    },
+    {
+      "assumption": "2 tie rule (A1)",
+      "worst_d_ceiling_1": -0.1096,
+      "at_variant_1": "tie -> Positive",
+      "worst_d_ceiling_2": 0.0288,
+      "at_variant_2": "tie units excluded",
+      "changes": "how a fixed unit set is modelled"
+    },
+    {
+      "assumption": "3 prevalence (A4)",
+      "worst_d_ceiling_1": 0.0765,
+      "at_variant_1": "reweighted to neoantigen arm 178/833 = 0.2137",
+      "worst_d_ceiling_2": 0.0399,
+      "at_variant_2": "reweighted to neoantigen arm 178/833 = 0.2137",
+      "changes": "how a fixed unit set is modelled"
+    }
+  ],
+  "most_load_bearing": {
+    "any_variant": "4 subpopulation",
+    "among_modelling_assumptions": "1 duplicate collapse (A2)",
+    "qualitative_note": "the duplicate-collapse rule is not a sensitivity: positive-wins and majority make the test label a deterministic function of p_u, so Ceiling-2 goes to ~1 and there is no annotation-noise ceiling to report"
+  },
+  "statement": "LARGEST MOVE OF ANY VARIANT: 4 subpopulation, -0.1870 on Ceiling-1 (k >= 5) and -0.1043 on Ceiling-2 (k >= 5), against the published 0.8237 / 0.9119. But that variant changes WHICH units the ceiling describes, not how a fixed unit set is modelled: the ceiling on more-measured units is a different quantity, not a corrected version of this one, and section 1 already requires the subpopulation to travel with the number. LARGEST MOVE AMONG THE THREE MODELLING ASSUMPTIONS, which is what a benchmark builder can get wrong while reporting the same population: 1 duplicate collapse (A2), +0.1578 on Ceiling-1 ((c) majority) and +0.0881 on Ceiling-2 ((b) positive-wins). AND THE DUPLICATE-COLLAPSE RULE IS NOT A SENSITIVITY AT ALL, WHICH MATTERS MORE THAN ITS MAGNITUDE OF +0.1578 / +0.0881. Under random draw the test label is noisy, and that noise is the entire source of the ceiling. Under positive-wins or majority the test label is a DETERMINISTIC function of p_u, so the Bayes-optimal ranker, which scores by p_u, recovers it exactly: Ceiling-2 is 1.0000 under positive-wins. A duplicate-collapsed benchmark has no annotation-noise ceiling, because it has defined its labels to be noiseless. What it has instead is a systematically biased label -- positive-wins calls Positive every unit with a single Positive report, which is 90.5% of this subpopulation, taking the label prevalence from 0.7218 to 0.9053 -- and label bias is not an AUROC ceiling and is not measured by this statistic. CONSEQUENCE: 0.8237 and 0.9119 bound only a benchmark whose duplicate rule is a random draw from the annotation distribution. The preprint must state which collapse rule each arm it compares against uses, and must not quote these numbers at an arm that collapses by positive-wins or by majority. IMMATERIAL BY COMPARISON: prevalence, worst move +0.0765 on Ceiling-1 and +0.0399 on Ceiling-2. The tie rule is NOT immaterial: 764 units (15.87%) have no majority label for a Ceiling-1 predictor to know, and resolving them to Positive moves Ceiling-1 by -0.1096, far outside the published interval [0.8163, 0.8309]. The published 0.5 is the only choice that does not invent a label, so this is an argument for keeping it and stating it, not for changing it."
+}
