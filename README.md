@@ -182,9 +182,9 @@ version DOI when a figure needs to be reproducible against the exact release it 
                epitope immunogenicity prediction},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {v0.1.3},
-  doi       = {10.5281/zenodo.24226052},
-  url       = {https://doi.org/10.5281/zenodo.24226052}
+  version   = {v0.1.4},
+  doi       = {10.5281/zenodo.24228708},
+  url       = {https://doi.org/10.5281/zenodo.24228708}
 }
 ```
 
@@ -194,6 +194,7 @@ version DOI when a figure needs to be reproducible against the exact release it 
 | v0.1.1 | [10.5281/zenodo.24222641](https://doi.org/10.5281/zenodo.24222641) |
 | v0.1.2 | [10.5281/zenodo.24223115](https://doi.org/10.5281/zenodo.24223115) |
 | v0.1.3 | [10.5281/zenodo.24226052](https://doi.org/10.5281/zenodo.24226052) |
+| v0.1.4 | [10.5281/zenodo.24228708](https://doi.org/10.5281/zenodo.24228708) |
 
 Please also cite the upstream data sources listed in `benchmarks/*/NOTICE.md`.
 
