@@ -92,12 +92,50 @@ jobs:
             sed -i 's#](\.\./docs/#](docs/#g' "$f"
             sed -i "s#](\.\./scripts/#](${blob}/scripts/#g" "$f"
             sed -i "s#](\.\./benchmarks/#](${blob}/benchmarks/#g" "$f"
+            # Badge targets pointing at repository files. The verify step below cannot
+            # see these: its link regex matches the inner image of a nested badge, so
+            # `[![x](img)](LICENSE)` is read as the image URL and the target is never
+            # checked. Unrewritten they 404 on the published page.
+            sed -i "s#](LICENSE)#](${blob}/LICENSE)#g" "$f"
+            sed -i "s#](pyproject.toml)#](${blob}/pyproject.toml)#g" "$f"
             sed -i 's#](docs/\([A-Za-z_-]*\)\.md)#](docs/\1.md)#g' "$f"
           done
 
           # ../submissions/ is outside the site tree entirely -> send it to the
           # repository instead.
           sed -i "s#](\.\./submissions/#](${blob}/submissions/#g" site/docs/SUBMITTING.md
+
+          # Liquid parses {{ and {% anywhere in a page, including inside a fenced code
+          # block, so a BibTeX entry protecting a title's capitalisation as {{EpiGauge}}
+          # aborts the build with a syntax error. GitHub renders the same fence fine, so
+          # the README stays canonical and the escaping happens here. Applied to every
+          # fence rather than the one that broke, since the next snippet would do it again.
+          python3 - <<'RAWFENCE'
+          import pathlib, re
+
+          for path in list(pathlib.Path("site").glob("*.md")) + \
+                      list(pathlib.Path("site/docs").glob("*.md")):
+              text = path.read_text()
+              if "{% raw %}" in text:
+                  continue
+              parts = text.split("```")
+              if len(parts) < 3:
+                  continue
+              # Odd indices are fence interiors. The markers must sit OUTSIDE the
+              # fence delimiters: placed inside, {% endraw %} renders as literal text
+              # within the code block, which the build does not catch.
+              for i in range(1, len(parts), 2):
+                  if "{{" in parts[i] or "{%" in parts[i]:
+                      parts[i - 1] = parts[i - 1] + "{% raw %}\n"
+                      if i + 1 < len(parts):
+                          parts[i + 1] = "\n{% endraw %}" + parts[i + 1]
+                      else:
+                          parts.append("\n{% endraw %}\n")
+              out = "```".join(parts)
+              if out != text:
+                  path.write_text(out)
+                  print(f"escaped Liquid in a code fence: {path}")
+          RAWFENCE
 
           # Machine-readable form, served as a download.
           # README images. The verifier below only reads markdown links, so an
